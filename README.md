@@ -75,7 +75,7 @@ La IA en MyNutrify se utiliza como una herramienta de apoyo para:
 
 ## 📌 Estado del Proyecto
 
-🚧 **En desarrollo**  
+🚧 **En desarrollo**
 Este proyecto se encuentra actualmente en fase de desarrollo y evolución continua.
 
 ---
@@ -93,7 +93,7 @@ Este proyecto se encuentra actualmente en fase de desarrollo y evolución contin
 
 ## 👨‍💻 Autor
 
-Desarrollado por **[Tu Nombre]**  
+Desarrollado por **[Tu Nombre]**
 Proyecto personal con fines educativos y de crecimiento profesional.
 
 ---
