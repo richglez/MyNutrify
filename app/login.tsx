@@ -27,29 +27,42 @@ export default function LoginScreen() {
       <Text style={styles.subtitle}>Track your calories easily with AI</Text>
 
       <View style={styles.card}>
-        <TextInput
-          placeholder="Email"
-          placeholderTextColor="#999"
-          value={email}
-          onChangeText={setEmail}
-          style={styles.input}
-        />
+        <Text style={styles.label}>Email</Text>
+        <View style={styles.inputContainer}>
+          <Ionicons name="mail-outline" size={20} color="#666" />
+          <TextInput
+            placeholder="example@gmail.com"
+            placeholderTextColor="#999"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+          />
+        </View>
 
-        <TextInput
-          placeholder="Password"
-          placeholderTextColor="#999"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          style={styles.input}
-        />
+        <Text style={styles.label}>Password</Text>
+        <View style={styles.inputContainer}>
+          <Ionicons name="lock-closed-outline" size={20} color="#666" />
+          <TextInput
+            placeholder="************"
+            placeholderTextColor="#999"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            style={styles.input}
+          />
+        </View>
 
         <Pressable style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>
       </View>
 
-      <Text style={styles.footer}>Don't have an account? Sign up</Text>
+      <Pressable onPress={() => router.push("/register")}>
+        <Text style={styles.footer}>
+          Don't have an account?{" "}
+          <Text style={{ fontWeight: "700" }}>Sign up</Text>
+        </Text>
+      </Pressable>
     </LinearGradient>
   );
 }
@@ -67,6 +80,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     marginBottom: 6,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#333",
   },
 
   subtitle: {
@@ -115,6 +133,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "700",
+  },
+
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f4f6fa",
+    borderRadius: 12,
+    paddingHorizontal: 12,
   },
 
   footer: {
