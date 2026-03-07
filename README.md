@@ -93,7 +93,7 @@ Este proyecto se encuentra actualmente en fase de desarrollo y evolución contin
 
 ## 👨‍💻 Autor
 
-Desarrollado por **[Tu Nombre]**  
+Desarrollado por **[richglez]**  
 Proyecto personal con fines educativos y de crecimiento profesional.
 
 ---
