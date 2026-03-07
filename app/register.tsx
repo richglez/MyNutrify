@@ -30,39 +30,55 @@ export default function RegisterScreen() {
       <Text style={styles.subtitle}>Start tracking your nutrition today</Text>
 
       <View style={styles.card}>
-        <TextInput
-          placeholder="Full name"
-          placeholderTextColor="#999"
-          value={name}
-          onChangeText={setName}
-          style={styles.input}
-        />
+        <Text style={styles.label}>Your Name</Text>
+        <View style={styles.inputContainer}>
+          <Ionicons name="person-outline" size={20} color="#666" />
+          <TextInput
+            placeholder="Full name"
+            placeholderTextColor="#999"
+            value={name}
+            onChangeText={setName}
+            style={styles.input}
+          />
+        </View>
 
-        <TextInput
-          placeholder="Email"
-          placeholderTextColor="#999"
-          value={email}
-          onChangeText={setEmail}
-          style={styles.input}
-        />
+        <Text style={styles.label}>Email</Text>
+        <View style={styles.inputContainer}>
+          <Ionicons name="lock-closed-outline" size={20} color="#666" />
+          <TextInput
+            placeholder="example@gmail.com"
+            placeholderTextColor="#999"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+          />
+        </View>
 
-        <TextInput
-          placeholder="Password"
-          placeholderTextColor="#999"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          style={styles.input}
-        />
+        <Text style={styles.label}>Password</Text>
+        <View style={styles.inputContainer}>
+          <Ionicons name="lock-closed-outline" size={20} color="#666" />
+          <TextInput
+            placeholder="************"
+            placeholderTextColor="#999"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            style={styles.input}
+          />
+        </View>
 
-        <TextInput
-          placeholder="Confirm password"
-          placeholderTextColor="#999"
-          secureTextEntry
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          style={styles.input}
-        />
+        <Text style={styles.label}>Confirm Password</Text>
+        <View style={styles.inputContainer}>
+          <Ionicons name="lock-closed-outline" size={20} color="#666" />
+          <TextInput
+            placeholder="************"
+            placeholderTextColor="#999"
+            secureTextEntry
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            style={styles.input}
+          />
+        </View>
 
         <Pressable style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>Create Account</Text>
@@ -86,12 +102,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
 
+  label: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#333",
+  },
+
   title: {
     fontSize: 36,
     fontWeight: "800",
     textAlign: "center",
     color: "white",
     marginBottom: 6,
+  },
+
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f4f6fa",
+    borderRadius: 12,
+    paddingHorizontal: 12,
   },
 
   subtitle: {
