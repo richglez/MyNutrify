@@ -1,3 +1,4 @@
+// SingUp
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
@@ -44,7 +45,7 @@ export default function RegisterScreen() {
 
         <Text style={styles.label}>Email</Text>
         <View style={styles.inputContainer}>
-          <Ionicons name="lock-closed-outline" size={20} color="#666" />
+          <Ionicons name="mail-outline" size={20} color="#666" />
           <TextInput
             placeholder="example@gmail.com"
             placeholderTextColor="#999"
