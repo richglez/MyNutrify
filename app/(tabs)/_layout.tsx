@@ -1,19 +1,19 @@
-//app\(tabs)\_layout.tsx
-//→ configuración de tabs
+// app/(tabs)/_layout.tsx
 import { Tabs } from "expo-router";
+import BottomNavBar from "../../components/BottomNavBar";
 
 export default function TabsLayout() {
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-        }}
-      />
-      {/* <Tabs.Screen name="index" options={{ title: "Home" }} />
-      <Tabs.Screen name="profile" options={{ title: "Perfil" }} />
-      <Tabs.Screen name="settings" options={{ title: "Settings" }} /> */}
+    <Tabs
+      screenOptions={{ headerShown: false }}
+      tabBar={(props) => <BottomNavBar {...props} />}
+    >
+      {/* El orden aquí define el orden visual en la barra */}
+      <Tabs.Screen name="index" options={{ title: "Dashboard" }} />
+      <Tabs.Screen name="analytics" options={{ title: "Analytics" }} />
+      <Tabs.Screen name="post" options={{ title: "" }} />
+      <Tabs.Screen name="explore" options={{ title: "Explore" }} />
+      <Tabs.Screen name="settings" options={{ title: "Settings" }} />
     </Tabs>
   );
 }
