@@ -68,18 +68,6 @@ export default function RegisterScreen() {
           />
         </View>
 
-        <Text style={styles.label}>Confirm Password</Text>
-        <View style={styles.inputContainer}>
-          <Ionicons name="lock-closed-outline" size={20} color="#666" />
-          <TextInput
-            placeholder="************"
-            placeholderTextColor="#999"
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            style={styles.input}
-          />
-        </View>
 
         <Pressable style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>Create Account</Text>

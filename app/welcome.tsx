@@ -20,7 +20,7 @@ export default function WelcomeScreen() {
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.title}>MyNutrify</Text>
+          <Text style={styles.title}>MyNutrify!</Text>
         </View>
 
         <Text style={styles.subtitle}>Track your calories easily with AI</Text>
