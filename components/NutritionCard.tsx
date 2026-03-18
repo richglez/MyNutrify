@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { View, Text, StyleSheet, Animated } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 
+
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 export interface NutritionData {
   calories: { current: number; goal: number };
@@ -178,13 +179,13 @@ const ringStyles = StyleSheet.create({
   },
   pctText: {
     fontSize: 15,
-    fontWeight: "700",
+    fontFamily: "DMSans_700Bold",
     letterSpacing: -0.3,
     includeFontPadding: false,
   },
   label: {
     fontSize: 13,
-    fontWeight: "600",
+    fontFamily: "DMSans_600SemiBold",
     color: "#1A1F36",
     includeFontPadding: false,
   },
@@ -193,12 +194,12 @@ const ringStyles = StyleSheet.create({
   },
   current: {
     fontSize: 12,
-    fontWeight: "600",
+    fontFamily: "DMSans_600SemiBold",
     color: "#1A1F36",
   },
   goal: {
     fontSize: 11,
-    fontWeight: "400",
+    fontFamily: "DMSans_400Regular",
     color: "#B0B8C9",
   },
 });
@@ -280,7 +281,7 @@ export default function NutritionCard({ data }: Props) {
       </View>
 
       {/* Barra de progreso calorías */}
-      <ProgressBar percentage={calPct} color="#1A6BFF" delay={400} />
+      <ProgressBar percentage={calPct} color="#3090FE" delay={400} />
     </View>
   );
 }
@@ -310,7 +311,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: "700",
+    fontFamily: "DMSans_800ExtraBold", // títulos
     color: "#1A1F36",
     letterSpacing: -0.2,
   },
@@ -326,7 +327,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontSize: 11,
-    fontWeight: "600",
+    fontFamily: "DMSans_600SemiBold",
     color: "#1A6BFF",
   },
   badgeTextDone: {
@@ -361,7 +362,7 @@ const styles = StyleSheet.create({
   },
   calSummaryLabel: {
     fontSize: 14,
-    fontWeight: "600",
+    fontFamily: "DMSans_600SemiBold",
     color: "#1A1F36",
     includeFontPadding: false,
   },
@@ -372,25 +373,25 @@ const styles = StyleSheet.create({
   },
   calSummaryCurrent: {
     fontSize: 16,
-    fontWeight: "700",
+    fontFamily: "DMSans_700Bold",
     color: "#1A1F36",
     includeFontPadding: false,
   },
   calSummaryUnit: {
     fontSize: 13,
-    fontWeight: "500",
+    fontFamily: "DMSans_500Medium",
     color: "#8A94A6",
   },
   calSummaryGoal: {
     fontSize: 13,
-    fontWeight: "400",
+    fontFamily: "DMSans_400Regular",
     color: "#B0B8C9",
     includeFontPadding: false,
   },
   calSummaryLeft: {
     fontSize: 12,
-    fontWeight: "500",
-    color: "#8A94A6",
+    fontFamily: "DMSans_500Medium",
+    color: "#182d50",
     includeFontPadding: false,
   },
 });

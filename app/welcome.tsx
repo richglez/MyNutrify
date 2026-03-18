@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 48,
-    fontWeight: "800",
+    fontFamily: "DMSans_900Black",
     color: "white",
   },
 
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
+    fontFamily: "DMSans_400Regular",
     fontSize: 18,
     marginTop: 10,
     color: "rgba(255,255,255,0.85)",
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
 
   signInText: {
     fontSize: 16,
-    fontWeight: "700",
+    fontFamily: "DMSans_800ExtraBold",
     color: "#1e6ee8",
   },
 
@@ -106,8 +107,8 @@ const styles = StyleSheet.create({
   },
 
   registerText: {
+    fontFamily: "DMSans_800ExtraBold",
     fontSize: 16,
-    fontWeight: "700",
     color: "white",
   },
 });

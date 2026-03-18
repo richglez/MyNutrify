@@ -1,5 +1,4 @@
-// app/index.tsx
-// Splash Screen
+// Splash Screen -> app/index.tsx
 import { useEffect, useRef } from "react";
 import { Animated, Image, StyleSheet, View } from "react-native";
 import { router } from "expo-router";

@@ -260,8 +260,8 @@ const styles = StyleSheet.create({
   },
 
   headerText: {
+    fontFamily: "DMSans_600SemiBold",
     fontSize: 14,
-    fontWeight: "600",
     color: "#1A1F36",
     letterSpacing: 0.1,
   },
@@ -290,8 +290,8 @@ const styles = StyleSheet.create({
 
   dayName: {
     fontSize: 11,
-    fontWeight: "500",
-    color: "#B0B8C9",
+    fontFamily: "DMSans_500Medium",
+    color: "#acb5c7",
     letterSpacing: 0.3,
     textTransform: "uppercase",
     // Android
@@ -325,24 +325,24 @@ const styles = StyleSheet.create({
     // Android
     elevation: 4,
     borderRadius: 18,
-
   },
 
   dayCircleToday: {
     borderWidth: 1.5,
     borderColor: "#1A6BFF",
+    borderRadius: 18,
   },
 
   dayNumber: {
     fontSize: 15,
-    fontWeight: "600",
+    fontFamily: "DMSans_500Medium",
     color: "#1A1F36",
     // Android
     includeFontPadding: false,
   },
 
   dayNumberSelected: {
-    color: "#FFFFFF",
+    color: "#ffffff",
     fontWeight: "700",
   },
 

@@ -74,7 +74,7 @@ export default function LoginScreen() {
       end={{ x: 1, y: 1 }}
       style={styles.container}
     >
-      <Pressable style={styles.backButton} onPress={() => router.replace("/")}>
+      <Pressable style={styles.backButton} onPress={() => router.back()}>
         <Ionicons name="arrow-back" size={26} color="white" />
       </Pressable>
 
@@ -141,7 +141,7 @@ export default function LoginScreen() {
       <Pressable onPress={() => router.push("/register")}>
         <Text style={styles.footer}>
           Don't have an account?{" "}
-          <Text style={{ fontWeight: "700" }}>Sign up</Text>
+          <Text style={{ fontFamily: "DMSans_800ExtraBold" }}>Sign up</Text>
         </Text>
       </Pressable>
     </LinearGradient>
@@ -157,13 +157,14 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 40,
-    fontWeight: "800",
+    fontFamily: "DMSans_900Black",
     textAlign: "center",
     color: "white",
     marginBottom: 6,
   },
 
   subtitle: {
+    fontFamily: "DMSans_400Regular",
     textAlign: "center",
     color: "rgba(255,255,255,0.8)",
     marginBottom: 40,
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
 
   label: {
     fontSize: 14,
-    fontWeight: "600",
+    fontFamily: "DMSans_600SemiBold",
     color: "#333",
   },
 
@@ -196,6 +197,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
+    fontFamily: "DMSans_400Regular",
     flex: 1,
     backgroundColor: "#f4f6fa",
     padding: 16,
@@ -217,9 +219,9 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
+    fontFamily: "DMSans_900Black", // botones
     color: "white",
     fontSize: 16,
-    fontWeight: "700",
   },
 
   // ── Divider ──────────────────────────────
@@ -239,7 +241,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     fontSize: 13,
     color: "#999",
-    fontWeight: "500",
+    fontFamily: "DMSans_500Medium",
   },
 
   // ── Social row ───────────────────────────
@@ -303,6 +305,7 @@ const styles = StyleSheet.create({
 
   // ── Footer ───────────────────────────────
   footer: {
+    fontFamily: "DMSans_400Regular",
     textAlign: "center",
     marginTop: 30,
     color: "rgba(255,255,255,0.9)",

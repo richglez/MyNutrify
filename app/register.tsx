@@ -77,7 +77,7 @@ export default function RegisterScreen() {
       <Pressable onPress={() => router.replace("/login")}>
         <Text style={styles.footer}>
           Already have an account?{" "}
-          <Text style={{ fontWeight: "700" }}>Login</Text>
+          <Text style={{ fontFamily: "DMSans_800ExtraBold" }}>Login</Text>
         </Text>
       </Pressable>
     </LinearGradient>
@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
 
   label: {
     fontSize: 14,
-    fontWeight: "600",
+    fontFamily: "DMSans_600SemiBold",
     color: "#333",
   },
 
   title: {
     fontSize: 36,
-    fontWeight: "800",
+    fontFamily: "DMSans_900Black", // títulos
     textAlign: "center",
     color: "white",
     marginBottom: 6,
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
+    fontFamily: "DMSans_400Regular", // subtítulos
     textAlign: "center",
     color: "rgba(255,255,255,0.8)",
     marginBottom: 40,
@@ -136,6 +137,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "#f4f6fa",
     padding: 16,
+    fontFamily: "DMSans_300Light",
     borderRadius: 12,
     fontSize: 16,
   },
@@ -146,7 +148,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
     marginTop: 10,
-
     shadowColor: "#2E93FF",
     shadowOpacity: 0.4,
     shadowRadius: 8,
@@ -156,12 +157,13 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
+    fontFamily: "DMSans_900Black", // botones
     color: "white",
     fontSize: 16,
-    fontWeight: "700",
   },
 
   footer: {
+    fontFamily: "DMSans_400Regular",
     textAlign: "center",
     marginTop: 30,
     color: "rgba(255,255,255,0.9)",

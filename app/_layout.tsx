@@ -1,5 +1,29 @@
+// Layout -> app/_layout.tsx
+
 import { Stack } from "expo-router";
+import {
+  useFonts,
+  DMSans_300Light,
+  DMSans_400Regular,
+  DMSans_500Medium,
+  DMSans_600SemiBold,
+  DMSans_700Bold,
+  DMSans_800ExtraBold,
+  DMSans_900Black,
+} from "@expo-google-fonts/dm-sans";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />; //el header del nombre de la ruta se oculta
+  const [loaded] = useFonts({
+    DMSans_300Light,
+    DMSans_400Regular,
+    DMSans_500Medium,
+    DMSans_600SemiBold,
+    DMSans_700Bold,
+    DMSans_800ExtraBold,
+    DMSans_900Black,
+  });
+
+  if (!loaded) return null; // espera a que cargue la fuente
+
+  return <Stack screenOptions={{ headerShown: false }} />;
 }

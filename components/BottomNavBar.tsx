@@ -1,4 +1,4 @@
-// components/BottomNavBar.tsx
+// BottomNavBar -> components/BottomNavBar.tsx
 import React from "react";
 import {
   View,
@@ -27,11 +27,29 @@ const IconHome = ({ color }: { color: string }) => (
   </Svg>
 );
 
-const IconAnalytics = ({ color }: { color: string }) => (
+const IconDiary = ({ color }: { color: string }) => (
   <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-    <Rect x="3" y="12" width="4" height="9" rx="1" fill={color} />
-    <Rect x="10" y="7" width="4" height="14" rx="1" fill={color} />
-    <Rect x="17" y="3" width="4" height="18" rx="1" fill={color} />
+    {/* Tapa/cubierta del diario */}
+    <Rect
+      x="4"
+      y="2"
+      width="14"
+      height="19"
+      rx="2"
+      stroke={color}
+      strokeWidth="1.8"
+    />
+    {/* Lomo del diario */}
+    <Path
+      d="M4 2C4 2 3 2 3 4V20C3 22 4 22 4 22"
+      stroke={color}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+    {/* Líneas de texto */}
+    <Path d="M8 8H15" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+    <Path d="M8 12H15" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+    <Path d="M8 16H12" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
   </Svg>
 );
 
@@ -77,7 +95,7 @@ const IconSettings = ({ color }: { color: string }) => (
 // ─── Mapas ────────────────────────────────────────────────────────────────────
 const ICON_MAP: Record<string, React.FC<{ color: string }>> = {
   index: IconHome,
-  analytics: IconAnalytics,
+  diary: IconDiary,
   post: IconPlus,
   explore: IconGlobe,
   settings: IconSettings,
@@ -85,7 +103,7 @@ const ICON_MAP: Record<string, React.FC<{ color: string }>> = {
 
 const LABEL_MAP: Record<string, string> = {
   index: "Dashboard",
-  analytics: "Analytics",
+  diary: "Diary",
   post: "",
   explore: "Explore",
   settings: "Settings",
@@ -237,10 +255,10 @@ const styles = StyleSheet.create({
   },
 
   label: {
+    fontFamily: "DMSans_500Medium",
     fontSize: 10,
     marginTop: 2,
     color: INACTIVE,
-    fontWeight: "500",
     letterSpacing: 0.3,
     // Evitar que el texto se corte en pantallas pequeñas
     includeFontPadding: false, // Android: elimina padding extra del texto
@@ -249,7 +267,7 @@ const styles = StyleSheet.create({
 
   labelActive: {
     color: WHITE,
-    fontWeight: "700",
+    fontFamily: "DMSans_700Bold",
   },
 
   fabWrapper: {

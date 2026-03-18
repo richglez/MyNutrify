@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import WeekCalendar from "../../components/Weekcalendar";
 import NutritionCard from "../../components/NutritionCard";
 
+
 // ─── Ícono campana ────────────────────────────────────────────────────────────
 const BellIcon = () => (
   <Svg width={22} height={22} viewBox="0 0 24 24" fill="none">
@@ -79,14 +80,21 @@ export default function DashboardScreen() {
 
       {/* ────────────── Contenido ────────────── */}
       <View style={styles.body}>
-        <WeekCalendar
-          onDayPress={(date) => console.log("Día seleccionado:", date)}
-          markedDates={[
-            new Date(), // hoy tiene dot
-            new Date(new Date().setDate(new Date().getDate() + 2)), // en 2 días
-          ]}
-        />
-        <NutritionCard data={nutritionData} />
+        <View style={styles.section}>
+          <Text style={[styles.titles, { paddingTop: 4 }]}>Today</Text>
+          <WeekCalendar
+            onDayPress={(date) => console.log("Día seleccionado:", date)}
+            markedDates={[
+              new Date(), // hoy tiene dot
+              new Date(new Date().setDate(new Date().getDate() + 2)), // en 2 días
+            ]}
+          />
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.titles}>Your progression</Text>
+          <NutritionCard data={nutritionData} />
+        </View>
       </View>
     </View>
   );
@@ -96,6 +104,19 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: "#F5F7FA",
+  },
+
+  titles: {
+    fontFamily: "DMSans_900Black", // títulos
+    fontSize: 24,
+    color: "#3090FE",
+    paddingHorizontal: 24,
+    paddingBottom: 8,
+    paddingTop: 16,
+  },
+
+  section: {
+    marginBottom: 8,
   },
 
   // ── Header ─────────────────────────────────────────────────────────────────
@@ -122,6 +143,7 @@ const styles = StyleSheet.create({
   },
 
   greeting: {
+    fontFamily: "DMSans_400Regular",
     fontSize: 13,
     color: "#8A94A6",
     fontWeight: "400",
@@ -129,9 +151,9 @@ const styles = StyleSheet.create({
   },
 
   userName: {
-    fontSize: 22,
+    fontFamily: "DMSans_700Bold",
+    fontSize: 20,
     color: "#1A1F36",
-    fontWeight: "700",
     letterSpacing: -0.3,
   },
 
