@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import Svg, { Path, Circle } from "react-native-svg";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import WeekCalendar from "../../components/Weekcalendar"
+import WeekCalendar from "../../components/Weekcalendar";
+import NutritionCard from "../../components/NutritionCard";
 
 // ─── Ícono campana ────────────────────────────────────────────────────────────
 const BellIcon = () => (
@@ -37,6 +38,16 @@ export default function DashboardScreen() {
   const hour = new Date().getHours();
   const greeting =
     hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening";
+
+  const nutritionData = {
+    calories: { current: 1420, goal: 2000 },
+    protein: { current: 85, goal: 150 },
+    carbs: { current: 160, goal: 250 },
+    vitaminC: { current: 55, goal: 90 },
+    iron: { current: 8, goal: 18 },
+    calcium: { current: 620, goal: 1000 },
+    fiber: { current: 18, goal: 30 },
+  };
 
   return (
     <View style={[styles.safe, { paddingTop: insets.top }]}>
@@ -75,6 +86,7 @@ export default function DashboardScreen() {
             new Date(new Date().setDate(new Date().getDate() + 2)), // en 2 días
           ]}
         />
+        <NutritionCard data={nutritionData} />
       </View>
     </View>
   );
