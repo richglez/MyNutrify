@@ -324,6 +324,8 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     // Android
     elevation: 4,
+    borderRadius: 18,
+
   },
 
   dayCircleToday: {
