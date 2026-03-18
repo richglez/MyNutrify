@@ -228,8 +228,8 @@ export default function NutritionCard({ data }: Props) {
           current={data.calories.current}
           goal={data.calories.goal}
           unit=" kcal"
-          color="#FF6B35"
-          trackColor="#FFF1EC"
+          color="#2E90FE"
+          trackColor="#e7f2ff"
           delay={0}
         />
 
@@ -240,8 +240,8 @@ export default function NutritionCard({ data }: Props) {
           current={data.protein.current}
           goal={data.protein.goal}
           unit="g"
-          color="#1A6BFF"
-          trackColor="#EEF3FF"
+          color="#2E90FE"
+          trackColor="#e7f2ff"
           delay={150}
         />
 
@@ -252,8 +252,8 @@ export default function NutritionCard({ data }: Props) {
           current={data.carbs.current}
           goal={data.carbs.goal}
           unit="g"
-          color="#22C55E"
-          trackColor="#EDFDF5"
+          color="#2E90FE"
+          trackColor="#e7f2ff"
           delay={300}
         />
       </View>
