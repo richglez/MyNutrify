@@ -5,6 +5,7 @@ import { Animated, Image, StyleSheet, View } from "react-native";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 
+
 const APP_NAME = "MyNutrify!".split("");
 const LETTER_DELAY = 100; // ms entre cada letra
 const LETTER_DURATION = 400; // duración de cada letra

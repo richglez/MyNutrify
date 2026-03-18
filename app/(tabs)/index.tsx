@@ -4,11 +4,12 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
+  Image,
   StatusBar,
 } from "react-native";
 import Svg, { Path, Circle } from "react-native-svg";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import WeekCalendar from "../../components/Weekcalendar"
 
 // ─── Ícono campana ────────────────────────────────────────────────────────────
 const BellIcon = () => (
@@ -38,15 +39,23 @@ export default function DashboardScreen() {
     hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening";
 
   return (
-    <View style={{ paddingTop: insets.top }}>
+    <View style={[styles.safe, { paddingTop: insets.top }]}>
       <StatusBar barStyle="dark-content" backgroundColor="#F5F7FA" />
 
-      {/* ── Header ── */}
+      {/* ────────────── Header ────────────── */}
       <View style={styles.header}>
-        {/* Saludo + nombre */}
+        {/* Picture + Saludo + nombre */}
         <View style={styles.greetingBlock}>
-          <Text style={styles.greeting}>{greeting}</Text>
-          <Text style={styles.userName}>{userName}</Text>
+          <Image
+            source={require("../../assets/profile-picture-rich.png")}
+            style={styles.profileImage}
+            resizeMode="cover"
+          />
+          {/* Textos apilados a la derecha */}
+          <View style={styles.greetingTexts}>
+            <Text style={styles.greeting}>{greeting}</Text>
+            <Text style={styles.userName}>{userName}</Text>
+          </View>
         </View>
 
         {/* Botón campana */}
@@ -57,9 +66,15 @@ export default function DashboardScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* ── Contenido futuro ── */}
+      {/* ────────────── Contenido ────────────── */}
       <View style={styles.body}>
-        <Text style={styles.placeholder}>Dashboard content goes here</Text>
+        <WeekCalendar
+          onDayPress={(date) => console.log("Día seleccionado:", date)}
+          markedDates={[
+            new Date(), // hoy tiene dot
+            new Date(new Date().setDate(new Date().getDate() + 2)), // en 2 días
+          ]}
+        />
       </View>
     </View>
   );
@@ -83,6 +98,14 @@ const styles = StyleSheet.create({
   },
 
   greetingBlock: {
+    flexDirection: "row", // ← imagen y textos lado a lado
+    alignItems: "center", // ← centrado vertical
+    gap: 16, // ← espacio entre foto y texto
+  },
+
+  // Nuevo: contenedor solo para los textos
+  greetingTexts: {
+    flexDirection: "column",
     gap: 2,
   },
 
@@ -130,12 +153,18 @@ const styles = StyleSheet.create({
   // ── Body ───────────────────────────────────────────────────────────────────
   body: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "stretch", // ← era "center", esto comprimía el calendario
+    justifyContent: "flex-start", // ← era "center", lo mandaba al medio
   },
 
   placeholder: {
     color: "#C0C7D4",
     fontSize: 14,
+  },
+
+  profileImage: {
+    width: 64,
+    height: 64,
+    borderRadius: 32, // ← círculo perfecto
   },
 });
