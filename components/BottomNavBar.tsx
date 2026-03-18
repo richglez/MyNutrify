@@ -59,7 +59,6 @@ const IconGlobe = ({ color }: { color: string }) => (
   </Svg>
 );
 
-// ícono engrane real para Settings
 const IconSettings = ({ color }: { color: string }) => (
   <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
     <Path
@@ -87,7 +86,7 @@ const ICON_MAP: Record<string, React.FC<{ color: string }>> = {
 const LABEL_MAP: Record<string, string> = {
   index: "Dashboard",
   analytics: "Analytics",
-  post: "", // FAB no lleva label
+  post: "",
   explore: "Explore",
   settings: "Settings",
 };
@@ -143,10 +142,14 @@ export default function BottomNavBar({
               onPress={onPress}
               activeOpacity={0.7}
             >
-              {isActive && <View style={styles.activePill} />}
-              <View style={styles.iconWrap}>
-                <Icon color={isActive ? WHITE : INACTIVE} />
+              {/* Contenedor unificado: pill + ícono centrados juntos */}
+              <View style={styles.iconContainer}>
+                {isActive && <View style={styles.activePill} />}
+                <View style={styles.iconWrap}>
+                  <Icon color={isActive ? WHITE : INACTIVE} />
+                </View>
               </View>
+
               {label ? (
                 <Text style={[styles.label, isActive && styles.labelActive]}>
                   {label}
@@ -163,6 +166,13 @@ export default function BottomNavBar({
 // ─── Estilos ──────────────────────────────────────────────────────────────────
 const { width } = Dimensions.get("window");
 
+// Safe area bottom padding por plataforma
+const BOTTOM_PADDING = Platform.select({
+  ios: 24, // respeta el home indicator de iPhone
+  android: 12, // padding estándar para Android
+  default: 12,
+});
+
 const styles = StyleSheet.create({
   wrapper: {
     position: "absolute",
@@ -170,8 +180,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: "center",
-    paddingBottom: Platform.OS === "ios" ? 24 : 12,
+    paddingBottom: BOTTOM_PADDING,
     backgroundColor: "transparent",
+    // overflow visible para que el FAB sobresalga en Android sin cortarse
     overflow: "visible",
   },
 
@@ -183,10 +194,12 @@ const styles = StyleSheet.create({
     width: width - 32,
     paddingVertical: 10,
     paddingHorizontal: 8,
+    // Sombra iOS
     shadowColor: BLUE_DARK,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.4,
     shadowRadius: 20,
+    // Sombra Android
     elevation: 16,
     overflow: "visible",
   },
@@ -198,13 +211,22 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
 
+  // ── CLAVE: contenedor que engloba pill + ícono ──────────────────────────
+  iconContainer: {
+    width: 44,
+    height: 44,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  // El pill queda absolute dentro de iconContainer → siempre centrado
   activePill: {
     position: "absolute",
-    top: -4,
     width: 44,
     height: 44,
     borderRadius: 22,
     backgroundColor: "rgba(255,255,255,0.18)",
+    // Sin top/left/right: se centra solo dentro de iconContainer
   },
 
   iconWrap: {
@@ -220,6 +242,9 @@ const styles = StyleSheet.create({
     color: INACTIVE,
     fontWeight: "500",
     letterSpacing: 0.3,
+    // Evitar que el texto se corte en pantallas pequeñas
+    includeFontPadding: false, // Android: elimina padding extra del texto
+    textAlignVertical: "center", // Android: alineación vertical correcta
   },
 
   labelActive: {
@@ -231,7 +256,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: -28,
+    // El FAB sube por encima de la barra
+    marginTop: Platform.select({
+      ios: -16, // antes: -28
+      android: -16, // antes: -28
+      default: -16,
+    }),
   },
 
   fab: {
@@ -241,6 +271,7 @@ const styles = StyleSheet.create({
     backgroundColor: BLUE_DARK,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 12, // ← baja el círculo para compensar el wrapper elevado
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
