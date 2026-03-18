@@ -1,12 +1,12 @@
 # 🥗 MyNutrify
 
-**MyNutrify** es una aplicación móvil multiplataforma (iOS y Android) enfocada en el rastreo de calorías, hábitos fitness y la mejora de la nutrición diaria. La app está desarrollada con **React Native** e integra **inteligencia artificial** como apoyo para el registro y análisis nutricional.
+**MyNutrify** es una aplicación móvil multiplataforma (iOS y Android) enfocada en el rastreo de calorías y la mejora de la nutrición diaria. La app está desarrollada con **React Native** e integra **inteligencia artificial** como apoyo para el registro y análisis nutricional.
 
 ---
 
 ## 📱 Descripción de la App
 
-MyNutrify permite a los usuarios registrar sus alimentos, controlar su consumo diario de calorías y desarrollar hábitos más saludables. La aplicación utiliza IA para facilitar el registro de comidas y ofrecer análisis nutricional básico, con el objetivo de hacer el seguimiento más rápido, inteligente y accesible.
+MyNutrify tiene como objetivo ayudar a los usuarios a mejorar sus hábitos alimenticios mediante el registro inteligente y automatizado de alimentos, utilizando inteligencia artificial para analizar, personalizar y optimizar su consumo diario de calorías y macronutrientes, adaptándose a sus metas de salud, preferencias y estilo de vida.
 
 ---
 
@@ -15,6 +15,7 @@ MyNutrify permite a los usuarios registrar sus alimentos, controlar su consumo d
 El objetivo principal de **MyNutrify** es:
 
 - Mejorar mis **habilidades técnicas** en el desarrollo de aplicaciones móviles multiplataforma.
+- Aplica la IA para la implementacion del proyecto.
 - Aplicar conceptos de **arquitectura full-stack**, escalabilidad y buenas prácticas.
 - Fortalecer la **resolución de problemas** reales mediante una app funcional.
 - Construir un proyecto sólido para **portafolio profesional**.
@@ -23,7 +24,7 @@ Desde el punto de vista del usuario, la app busca:
 - Facilitar el **rastreo de calorías**.
 - Brindar **información nutricional clara**.
 - Ayudar a mejorar hábitos alimenticios con el apoyo de IA.
-
+- Ofrecer informacion sobre nutricion.
 ---
 
 ## 🚀 Funcionalidades (MVP)
