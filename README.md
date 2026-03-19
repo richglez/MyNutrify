@@ -83,7 +83,7 @@ Este proyecto se encuentra actualmente en fase de desarrollo y evolución contin
 
 ---
 ## Estructura del Proyecto
-
+```
 ├── app/
 │   └── (tabs)/
 │       └── _layout.tsx
@@ -102,7 +102,7 @@ Este proyecto se encuentra actualmente en fase de desarrollo y evolución contin
 │   └── WeekCalendar.tsx
 ├── types/             
 │   └── nutrition.ts
-
+```
 
 ---
 ## 📖 Futuras Mejoras
