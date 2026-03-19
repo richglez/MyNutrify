@@ -111,6 +111,9 @@ export default function DiaryScreen() {
           resizeMode="cover"
         />
 
+        {/* ── Título sección ── */}
+        <Text style={styles.titles}>Diary</Text>
+
         {/* ── Cards de comida ── */}
         {meals.map((meal) => (
           <MealCard
@@ -576,6 +579,14 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: "hidden",
   },
+  titles: {
+    fontFamily: "DMSans_900Black", // títulos
+    fontSize: 28,
+    letterSpacing: -1.0,
+    color: "#3090FE",
+    paddingBottom: 8,
+    paddingTop: 16,
+  },
   scroll: {
     flex: 1,
     width: "100%",
@@ -665,7 +676,7 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
   iconText: { fontSize: 22 },
-  cardInfo:  { flex: 1 },
+  cardInfo: { flex: 1 },
   mealLabel: {
     fontFamily: "DMSans_700Bold",
     fontSize: 16,

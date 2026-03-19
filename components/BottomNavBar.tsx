@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Svg, { Path, Circle, Rect } from "react-native-svg";
+import { NavBarProps } from "../types/navigation";
 
 const BLUE = "#1A6BFF";
 const BLUE_DARK = "#1452CC";
@@ -114,7 +115,9 @@ export default function BottomNavBar({
   state,
   descriptors,
   navigation,
-}: BottomTabBarProps) {
+  onOpenPost,
+}: NavBarProps) {
+  // <-- usa el tipo extendido
   return (
     <View style={styles.wrapper}>
       <View style={styles.bar}>
@@ -142,7 +145,7 @@ export default function BottomNavBar({
               <TouchableOpacity
                 key={route.key}
                 style={styles.fabWrapper}
-                onPress={onPress}
+                onPress={onOpenPost} // ← llama al callback en lugar de navegar
                 activeOpacity={0.85}
               >
                 <View style={[styles.fab, isActive && styles.fabActive]}>
