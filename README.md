@@ -8,6 +8,11 @@
 
 MyNutrify tiene como objetivo ayudar a los usuarios a mejorar sus hábitos alimenticios mediante el registro inteligente y automatizado de alimentos, utilizando inteligencia artificial para analizar, personalizar y optimizar su consumo diario de calorías y macronutrientes, adaptándose a sus metas de salud, preferencias y estilo de vida.
 
+---
+## Overview:
+**Dashboard**
+![Dashboard](docs/images/preview-mobileApp-MyNutrify-splashScreen.png)
+
 
 ---
 ## 🎯 Objetivo del Proyecto
