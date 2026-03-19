@@ -2,14 +2,14 @@
 
 **MyNutrify** es una aplicación móvil multiplataforma (iOS y Android) enfocada en el rastreo de calorías y la mejora de la nutrición diaria. La app está desarrollada con **React Native** e integra **inteligencia artificial** como apoyo para el registro y análisis nutricional.
 
----
 
+---
 ## 📱 Descripción de la App
 
 MyNutrify tiene como objetivo ayudar a los usuarios a mejorar sus hábitos alimenticios mediante el registro inteligente y automatizado de alimentos, utilizando inteligencia artificial para analizar, personalizar y optimizar su consumo diario de calorías y macronutrientes, adaptándose a sus metas de salud, preferencias y estilo de vida.
 
----
 
+---
 ## 🎯 Objetivo del Proyecto
 
 El objetivo principal de **MyNutrify** es:
@@ -25,8 +25,9 @@ Desde el punto de vista del usuario, la app busca:
 - Brindar **información nutricional clara**.
 - Ayudar a mejorar hábitos alimenticios con el apoyo de IA.
 - Ofrecer informacion sobre nutricion.
----
 
+
+---
 ## 🚀 Funcionalidades (MVP)
 
 - Registro de usuarios (login / registro)
@@ -39,8 +40,8 @@ Desde el punto de vista del usuario, la app busca:
   - Análisis nutricional básico
 - Interfaz intuitiva y amigable
 
----
 
+---
 ## 🛠️ Tecnologías Utilizadas
 
 ### Frontend (Mobile)
@@ -61,8 +62,8 @@ Desde el punto de vista del usuario, la app busca:
 - Inteligencia Artificial (para apoyo en análisis nutricional)
 - Git & GitHub
 
----
 
+---
 ## 🧠 Uso de Inteligencia Artificial
 
 La IA en MyNutrify se utiliza como una herramienta de apoyo para:
@@ -72,15 +73,38 @@ La IA en MyNutrify se utiliza como una herramienta de apoyo para:
 
 > La IA no reemplaza asesoramiento médico o nutricional profesional.
 
----
 
+---
 ## 📌 Estado del Proyecto
 
 🚧 **En desarrollo**  
 Este proyecto se encuentra actualmente en fase de desarrollo y evolución continua.
 
----
 
+---
+## Estructura del Proyecto
+
+├── app/
+│   └── (tabs)/
+│       └── _layout.tsx
+│       └── diary.tsx
+│       └── explore.tsx
+│       └── index.tsx
+│       └── post.tsx
+│       └── settings.tsx
+│   └── _layout.tsx
+│   └── index.tsx
+│   └── login.tsx
+│   └── register.tsx
+│   └── welcome.tsx
+├── assets/
+├── components/
+│   └── WeekCalendar.tsx
+├── types/             
+│   └── nutrition.ts
+
+
+---
 ## 📖 Futuras Mejoras
 
 - Cálculo automático de TDEE
@@ -91,14 +115,12 @@ Este proyecto se encuentra actualmente en fase de desarrollo y evolución contin
 - Modo oscuro
 
 ---
-
 ## 👨‍💻 Autor
 
 Desarrollado por **[richglez]**  
 Proyecto personal con fines educativos y de crecimiento profesional.
 
 ---
-
 ## 📄 Licencia
 
 Este proyecto se distribuye bajo la licencia **MIT**.
