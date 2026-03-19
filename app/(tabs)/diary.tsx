@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons"; // iconos
 
 // ── Tipos ──────────────────────────────────────────────────────────────────
 
@@ -184,7 +185,7 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
             onPress={() => changeDay(-1)}
             activeOpacity={0.7}
           >
-            <Text style={headerStyles.arrow}>‹</Text>
+            <Ionicons name="chevron-back" size={22} color="#fff" />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -193,7 +194,11 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
             activeOpacity={0.8}
           >
             <Text style={headerStyles.dayLabel}>{getDayLabel()}</Text>
-            <Text style={headerStyles.chevron}>▾</Text>
+            <Ionicons
+              name="chevron-down"
+              size={20}
+              color="rgba(255, 255, 255, 0.83)"
+            />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -201,7 +206,7 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
             onPress={() => changeDay(1)}
             activeOpacity={0.7}
           >
-            <Text style={headerStyles.arrow}>›</Text>
+            <Ionicons name="chevron-forward" size={22} color="#fff" />
           </TouchableOpacity>
         </View>
 
@@ -211,14 +216,25 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
 
       {/* ── Modal calendario ── */}
       <Modal visible={calVisible} transparent animationType="fade">
-        <Pressable style={calStyles.overlay} onPress={() => setCalVisible(false)}>
-          <Pressable style={calStyles.sheet} onPress={(e) => e.stopPropagation()}>
-
+        <Pressable
+          style={calStyles.overlay}
+          onPress={() => setCalVisible(false)}
+        >
+          <Pressable
+            style={calStyles.sheet}
+            onPress={(e) => e.stopPropagation()}
+          >
             {/* Navegación mes */}
             <View style={calStyles.monthRow}>
               <TouchableOpacity
                 onPress={() =>
-                  setCalMonth(new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1))
+                  setCalMonth(
+                    new Date(
+                      calMonth.getFullYear(),
+                      calMonth.getMonth() - 1,
+                      1,
+                    ),
+                  )
                 }
                 style={calStyles.monthArrowBtn}
               >
@@ -231,7 +247,13 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
 
               <TouchableOpacity
                 onPress={() =>
-                  setCalMonth(new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1))
+                  setCalMonth(
+                    new Date(
+                      calMonth.getFullYear(),
+                      calMonth.getMonth() + 1,
+                      1,
+                    ),
+                  )
                 }
                 style={calStyles.monthArrowBtn}
               >
@@ -241,19 +263,22 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
 
             {/* Encabezados días semana */}
             <View style={calStyles.weekRow}>
-              {["D","L","M","X","J","V","S"].map((d) => (
-                <Text key={d} style={calStyles.weekDay}>{d}</Text>
+              {["D", "L", "M", "X", "J", "V", "S"].map((d) => (
+                <Text key={d} style={calStyles.weekDay}>
+                  {d}
+                </Text>
               ))}
             </View>
 
             {/* Grid días */}
             <View style={calStyles.grid}>
               {generateDays().map((day, i) => {
-                if (!day) return <View key={`empty-${i}`} style={calStyles.dayCell} />;
+                if (!day)
+                  return <View key={`empty-${i}`} style={calStyles.dayCell} />;
 
                 const isSelected = isSameDay(day, selectedDate);
-                const isToday    = isSameDay(day, TODAY);
-                const isFuture   = day > TODAY;
+                const isToday = isSameDay(day, TODAY);
+                const isFuture = day > TODAY;
 
                 return (
                   <TouchableOpacity
@@ -272,7 +297,7 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
                     <Text
                       style={[
                         calStyles.dayText,
-                        isSelected  && calStyles.dayTextSelected,
+                        isSelected && calStyles.dayTextSelected,
                         isToday && !isSelected && calStyles.dayTextToday,
                         isFuture && !isSelected && calStyles.dayTextFuture,
                       ]}
@@ -294,7 +319,6 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
             >
               <Text style={calStyles.todayBtnText}>Ir a hoy</Text>
             </TouchableOpacity>
-
           </Pressable>
         </Pressable>
       </Modal>
@@ -392,8 +416,6 @@ function MealCard({ meal, onAdd }: MealCardProps) {
 const headerStyles = StyleSheet.create({
   container: {
     backgroundColor: "#1A6FD4",
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
     paddingHorizontal: 20,
     paddingTop: 12,
     paddingBottom: 20,
