@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
     fontSize: 28,
     letterSpacing: -1.0,
     color: "#3090FE",
+    paddingBottom: 8,
+    paddingTop: 16,
   },
 
   body: {
