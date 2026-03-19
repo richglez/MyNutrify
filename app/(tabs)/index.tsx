@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   StatusBar,
+  ScrollView,
 } from "react-native";
 import Svg, { Path, Circle } from "react-native-svg";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -73,51 +74,53 @@ export default function DashboardScreen() {
 
   return (
     <View style={[styles.safe, { paddingTop: insets.top }]}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F5F7FA" />
+      <ScrollView>
+        <StatusBar barStyle="dark-content" backgroundColor="#F5F7FA" />
 
-      {/* ────────────── Header ────────────── */}
-      <View style={styles.header}>
-        {/* Picture + Saludo + nombre */}
-        <View style={styles.greetingBlock}>
-          <Image
-            source={require("../../assets/profile-picture-rich.png")}
-            style={styles.profileImage}
-            resizeMode="cover"
-          />
-          {/* Textos apilados a la derecha */}
-          <View style={styles.greetingTexts}>
-            <Text style={styles.greeting}>{greeting}</Text>
-            <Text style={styles.userName}>{userName}</Text>
+        {/* ────────────── Header ────────────── */}
+        <View style={styles.header}>
+          {/* Picture + Saludo + nombre */}
+          <View style={styles.greetingBlock}>
+            <Image
+              source={require("../../assets/profile-picture-rich.png")}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+            {/* Textos apilados a la derecha */}
+            <View style={styles.greetingTexts}>
+              <Text style={styles.greeting}>{greeting}</Text>
+              <Text style={styles.userName}>{userName}</Text>
+            </View>
+          </View>
+
+          {/* Botón campana */}
+          <TouchableOpacity style={styles.bellButton} activeOpacity={0.8}>
+            <BellIcon />
+            {/* Punto rojo de notificación */}
+            <View style={styles.badge} />
+          </TouchableOpacity>
+        </View>
+
+        {/* ────────────── Contenido ────────────── */}
+        <View style={styles.body}>
+          <View style={styles.section}>
+            <Text style={[styles.titles, { paddingTop: 4 }]}>Today</Text>
+            <WeekCalendar
+              onDayPress={(date) => console.log("Día seleccionado:", date)}
+              markedDates={[
+                new Date(), // hoy tiene dot
+                new Date(new Date().setDate(new Date().getDate() + 2)), // en 2 días
+              ]}
+              dailyMacros={macroDailyData} // estatus de macros para cada día (completado, parcial, perdido)
+            />
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.titles}>Your progression</Text>
+            <NutritionCard data={nutritionData} />
           </View>
         </View>
-
-        {/* Botón campana */}
-        <TouchableOpacity style={styles.bellButton} activeOpacity={0.8}>
-          <BellIcon />
-          {/* Punto rojo de notificación */}
-          <View style={styles.badge} />
-        </TouchableOpacity>
-      </View>
-
-      {/* ────────────── Contenido ────────────── */}
-      <View style={styles.body}>
-        <View style={styles.section}>
-          <Text style={[styles.titles, { paddingTop: 4 }]}>Today</Text>
-          <WeekCalendar
-            onDayPress={(date) => console.log("Día seleccionado:", date)}
-            markedDates={[
-              new Date(), // hoy tiene dot
-              new Date(new Date().setDate(new Date().getDate() + 2)), // en 2 días
-            ]}
-            dailyMacros={macroDailyData} // estatus de macros para cada día (completado, parcial, perdido)
-          />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.titles}>Your progression</Text>
-          <NutritionCard data={nutritionData} />
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
