@@ -1,13 +1,13 @@
-// components/WeekCalendar.tsx
+// ───> Component WeekCalendar -> components\Weekcalendar.tsx
+
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Platform,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Svg, { Rect, Path } from "react-native-svg";
+import type {
+  MacroStatus,
+  DailyMacro,
+  WeekCalendarProps,
+} from "../types/calendar";
 
 // ─── Ícono calendario ─────────────────────────────────────────────────────────
 const CalendarIcon = () => (
@@ -55,6 +55,75 @@ const ChevronRight = () => (
   </Svg>
 );
 
+// ─── Macro Indicator ──────────────────────────────────────────────────────────
+const MacroIndicator = ({
+  status,
+  isSelected,
+}: {
+  status: MacroStatus;
+  isSelected: boolean;
+}) => {
+  if (status === "future") {
+    return (
+      <View
+        style={[
+          macroStyles.circle,
+          { borderColor: isSelected ? "rgba(255,255,255,0.5)" : "#D1D5DB" },
+        ]}
+      />
+    );
+  }
+
+  if (status === "completed") {
+    return (
+      <View
+        style={[
+          macroStyles.circle,
+          macroStyles.completedCircle,
+          isSelected && macroStyles.selectedCompleted,
+        ]}
+      >
+        <Svg width={10} height={10} viewBox="0 0 12 12">
+          <Path
+            d="M2.5 6L5 8.5L9.5 3.5"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
+        </Svg>
+      </View>
+    );
+  }
+
+  if (status === "partial") {
+    return (
+      <View style={[macroStyles.circle, macroStyles.partialBorder]}>
+        <View style={macroStyles.partialFill} />
+      </View>
+    );
+  }
+
+  if (status === "missed") {
+    return (
+      <View style={[macroStyles.circle, macroStyles.missedCircle]}>
+        <Svg width={8} height={8} viewBox="0 0 10 10">
+          <Path
+            d="M2 2L8 8M8 2L2 8"
+            stroke="#EF4444"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            fill="none"
+          />
+        </Svg>
+      </View>
+    );
+  }
+
+  return null;
+};
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -73,11 +142,10 @@ const MONTH_NAMES = [
   "December",
 ];
 
-/** Devuelve el lunes (o domingo) de la semana que contiene `date` */
 function getWeekDays(date: Date): Date[] {
   const d = new Date(date);
-  const day = d.getDay(); // 0 = domingo
-  d.setDate(d.getDate() - day); // retrocede al domingo
+  const day = d.getDay();
+  d.setDate(d.getDate() - day);
   return Array.from({ length: 7 }, (_, i) => {
     const copy = new Date(d);
     copy.setDate(d.getDate() + i);
@@ -102,18 +170,17 @@ function formatHeader(days: Date[]): string {
   return `${MONTH_NAMES[first.getMonth()]} – ${MONTH_NAMES[last.getMonth()]} ${last.getFullYear()}`;
 }
 
-// ─── Componente ───────────────────────────────────────────────────────────────
-interface WeekCalendarProps {
-  onDayPress?: (date: Date) => void;
-  /** Fechas con eventos/dots (opcional) */
-  markedDates?: Date[];
-}
-
+// ─── Componente principal ─────────────────────────────────────────────────────
 export default function WeekCalendar({
   onDayPress,
   markedDates = [],
+  dailyMacros = [],
 }: WeekCalendarProps) {
-  const today = new Date();
+    const today = React.useMemo(() => {
+      const d = new Date();
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }, []);
   const [selectedDate, setSelectedDate] = useState<Date>(today);
   const [referenceDate, setReferenceDate] = useState<Date>(today);
 
@@ -135,6 +202,18 @@ export default function WeekCalendar({
   const handleDayPress = (date: Date) => {
     setSelectedDate(date);
     onDayPress?.(date);
+  };
+
+  const getMacroStatus = (date: Date): MacroStatus => {
+    const macroEntry = dailyMacros.find((m) => isSameDay(m.date, date));
+    if (macroEntry) return macroEntry.status;
+
+    // ✅ comparar con startOfDate normalizado
+    const startOfDate = new Date(date);
+    startOfDate.setHours(0, 0, 0, 0);
+
+    if (startOfDate < today) return "missed";
+    return "future";
   };
 
   return (
@@ -169,6 +248,7 @@ export default function WeekCalendar({
           const isSelected = isSameDay(date, selectedDate);
           const isToday = isSameDay(date, today);
           const hasEvent = markedDates.some((m) => isSameDay(m, date));
+          const macroStatus = getMacroStatus(date);
           const dayNum = date.getDate();
           const dayName = DAY_NAMES[date.getDay()];
 
@@ -210,14 +290,19 @@ export default function WeekCalendar({
               </View>
 
               {/* Dot de evento */}
-              {hasEvent && (
-                <View
-                  style={[
-                    styles.eventDot,
-                    isSelected && styles.eventDotSelected,
-                  ]}
-                />
-              )}
+              <View style={styles.dotSlot}>
+                {hasEvent && (
+                  <View
+                    style={[
+                      styles.eventDot,
+                      isSelected && styles.eventDotSelected,
+                    ]}
+                  />
+                )}
+              </View>
+
+              {/* Indicador de macros */}
+              <MacroIndicator status={macroStatus} isSelected={isSelected} />
             </TouchableOpacity>
           );
         })}
@@ -226,7 +311,46 @@ export default function WeekCalendar({
   );
 }
 
-// ─── Estilos ──────────────────────────────────────────────────────────────────
+// ─── Estilos del indicador ────────────────────────────────────────────────────
+const macroStyles = StyleSheet.create({
+  circle: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    borderWidth: 1.5,
+    borderColor: "#D1D5DB",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    marginTop: 2,
+  },
+  completedCircle: {
+    backgroundColor: "#22C55E",
+    borderColor: "#22C55E",
+  },
+  selectedCompleted: {
+    backgroundColor: "#22C55E",
+    borderColor: "#22C55E",
+  },
+  partialBorder: {
+    borderColor: "#F59E0B",
+    position: "relative",
+  },
+  partialFill: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: "50%",
+    backgroundColor: "#F59E0B",
+  },
+  missedCircle: {
+    borderColor: "#EF4444",
+    borderWidth: 1.5,
+  },
+});
+
+// ─── Estilos del calendario ───────────────────────────────────────────────────
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#FFFFFF",
@@ -236,36 +360,29 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     marginHorizontal: 24,
     marginTop: 12,
-    // Sombra iOS
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.07,
     shadowRadius: 12,
-    // Sombra Android
     elevation: 3,
   },
-
-  // ── Header ─────────────────────────────────────────────────────────────────
   headerRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 16,
   },
-
   headerCenter: {
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
   },
-
   headerText: {
     fontFamily: "DMSans_600SemiBold",
     fontSize: 14,
     color: "#1A1F36",
     letterSpacing: 0.1,
   },
-
   chevronBtn: {
     width: 32,
     height: 32,
@@ -274,38 +391,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-  // ── Días ───────────────────────────────────────────────────────────────────
   daysRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
-
   dayItem: {
     flex: 1,
     alignItems: "center",
-    gap: 6,
-  },
 
+  },
   dayName: {
     fontSize: 11,
     fontFamily: "DMSans_500Medium",
     color: "#acb5c7",
     letterSpacing: 0.3,
     textTransform: "uppercase",
-    // Android
     includeFontPadding: false,
   },
-
   dayNameSelected: {
     color: "#305BF3",
   },
-
   dayNameToday: {
     color: "#1A6BFF",
   },
-
   dayCircle: {
     width: 36,
     height: 36,
@@ -314,43 +423,33 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "transparent",
   },
-
   dayCircleSelected: {
     backgroundColor: "#2E90FE",
-    // Sombra iOS
     shadowColor: "#4779FD",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.35,
     shadowRadius: 8,
-    // Android
     elevation: 4,
     borderRadius: 18,
   },
-
   dayCircleToday: {
     borderWidth: 1.5,
     borderColor: "#1A6BFF",
     borderRadius: 18,
   },
-
   dayNumber: {
     fontSize: 15,
     fontFamily: "DMSans_500Medium",
     color: "#1A1F36",
-    // Android
     includeFontPadding: false,
   },
-
   dayNumberSelected: {
     color: "#ffffff",
     fontWeight: "700",
   },
-
   dayNumberToday: {
     color: "#1A6BFF",
   },
-
-  // ── Dot evento ─────────────────────────────────────────────────────────────
   eventDot: {
     width: 5,
     height: 5,
@@ -358,8 +457,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#375FFD",
     marginTop: -2,
   },
-
   eventDotSelected: {
     backgroundColor: "#FFFFFF",
+  },
+  dotSlot: {
+    height: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 2,
   },
 });

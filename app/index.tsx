@@ -56,6 +56,8 @@ export default function SplashScreen() {
     return () => clearTimeout(timer);
   }, []);
 
+  
+
   return (
     <LinearGradient
       colors={["#3a5af9", "#2545e8", "#1a35d4"]}

@@ -43,9 +43,9 @@ const styles = StyleSheet.create({
 
   title: {
     fontFamily: "DMSans_900Black", // títulos
-    fontSize: 24,
+    fontSize: 28,
+    letterSpacing: -1.0,
     color: "#3090FE",
-    letterSpacing: -0.5,
   },
 
   body: {

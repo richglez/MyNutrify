@@ -11,7 +11,7 @@ import Svg, { Path, Circle } from "react-native-svg";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import WeekCalendar from "../../components/Weekcalendar";
 import NutritionCard from "../../components/NutritionCard";
-
+import { DailyMacro } from "../../types/calendar";
 
 // ─── Ícono campana ────────────────────────────────────────────────────────────
 const BellIcon = () => (
@@ -49,6 +49,27 @@ export default function DashboardScreen() {
     calcium: { current: 620, goal: 1000 },
     fiber: { current: 18, goal: 30 },
   };
+
+  const today = new Date();
+
+  const macroDailyData: DailyMacro[] = [
+    {
+      date: new Date(new Date().setDate(today.getDate() - 4)),
+      status: "completed",
+    },
+    {
+      date: new Date(new Date().setDate(today.getDate() - 3)),
+      status: "completed",
+    },
+    {
+      date: new Date(new Date().setDate(today.getDate() - 2)),
+      status: "partial",
+    },
+    {
+      date: new Date(new Date().setDate(today.getDate() - 1)),
+      status: "missed",
+    },
+  ];
 
   return (
     <View style={[styles.safe, { paddingTop: insets.top }]}>
@@ -88,6 +109,7 @@ export default function DashboardScreen() {
               new Date(), // hoy tiene dot
               new Date(new Date().setDate(new Date().getDate() + 2)), // en 2 días
             ]}
+            dailyMacros={macroDailyData} // estatus de macros para cada día (completado, parcial, perdido)
           />
         </View>
 
@@ -104,11 +126,13 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: "#F5F7FA",
+    paddingBottom: 100, // ← espacio para la BottomNavBar flotante
   },
 
   titles: {
     fontFamily: "DMSans_900Black", // títulos
-    fontSize: 24,
+    fontSize: 28,
+    letterSpacing: -1.0,
     color: "#3090FE",
     paddingHorizontal: 24,
     paddingBottom: 8,

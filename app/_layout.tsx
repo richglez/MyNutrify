@@ -1,6 +1,6 @@
 // Layout -> app/_layout.tsx
 
-import { Stack } from "expo-router";
+import { Slot } from "expo-router";
 import {
   useFonts,
   DMSans_300Light,
@@ -25,5 +25,5 @@ export default function RootLayout() {
 
   if (!loaded) return null; // espera a que cargue la fuente
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return <Slot />;
 }
