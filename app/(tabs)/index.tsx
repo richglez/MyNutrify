@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import WeekCalendar from "../../components/Weekcalendar";
 import NutritionCard from "../../components/NutritionCard";
 import { DailyMacro } from "../../types/calendar";
+import { LinearGradient } from "expo-linear-gradient";
 
 // ─── Ícono campana ────────────────────────────────────────────────────────────
 const BellIcon = () => (
@@ -73,9 +74,15 @@ export default function DashboardScreen() {
   ];
 
   return (
-    <View style={[styles.safe, { paddingTop: insets.top }]}>
+    <LinearGradient
+      colors={["#1565C0", "#42A5F5", "#E3F2FD", "#FFFFFF"]}
+      locations={[0, 0.3, 0.7, 1]}
+      start={{ x: 0.5, y: 0 }} // ← empieza arriba al centro
+      end={{ x: 0.5, y: 1 }} // ← termina abajo al centro
+      style={[styles.safe, { paddingTop: insets.top }]}
+    >
       <ScrollView>
-        <StatusBar barStyle="dark-content" backgroundColor="#F5F7FA" />
+        <StatusBar backgroundColor="transparent" translucent />
 
         {/* ────────────── Header ────────────── */}
         <View style={styles.header}>
@@ -121,22 +128,22 @@ export default function DashboardScreen() {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    // backgroundColor: "#F5F7FA",
     paddingBottom: 100, // ← espacio para la BottomNavBar flotante
   },
 
   titles: {
     fontFamily: "DMSans_900Black", // títulos
-    fontSize: 28,
+    fontSize: 24,
     letterSpacing: -1.0,
-    color: "#3090FE",
+    color: "#223593",
     paddingHorizontal: 24,
     paddingBottom: 8,
     paddingTop: 16,
@@ -154,7 +161,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 20,
     paddingBottom: 16,
-    backgroundColor: "#F5F7FA",
+    // backgroundColor: "#D6E9FF",
   },
 
   greetingBlock: {
@@ -172,7 +179,7 @@ const styles = StyleSheet.create({
   greeting: {
     fontFamily: "DMSans_400Regular",
     fontSize: 13,
-    color: "#8A94A6",
+    color: "#f5f8ff",
     fontWeight: "400",
     letterSpacing: 0.2,
   },
@@ -180,7 +187,7 @@ const styles = StyleSheet.create({
   userName: {
     fontFamily: "DMSans_700Bold",
     fontSize: 20,
-    color: "#1A1F36",
+    color: "#ffffff",
     letterSpacing: -0.3,
   },
 
@@ -189,7 +196,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: "#3090FE", // verde teal como en la imagen
+    backgroundColor: "#1C6BFF", // verde teal como en la imagen
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#0045FD",

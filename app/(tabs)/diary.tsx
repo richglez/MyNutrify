@@ -9,6 +9,7 @@ import {
   Image,
   Modal,
   Pressable,
+  Dimensions
 } from "react-native";
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -574,14 +575,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F7FA",
   },
   banner: {
-    width: "100%",
+    width: Dimensions.get("window").width,
     height: 130,
-    borderRadius: 16,
-    overflow: "hidden",
+    marginLeft: -20, // cancela el padding izquierdo
   },
   titles: {
     fontFamily: "DMSans_900Black", // títulos
-    fontSize: 28,
+    fontSize: 27,
     letterSpacing: -1.0,
     color: "#3090FE",
     paddingBottom: 8,
