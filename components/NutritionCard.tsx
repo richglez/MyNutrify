@@ -186,7 +186,7 @@ const ringStyles = StyleSheet.create({
   label: {
     fontSize: 13,
     fontFamily: "DMSans_600SemiBold",
-    color: "#1A1F36",
+    color: "#0053D3",
     includeFontPadding: false,
   },
   values: {
@@ -195,12 +195,12 @@ const ringStyles = StyleSheet.create({
   current: {
     fontSize: 12,
     fontFamily: "DMSans_600SemiBold",
-    color: "#1A1F36",
+    color: "#3f78ff",
   },
   goal: {
     fontSize: 11,
     fontFamily: "DMSans_400Regular",
-    color: "#B0B8C9",
+    color: "#7CA4FF",
   },
 });
 
@@ -289,7 +289,7 @@ export default function NutritionCard({ data }: Props) {
 // ─── Estilos card ─────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#fafcff",
     borderRadius: 24,
     padding: 20,
     marginHorizontal: 24,
@@ -311,8 +311,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontFamily: "DMSans_800ExtraBold", // títulos
-    color: "#1A1F36",
+    fontFamily: "DMSans_600SemiBold", // títulos
+    color: "#7CA4FF",
     letterSpacing: -0.2,
   },
 
@@ -343,12 +343,12 @@ const styles = StyleSheet.create({
   separator: {
     width: 1,
     height: 80,
-    backgroundColor: "#F0F2F8",
+    backgroundColor: "#7CA4FF",
   },
 
   divider: {
     height: 1,
-    backgroundColor: "#F0F2F8",
+    backgroundColor: "#7CA4FF",
     marginTop: 20,
     marginBottom: 16,
   },
@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
   calSummaryLabel: {
     fontSize: 14,
     fontFamily: "DMSans_600SemiBold",
-    color: "#1A1F36",
+    color: "#3f78ff",
     includeFontPadding: false,
   },
   calSummaryRight: {
@@ -374,24 +374,24 @@ const styles = StyleSheet.create({
   calSummaryCurrent: {
     fontSize: 16,
     fontFamily: "DMSans_700Bold",
-    color: "#1A1F36",
+    color: "#3f78ff",
     includeFontPadding: false,
   },
   calSummaryUnit: {
     fontSize: 13,
     fontFamily: "DMSans_500Medium",
-    color: "#8A94A6",
+    color: "#7CA4FF",
   },
   calSummaryGoal: {
     fontSize: 13,
     fontFamily: "DMSans_400Regular",
-    color: "#B0B8C9",
+    color: "#7CA4FF",
     includeFontPadding: false,
   },
   calSummaryLeft: {
     fontSize: 12,
     fontFamily: "DMSans_500Medium",
-    color: "#182d50",
+    color: "#3471ff",
     includeFontPadding: false,
   },
 });

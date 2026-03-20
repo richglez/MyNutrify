@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const { width } = Dimensions.get("window");
 const GAP = 12;
@@ -94,6 +95,7 @@ const VEGETABLES = [
 ];
 
 export default function ExploreScreen() {
+  const insets = useSafeAreaInsets(); // ← agregar esto
   const [search, setSearch] = useState("");
   const [focused, setFocused] = useState(false);
 
@@ -109,11 +111,10 @@ export default function ExploreScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F7F8F3" />
+
 
       <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scroll}
+        contentContainerStyle={[styles.scroll, { paddingTop: insets.top + 16 }]}
       >
         {/* Header */}
         <View style={styles.header}>
@@ -238,7 +239,7 @@ const styles = StyleSheet.create({
   },
   scroll: {
     paddingHorizontal: H_PADDING,
-    paddingTop: 56,
+    // sin paddingTop aquí
   },
 
   /* Header */

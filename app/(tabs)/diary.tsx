@@ -1,11 +1,11 @@
-// app/(tabs)/diary.tsx
+// DiaryScreen → app/(tabs)/diary.tsx
 import {
   View,
   Text,
   StyleSheet,
-  StatusBar,
   TouchableOpacity,
   ScrollView,
+  StatusBar,
   Image,
   Modal,
   Pressable,
@@ -88,14 +88,11 @@ export default function DiaryScreen() {
   return (
     <View style={[styles.safe, { paddingTop: insets.top }]}>
 
-
       {/* ── Header de fecha ── */}
       <DateHeader selectedDate={selectedDate} onDateChange={setSelectedDate} />
 
       <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent} // ← usa scrollContent, sin paddingTop extra
       >
         {/* ── Resumen de calorías ── */}
         <CalorieSummary

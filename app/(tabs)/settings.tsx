@@ -3,6 +3,7 @@
 import { View, Text, ScrollView, StyleSheet, StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 function GlassCard({ children }: { children: React.ReactNode }) {
   return (
@@ -44,6 +45,7 @@ function SettingRow({
 }
 
 export default function SettingsScreen() {
+  const insets = useSafeAreaInsets();
   return (
     <LinearGradient
       colors={[
@@ -58,11 +60,10 @@ export default function SettingsScreen() {
       locations={[0, 0.12, 0.28, 0.45, 0.62, 0.8, 1]}
       style={styles.gradient}
     >
-      <StatusBar backgroundColor="transparent" translucent />
+
 
       <ScrollView
-        contentContainerStyle={styles.scroll}
-        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[styles.scroll, { paddingTop: insets.top + 16 }]}
       >
         <View style={styles.header}>
           <Text style={styles.title}>Settings</Text>

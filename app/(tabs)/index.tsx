@@ -75,15 +75,15 @@ export default function DashboardScreen() {
 
   return (
     <LinearGradient
-      colors={["#1565C0", "#42A5F5", "#E3F2FD", "#FFFFFF"]}
+      colors={["#F7FAFD", "#F7FAFD", "#eaf2ff", "#d8e7ff"]}
       locations={[0, 0.3, 0.7, 1]}
       start={{ x: 0.5, y: 0 }} // ← empieza arriba al centro
       end={{ x: 0.5, y: 1 }} // ← termina abajo al centro
-      style={[styles.safe, { paddingTop: insets.top }]}
+      style={[styles.safe]}
     >
-      <ScrollView>
-        <StatusBar backgroundColor="transparent" translucent />
-
+      <ScrollView
+        contentContainerStyle={[styles.scroll, { paddingTop: insets.top + 16 }]}
+      >
         {/* ────────────── Header ────────────── */}
         <View style={styles.header}>
           {/* Picture + Saludo + nombre */}
@@ -140,10 +140,10 @@ const styles = StyleSheet.create({
   },
 
   titles: {
-    fontFamily: "DMSans_900Black", // títulos
+    fontFamily: "DMSans_600SemiBold", // títulos
     fontSize: 24,
-    letterSpacing: -1.0,
-    color: "#223593",
+    letterSpacing: -0.5,
+    color: "#000000",
     paddingHorizontal: 24,
     paddingBottom: 8,
     paddingTop: 16,
@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 24,
-    paddingTop: 20,
     paddingBottom: 16,
     // backgroundColor: "#D6E9FF",
   },
@@ -168,6 +167,10 @@ const styles = StyleSheet.create({
     flexDirection: "row", // ← imagen y textos lado a lado
     alignItems: "center", // ← centrado vertical
     gap: 16, // ← espacio entre foto y texto
+  },
+  scroll: {
+    flex: 1,
+    width: "100%",
   },
 
   // Nuevo: contenedor solo para los textos
@@ -179,15 +182,15 @@ const styles = StyleSheet.create({
   greeting: {
     fontFamily: "DMSans_400Regular",
     fontSize: 13,
-    color: "#f5f8ff",
+    color: "#6c727f",
     fontWeight: "400",
     letterSpacing: 0.2,
   },
 
   userName: {
-    fontFamily: "DMSans_700Bold",
+    fontFamily: "DMSans_600SemiBold",
     fontSize: 20,
-    color: "#ffffff",
+    color: "#000000",
     letterSpacing: -0.3,
   },
 
@@ -196,7 +199,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: "#1C6BFF", // verde teal como en la imagen
+    backgroundColor: "#2E90FE", // verde teal como en la imagen
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#0045FD",

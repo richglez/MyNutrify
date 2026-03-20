@@ -18,12 +18,12 @@ const CalendarIcon = () => (
       width="18"
       height="18"
       rx="3"
-      stroke="#8A94A6"
+      stroke="#2e90fe"
       strokeWidth="2"
     />
     <Path
       d="M16 2V6M8 2V6M3 10H21"
-      stroke="#8A94A6"
+      stroke="#2e90fe"
       strokeWidth="2"
       strokeLinecap="round"
     />
@@ -35,7 +35,7 @@ const ChevronLeft = () => (
   <Svg width={18} height={18} viewBox="0 0 24 24" fill="none">
     <Path
       d="M15 18L9 12L15 6"
-      stroke="#1A1F36"
+      stroke="#2e90fe"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -47,7 +47,7 @@ const ChevronRight = () => (
   <Svg width={18} height={18} viewBox="0 0 24 24" fill="none">
     <Path
       d="M9 6L15 12L9 18"
-      stroke="#1A1F36"
+      stroke="#2e90fe"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -353,7 +353,7 @@ const macroStyles = StyleSheet.create({
 // ─── Estilos del calendario ───────────────────────────────────────────────────
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#fafcff",
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingTop: 16,
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontFamily: "DMSans_600SemiBold",
     fontSize: 14,
-    color: "#1A1F36",
+    color: "#0053D3",
     letterSpacing: 0.1,
   },
   chevronBtn: {
@@ -399,12 +399,11 @@ const styles = StyleSheet.create({
   dayItem: {
     flex: 1,
     alignItems: "center",
-
   },
   dayName: {
     fontSize: 11,
     fontFamily: "DMSans_500Medium",
-    color: "#acb5c7",
+    color: "#3574f1",
     letterSpacing: 0.3,
     textTransform: "uppercase",
     includeFontPadding: false,
@@ -440,7 +439,7 @@ const styles = StyleSheet.create({
   dayNumber: {
     fontSize: 15,
     fontFamily: "DMSans_500Medium",
-    color: "#1A1F36",
+    color: "#0d41bb",
     includeFontPadding: false,
   },
   dayNumberSelected: {
@@ -458,7 +457,7 @@ const styles = StyleSheet.create({
     marginTop: -2,
   },
   eventDotSelected: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#2a7cff",
   },
   dotSlot: {
     height: 10,
