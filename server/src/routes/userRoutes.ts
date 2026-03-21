@@ -1,14 +1,17 @@
-// server/src/routes/userRoutes.ts
-
-import { Router, Request, Response } from 'express';
+// userRoutes -> server\src\routes\userRoutes.ts
+// Configuracion de rutas relacionadas con usuarios (registro, onboarding, etc.)
+import { Router, Request, Response, NextFunction, RequestHandler } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 
 const router = Router();
+const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => Promise<void>): RequestHandler =>
+  (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 // ─── POST /api/users/register ──────────────────────
-router.post('/register', async (req: Request, res: Response) => {
+router.post('/register', asyncHandler(async (req: Request, res: Response) => {
+  console.log('📩 Petición recibida en /register', req.body); // ← agrega esto
   try {
     const { name, email, password } = req.body;
 
@@ -45,10 +48,10 @@ router.post('/register', async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ message: 'Error al registrar usuario', error });
   }
-});
+}));
 
 // ─── PUT /api/users/:id/onboarding ─────────────────
-router.put('/:id/onboarding', async (req: Request, res: Response) => {
+router.put('/:id/onboarding', asyncHandler (async (req: Request, res: Response) => {
   try {
     const { goal, sex, age, weight, height } = req.body;
 
@@ -75,6 +78,6 @@ router.put('/:id/onboarding', async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ message: 'Error al actualizar perfil', error });
   }
-});
+}));
 
 export default router;

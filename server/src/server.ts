@@ -1,4 +1,5 @@
-// Server -> server/src/server.ts
+// Server -> server\src\server.ts
+// Configuracion del servidor Express
 
 import express from 'express';
 import mongoose from 'mongoose';
@@ -12,24 +13,20 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI!;
 
-// ─── Middlewares ───────────────────────────────────
-app.use(express.json());      // permite recibir JSON en el body
-app.use(cors());              // permite peticiones desde el cliente Expo
+app.use(express.json());
+app.use(cors());
 
-// ─── Rutas ───────────────────────────────────
-app.use('/api/users', userRoutes);  // usar las rutas de usuarios
 
-// ─── Conexión a MongoDB ────────────────────────────
+// Ruta Usuarios
+app.use('/api/users', userRoutes);
+console.log('✅ Rutas de usuarios registradas');
+
+// Conectar a MongoDB
 mongoose.connect(MONGODB_URI)
   .then(() => console.log('✅ MongoDB conectado'))
   .catch(err => console.error('❌ Error de conexión:', err));
 
-// ─── Rutas ─────────────────────────────────────────
-// app.use('/api/users', userRoutes);    <- las irás agregando aquí
-// app.use('/api/meals', mealRoutes);
-// app.use('/api/diary', diaryRoutes);
-
-// ─── Ruta de prueba ────────────────────────────────
+// Status del servidor
 app.get('/health', (req, res) => {
   const state = mongoose.connection.readyState;
   res.json({
@@ -38,7 +35,13 @@ app.get('/health', (req, res) => {
   });
 });
 
-// ─── Iniciar servidor ──────────────────────────────
+// Manejador de errores
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('❌ Error:', err.message);
+  res.status(500).json({ message: err.message });
+});
+
+// Informacion del servidor activo
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
