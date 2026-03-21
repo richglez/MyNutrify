@@ -29,7 +29,8 @@ function SettingRow({
     <>
       <View style={styles.row}>
         <View style={styles.iconWrapper}>
-          <Ionicons name={icon} size={18} color="rgba(255,255,255,0.9)" />
+          {/* iconos para settings */}
+          <Ionicons name={icon} size={18} color="rgb(255, 255, 255)" />
         </View>
         <Text style={styles.rowLabel}>{label}</Text>
         {value && <Text style={styles.rowValue}>{value}</Text>}
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 8,
   },
   subtitle: {
-    fontSize: 13,
+    fontSize: 14,
     color: "rgba(255,255,255,0.65)",
     marginTop: 2,
     fontWeight: "400",
@@ -140,22 +141,22 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: "rgba(5, 30, 53, 0.1)",
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.22)",
-    shadowColor: "#1a4fff",
+    borderColor: "rgba(255, 255, 255, 0.22)",
+    shadowColor: "#767f9d",
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.25,
     shadowRadius: 16,
   },
   glassHighlight: {
     height: 1,
-    backgroundColor: "rgba(255,255,255,0.45)",
+    backgroundColor: "rgba(0, 115, 255, 0.37)",
     marginHorizontal: 12,
   },
   iconWrapper: {
     width: 32,
     height: 32,
     borderRadius: 9,
-    backgroundColor: "rgba(255,255,255,0.15)",
+    backgroundColor: "rgb(143, 179, 223)",
     alignItems: "center",
     justifyContent: "center",
   },

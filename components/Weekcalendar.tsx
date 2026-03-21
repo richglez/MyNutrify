@@ -353,7 +353,7 @@ const macroStyles = StyleSheet.create({
 // ─── Estilos del calendario ───────────────────────────────────────────────────
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fafcff",
+    backgroundColor: "#fcfdff",
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingTop: 16,
@@ -400,13 +400,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  dayName: {
-    fontSize: 11,
+  dayName: { // "Mon", "Tue", etc.
+    fontSize: 12,
     fontFamily: "DMSans_500Medium",
     color: "#3574f1",
     letterSpacing: 0.3,
     textTransform: "uppercase",
     includeFontPadding: false,
+    paddingBottom: 8,
   },
   dayNameSelected: {
     color: "#305BF3",

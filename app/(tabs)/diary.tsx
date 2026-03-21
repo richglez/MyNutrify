@@ -577,10 +577,10 @@ const styles = StyleSheet.create({
     marginLeft: -20, // cancela el padding izquierdo
   },
   titles: {
-    fontFamily: "DMSans_900Black", // títulos
-    fontSize: 27,
-    letterSpacing: -1.0,
-    color: "#3090FE",
+    fontFamily: "DMSans_600SemiBold", // títulos
+    fontSize: 24,
+    letterSpacing: -0.5,
+    color: "#2E90FE",
     paddingBottom: 8,
     paddingTop: 16,
   },

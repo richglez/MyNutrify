@@ -123,7 +123,7 @@ export default function DashboardScreen() {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.titles}>Your progression</Text>
+            <Text style={styles.titles}>Progression</Text>
             <NutritionCard data={nutritionData} />
           </View>
         </View>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
 
   section: {
-    marginBottom: 8,
+    marginBottom: 30,
   },
 
   // ── Header ─────────────────────────────────────────────────────────────────
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 24,
-    paddingBottom: 16,
+    paddingBottom: 30,
     // backgroundColor: "#D6E9FF",
   },
 

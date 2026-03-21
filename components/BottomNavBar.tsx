@@ -17,14 +17,14 @@ const BLUE = "#1A6BFF";
 const BLUE_DARK = "#1452CC";
 const WHITE = "#FFFFFF";
 const ACTIVE_COLOR = "#1A6BFF"; // ícono + label activo
-const INACTIVE_COLOR = "#9CA3AF"; // ícono + label inactivo (gris)
+const INACTIVE_COLOR = "#525965"; // ícono + label inactivo (gris)
 const BAR_BG = "#FFFFFF"; // fondo blanco, como la imagen
 const BAR_SHADOW = "#000000";
 
 // ─── Íconos ───────────────────────────────────────────────────────────────────
 
 const IconHome = ({ color }: { color: string }) => (
-  <Svg width={22} height={22} viewBox="0 0 24 24" fill="none">
+  <Svg width={23} height={23} viewBox="0 0 24 24" fill="none">
     <Path
       d="M3 9.5L12 3L21 9.5V20C21 20.55 20.55 21 20 21H15V15H9V21H4C3.45 21 3 20.55 3 20V9.5Z"
       fill={color}
@@ -33,7 +33,7 @@ const IconHome = ({ color }: { color: string }) => (
 );
 
 const IconDiary = ({ color }: { color: string }) => (
-  <Svg width={22} height={22} viewBox="0 0 24 24" fill="none">
+  <Svg width={23} height={23} viewBox="0 0 24 24" fill="none">
     <Rect
       x="4"
       y="2"
@@ -63,7 +63,7 @@ const IconPlus = ({ color }: { color: string }) => (
 );
 
 const IconGlobe = ({ color }: { color: string }) => (
-  <Svg width={22} height={22} viewBox="0 0 24 24" fill="none">
+  <Svg width={23} height={23} viewBox="0 0 24 24" fill="none">
     <Circle cx="12" cy="12" r="9" stroke={color} strokeWidth="1.8" />
     <Path
       d="M12 3C12 3 8 7 8 12C8 17 12 21 12 21"
@@ -80,7 +80,7 @@ const IconGlobe = ({ color }: { color: string }) => (
 );
 
 const IconSettings = ({ color }: { color: string }) => (
-  <Svg width={22} height={22} viewBox="0 0 24 24" fill="none">
+  <Svg width={23} height={23} viewBox="0 0 24 24" fill="none">
     <Path
       d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
       stroke={color}
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    fontSize: 10,
+    fontSize: 11,
     marginTop: 2,
     color: INACTIVE_COLOR,
     letterSpacing: 0.2,
