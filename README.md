@@ -116,20 +116,24 @@ MyNutrify/
 │   ├── services/
 │   │   └── db.ts
 │   ├── types/
-│   ├── node_modules/
-│   ├── .env            
+│   ├── node_modules/     
+│   └── app.json   
 │   └── package.json
+│   └── tsconfig.json
 │
-├── server/               
+├── server/       
+│   ├── database/ 
+│   ├── docs/  
+│   ├── node_modules/     
 │   ├── src/
+│   │   ├── controllers/  
 │   │   ├── models/         
 │   │   ├── routes/
-│   │   └── server.ts
-│   ├── docs/               
-│   ├── node_modules/
+│   │   └── server.ts             
 │   ├── .env              
 │   └── package.json
-│
+│   └── tsconfig.json
+└── .gitignore
 └── README.md
 ```
 
