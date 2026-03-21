@@ -3,8 +3,8 @@ import { Tabs } from "expo-router";
 import { useState } from "react";
 import { Modal, View, StyleSheet, Pressable, Text } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import BottomNavBar from "../../components/BottomNavBar";
-import PostPopUp from "../../components/PostPopUp";
+import BottomNavBar from "@/components/BottomNavBar";
+import PostPopUp from "@/components/PostPopUp";
 
 export default function TabsLayout() {
   const [postVisible, setPostVisible] = useState(false);

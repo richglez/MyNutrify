@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import Svg, { Path, Circle } from "react-native-svg";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import WeekCalendar from "../../components/Weekcalendar";
-import NutritionCard from "../../components/NutritionCard";
-import { DailyMacro } from "../../types/calendar";
+import WeekCalendar from "@/components/Weekcalendar";
+import NutritionCard from "@/components/NutritionCard";
+import { DailyMacro } from "@/types/calendar";
 import { LinearGradient } from "expo-linear-gradient";
 
 // ─── Ícono campana ────────────────────────────────────────────────────────────
