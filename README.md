@@ -90,36 +90,47 @@ Este proyecto se encuentra actualmente en fase de desarrollo y evolución contin
 ---
 ## Estructura del Proyecto
 ```
-asi esta bien?
 MyNutrify/
-├── app/
-│   ├── (auth)/
+├── client/               
+│   ├── .expo/
+│   ├── .vscode/
+│   ├── app/
+│   │   ├── (auth)/
+│   │   │   ├── _layout.tsx
+│   │   │   ├── login.tsx
+│   │   │   ├── register.tsx
+│   │   │   └── welcome.tsx
+│   │   ├── (tabs)/
+│   │   │   ├── _layout.tsx
+│   │   │   ├── diary.tsx
+│   │   │   ├── explore.tsx
+│   │   │   ├── index.tsx
+│   │   │   ├── post.tsx
+│   │   │   └── settings.tsx
 │   │   ├── _layout.tsx
-│   │   ├── login.tsx
-│   │   ├── register.tsx
-│   │   ├── welcome.tsx
-│   ├── (tabs)/
-│   │   ├── _layout.tsx
-│   │   ├── diary.tsx
-│   │   ├── explore.tsx
-│   │   ├── index.tsx
-│   │   └── post.tsx
-│   │   └── settings.tsx
-│   └── _layout.tsx
-│   └── index.tsx
-└── assets/
-├── components/
-│   └── BottomNavBar.tsx
-│   └── NutritionCard.tsx
-│   └── PostPopUp.tsx
-│   └── Weekcalendar.tsx
-├── constants/
-├── database/
-├── docs/
-├── hooks/
-├── services/
-│   └── db.ts
-├── types/
+│   │   └── index.tsx
+│   ├── assets/
+│   ├── components/
+│   ├── constants/
+│   ├── hooks/
+│   ├── services/
+│   │   └── db.ts
+│   ├── types/
+│   ├── node_modules/
+│   ├── .env            
+│   └── package.json
+│
+├── server/               
+│   ├── src/
+│   │   ├── models/         
+│   │   ├── routes/
+│   │   └── server.ts
+│   ├── docs/               
+│   ├── node_modules/
+│   ├── .env              
+│   └── package.json
+│
+└── README.md
 ```
 
 ---
