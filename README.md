@@ -116,6 +116,7 @@ MyNutrify/
 │   ├── services/
 │   │   └── db.ts
 │   ├── types/
+│   ├──.gitignore
 │   ├── node_modules/     
 │   └── app.json   
 │   └── package.json
@@ -130,7 +131,7 @@ MyNutrify/
 │   │   ├── models/         
 │   │   ├── routes/
 │   │   └── server.ts             
-│   ├── .env              
+│   ├── .gitignore           
 │   └── package.json
 │   └── tsconfig.json
 └── .gitignore
