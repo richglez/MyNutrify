@@ -16,7 +16,7 @@ export default function WelcomeScreen() {
       <View style={styles.content}>
         <View style={styles.logoRow}>
           <Image
-            source={require("../assets/MyNutrify!logo-v2.png")}
+            source={require("@/assets/MyNutrify!logo-v2.png")}
             style={styles.logo}
             resizeMode="contain"
           />
