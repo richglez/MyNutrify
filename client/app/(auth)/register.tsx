@@ -1,9 +1,13 @@
-// SingUp -> app\(auth)\register.tsx
+// SingUp -> client\app\(auth)\register.tsx
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
+import { registerUser } from "@/services/db";
+
+
+
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");
@@ -11,10 +15,14 @@ export default function RegisterScreen() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleRegister = () => {
-    // Aquí luego puedes conectar tu API
-    router.replace("/(tabs)");
-  };
+const handleRegister = async () => {
+  const data = await registerUser(name, email, password);
+  // Guarda el userId para usarlo en el onboarding
+  router.replace({
+    pathname: "/(onboarding)/step1-goal",
+    params: { userId: data.userId },
+  });
+};
 
   return (
     <LinearGradient
@@ -67,7 +75,6 @@ export default function RegisterScreen() {
             style={styles.input}
           />
         </View>
-
 
         <Pressable style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>Create Account</Text>

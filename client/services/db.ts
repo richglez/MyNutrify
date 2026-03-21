@@ -1,14 +1,25 @@
-// db.ts
-const mongoose = require('mongoose');
+// client\services\db.ts
+const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('MongoDB conectado');
-  } catch (error) {
-    console.error('Error al conectar MongoDB:', error);
-    process.exit(1);
-  }
+// Registrar usuario
+export const registerUser = async (name: string, email: string, password: string) => {
+  const res = await fetch(`${API_URL}/api/users/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, password }),
+  });
+  return res.json();
 };
 
-module.exports = connectDB;
+// Guardar datos del onboarding
+export const saveOnboarding = async (
+  userId: string,
+  data: { goal: string; sex: string; age: number; weight: number; height: number }
+) => {
+  const res = await fetch(`${API_URL}/api/users/${userId}/onboarding`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+};

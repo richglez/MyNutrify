@@ -4,6 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import userRoutes from './routes/userRoutes';
 
 dotenv.config();
 
@@ -14,6 +15,9 @@ const MONGODB_URI = process.env.MONGODB_URI!;
 // ─── Middlewares ───────────────────────────────────
 app.use(express.json());      // permite recibir JSON en el body
 app.use(cors());              // permite peticiones desde el cliente Expo
+
+// ─── Rutas ───────────────────────────────────
+app.use('/api/users', userRoutes);  // usar las rutas de usuarios
 
 // ─── Conexión a MongoDB ────────────────────────────
 mongoose.connect(MONGODB_URI)
