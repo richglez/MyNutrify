@@ -90,24 +90,37 @@ Este proyecto se encuentra actualmente en fase de desarrollo y evolución contin
 ---
 ## Estructura del Proyecto
 ```
+asi esta bien?
+MyNutrify/
 ├── app/
-│   └── (tabs)/
-│       └── _layout.tsx
-│       └── diary.tsx
-│       └── explore.tsx
-│       └── index.tsx
-│       └── post.tsx
-│       └── settings.tsx
+│   ├── (auth)/
+│   │   ├── _layout.tsx
+│   │   ├── login.tsx
+│   │   ├── register.tsx
+│   │   ├── welcome.tsx
+│   ├── (tabs)/
+│   │   ├── _layout.tsx
+│   │   ├── diary.tsx
+│   │   ├── explore.tsx
+│   │   ├── index.tsx
+│   │   └── post.tsx
+│   │   └── settings.tsx
 │   └── _layout.tsx
 │   └── index.tsx
-│   └── login.tsx
-│   └── register.tsx
-│   └── welcome.tsx
-├── assets/
+└── assets/
 ├── components/
-│   └── WeekCalendar.tsx
-├── types/             
-│   └── nutrition.ts
+│   └── BottomNavBar.tsx
+│   └── NutritionCard.tsx
+│   └── PostPopUp.tsx
+│   └── Weekcalendar.tsx
+├── constants/
+├── database/
+├── docs/
+├── hooks/
+├── services/
+│   └── db.ts
+├── types/
+├── .env
 ```
 
 ---
