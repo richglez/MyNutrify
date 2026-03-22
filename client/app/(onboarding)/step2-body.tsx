@@ -1,4 +1,4 @@
-// client/app/(onboarding)/step2-body.tsx
+// client\app\(onboarding)\step2-body.tsx
 
 import { useState } from "react";
 import {
@@ -12,6 +12,7 @@ import {
 import Slider from "@react-native-community/slider";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
+import GoalIllustration from "@/assets/images/onboarding_body_illustration.svg";
 
 type Sex = "male" | "female";
 
@@ -31,7 +32,7 @@ export default function Step2Body() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container} bounces={false}>
+    <View style={styles.container}>
       {/* Header row: flecha + progress */}
       <View style={styles.headerRow}>
         <Pressable style={styles.backButton} onPress={() => router.back()}>
@@ -44,13 +45,14 @@ export default function Step2Body() {
         </View>
       </View>
 
-
       {/* Header */}
       <Text style={styles.step}>Paso 2 de 3</Text>
       <Text style={styles.title}>Cuéntanos sobre ti</Text>
       <Text style={styles.subtitle}>
         Usamos estos datos para calcular tus necesidades nutricionales.
       </Text>
+
+      <GoalIllustration height={190} style={styles.illustrationContainer} />
 
       {/* Sexo */}
       <Text style={styles.label}>Sexo</Text>
@@ -162,7 +164,7 @@ export default function Step2Body() {
       <TouchableOpacity onPress={() => router.push("/(onboarding)/step3-done")}>
         <Text style={styles.skip}>Omitir por ahora</Text>
       </TouchableOpacity>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -172,6 +174,7 @@ const PRIMARY_DARK = "#0C447C";
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 24,
     paddingTop: 60,
@@ -217,7 +220,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#888",
     lineHeight: 22,
-    marginBottom: 28,
+    marginBottom: 8
   },
 
   // Sexo
@@ -315,5 +318,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     // ← sin position: absolute
+  },
+
+  illustrationContainer: {
+    alignSelf: "center",
+    marginBottom: -4,
   },
 });

@@ -1,4 +1,4 @@
-// client/app/(onboarding)/step1-goal.tsx
+// client\app\(onboarding)\step1-goal.tsx
 
 import { useState } from "react";
 import {
@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import GoalIllustration from "@/assets/images/onboarding_goal_illustration.svg";
 
 type Goal = "lose_weight" | "maintain" | "gain_muscle" | "eat_healthy";
 
@@ -63,7 +64,7 @@ export default function Step1Goal() {
     <View style={styles.container}>
       {/* Header row: flecha + progress */}
       <View style={styles.headerRow}>
-        <Pressable style={styles.backButton} onPress={() => router.back()}>
+        <Pressable style={styles.backButton} onPress={() => router.replace("/(auth)/register")}>
           <Ionicons name="arrow-back" size={18} color="#2E90FE" />
         </Pressable>
         <View style={styles.progressRow}>
@@ -79,6 +80,8 @@ export default function Step1Goal() {
       <Text style={styles.subtitle}>
         Esto nos ayuda a personalizar tu experiencia nutricional.
       </Text>
+
+      <GoalIllustration height={180} style={styles.illustrationContainer} />
 
       {/* Opciones */}
       {GOALS.map((goal) => {
@@ -186,7 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#888",
     lineHeight: 22,
-    marginBottom: 28,
+    marginBottom: 4,
   },
 
   // Cards
@@ -246,7 +249,7 @@ const styles = StyleSheet.create({
     padding: 14,
     borderRadius: 12,
     alignItems: "center",
-    marginTop: 8,
+    marginTop: 14,
   },
   btnDisabled: {
     opacity: 0.4,
@@ -260,9 +263,9 @@ const styles = StyleSheet.create({
   // Skip
   skip: {
     textAlign: "center",
-    marginTop: 14,
     fontSize: 13,
     color: "#888",
+    marginTop: 14,
   },
 
   backButton: {
@@ -273,5 +276,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     // ← sin position: absolute
+  },
+
+  illustrationContainer: {
+    top: -10,
+    alignSelf: "center",
+    marginBottom: 4, // ← controla gap con las cards
   },
 });

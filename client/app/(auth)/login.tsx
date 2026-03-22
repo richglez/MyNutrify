@@ -74,7 +74,7 @@ export default function LoginScreen() {
       end={{ x: 1, y: 1 }}
       style={styles.container}
     >
-      <Pressable style={styles.backButton} onPress={() => router.back()}>
+      <Pressable style={styles.backButton} onPress={() => router.replace("/welcome")}>
         <Ionicons name="arrow-back" size={26} color="white" />
       </Pressable>
 
