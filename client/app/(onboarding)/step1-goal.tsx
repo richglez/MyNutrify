@@ -1,8 +1,15 @@
 // client/app/(onboarding)/step1-goal.tsx
 
 import { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import { router } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 type Goal = "lose_weight" | "maintain" | "gain_muscle" | "eat_healthy";
 
@@ -54,11 +61,16 @@ export default function Step1Goal() {
 
   return (
     <View style={styles.container}>
-      {/* Progress bar */}
-      <View style={styles.progressRow}>
-        <View style={[styles.progressBar, styles.progressActive]} />
-        <View style={styles.progressBar} />
-        <View style={styles.progressBar} />
+      {/* Header row: flecha + progress */}
+      <View style={styles.headerRow}>
+        <Pressable style={styles.backButton} onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={18} color="#2E90FE" />
+        </Pressable>
+        <View style={styles.progressRow}>
+          <View style={[styles.progressBar, styles.progressActive]} />
+          <View style={styles.progressBar} />
+          <View style={styles.progressBar} />
+        </View>
       </View>
 
       {/* Header */}
@@ -135,11 +147,18 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
 
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 32,
+  },
+
   // Progress
   progressRow: {
+    flex: 1,
     flexDirection: "row",
     gap: 6,
-    marginBottom: 32,
+    marginLeft: 12, // gap entre botón y barras
   },
   progressBar: {
     flex: 1,
@@ -244,5 +263,15 @@ const styles = StyleSheet.create({
     marginTop: 14,
     fontSize: 13,
     color: "#888",
+  },
+
+  backButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 9,
+    backgroundColor: PRIMARY_LIGHT,
+    alignItems: "center",
+    justifyContent: "center",
+    // ← sin position: absolute
   },
 });

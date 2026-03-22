@@ -7,8 +7,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Pressable,
 } from "react-native";
 import Slider from "@react-native-community/slider";
+import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 
 type Sex = "male" | "female";
@@ -30,12 +32,18 @@ export default function Step2Body() {
 
   return (
     <ScrollView contentContainerStyle={styles.container} bounces={false}>
-      {/* Progress bar */}
-      <View style={styles.progressRow}>
-        <View style={[styles.progressBar, styles.progressActive]} />
-        <View style={[styles.progressBar, styles.progressActive]} />
-        <View style={styles.progressBar} />
+      {/* Header row: flecha + progress */}
+      <View style={styles.headerRow}>
+        <Pressable style={styles.backButton} onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={18} color="#2E90FE" />
+        </Pressable>
+        <View style={styles.progressRow}>
+          <View style={[styles.progressBar, styles.progressActive]} />
+          <View style={styles.progressBar} />
+          <View style={styles.progressBar} />
+        </View>
       </View>
+
 
       {/* Header */}
       <Text style={styles.step}>Paso 2 de 3</Text>
@@ -170,11 +178,18 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
 
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 32,
+  },
+
   // Progress
   progressRow: {
+    flex: 1,
     flexDirection: "row",
     gap: 6,
-    marginBottom: 32,
+    marginLeft: 12, // gap entre botón y barras
   },
   progressBar: {
     flex: 1,
@@ -290,5 +305,15 @@ const styles = StyleSheet.create({
     marginTop: 14,
     fontSize: 13,
     color: "#888",
+  },
+
+  backButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 9,
+    backgroundColor: PRIMARY_LIGHT,
+    alignItems: "center",
+    justifyContent: "center",
+    // ← sin position: absolute
   },
 });
