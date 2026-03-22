@@ -27,7 +27,7 @@ export default function Step2Body() {
   const handleContinue = () => {
     router.push({
       pathname: "/(onboarding)/step3-done",
-      params: { goal, sex, age, weight, height },
+      params: { goal, sex, age, weight, height }, // ✅ manda todos estos parametros al siguiente paso
     });
   };
 

@@ -32,16 +32,16 @@ router.post('/register', asyncHandler(async (req: Request, res: Response) => {
       password: hashedPassword,
     });
 
-    // Generar token
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET!,
-      { expiresIn: '7d' }
+    // Generar token para autenticación con JWT
+    const token = jwt.sign(  //para que tu servidor sepa que las siguientes peticiones vienen de un usuario legítimo que ya se registró o inició sesión.
+      { userId: user._id }, // ← esto va en el payload
+      process.env.JWT_SECRET!, // ← clave secreta para firmar
+      { expiresIn: '7d' } //  // ← expira en 7 días
     );
 
     res.status(201).json({
       token,
-      userId: user._id,
+      userId: user._id, // ← user._id viene de MongoDB, tú solo lo expones como userId en el token y la respuesta
       message: 'Usuario creado exitosamente'
     });
 

@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { registerUser } from "@/services/db";
+import { useAuthStore } from "@/store/useAuthStore";
 
 
 
@@ -14,15 +15,17 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const setAuth = useAuthStore((s) => s.setAuth); // ← Estado global para manejar autenticación
 
-const handleRegister = async () => {
-  const data = await registerUser(name, email, password);
-  // Guarda el userId para usarlo en el onboarding
-  router.replace({
-    pathname: "/(onboarding)/step1-goal",
-    params: { userId: data.userId },
-  });
-};
+  const handleRegister = async () => {
+    const data = await registerUser(name, email, password);
+    setAuth(data.userId, data.token); // ← guarda globalmente
+
+    // Guarda el userId para usarlo en el onboarding
+    router.replace({
+      pathname: "/(onboarding)/step1-goal",
+    });
+  };
 
   return (
     <LinearGradient
@@ -31,7 +34,10 @@ const handleRegister = async () => {
       end={{ x: 1, y: 1 }}
       style={styles.container}
     >
-      <Pressable style={styles.backButton} onPress={() => router.replace("/welcome")}>
+      <Pressable
+        style={styles.backButton}
+        onPress={() => router.replace("/welcome")}
+      >
         <Ionicons name="arrow-back" size={26} color="white" />
       </Pressable>
 

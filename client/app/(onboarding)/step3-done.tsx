@@ -10,12 +10,14 @@ import {
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { saveOnboarding } from "@/services/db";
+import { useAuthStore } from "@/store/useAuthStore";
 
 
 
 
 export default function Step3Done() {
-  const { goal, sex, age, weight, height, userId } = useLocalSearchParams();
+  const userId = useAuthStore((s) => s.userId); // ← lee del store
+  const { goal, sex, age, weight, height } = useLocalSearchParams();
 
   // Animaciones
   const circleScale = useRef(new Animated.Value(0)).current;
@@ -62,16 +64,16 @@ export default function Step3Done() {
     ]).start();
   }, []);
 
-const handleStart = async () => {
-  await saveOnboarding(userId as string, {
-    goal: goal as string,
-    sex: sex as string,
-    age: Number(age),
-    weight: Number(weight),
-    height: Number(height),
-  });
-  router.replace("/(tabs)");
-};
+  const handleStart = async () => {
+    await saveOnboarding(userId!, {
+      goal: goal as string,
+      sex: sex as string,
+      age: Number(age),
+      weight: Number(weight),
+      height: Number(height),
+    });
+    router.replace("/(tabs)"); // Entra al dashboard
+  };
 
   return (
     <View style={styles.container}>
@@ -139,7 +141,7 @@ const handleStart = async () => {
   );
 }
 
-// Componente fila del resumen
+
 // Componente fila del resumen
 function SummaryRow({ label, value, isLast = false }: { label: string; value: string; isLast?: boolean }) {
   return (

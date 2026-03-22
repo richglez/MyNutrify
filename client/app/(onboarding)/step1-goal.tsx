@@ -51,12 +51,14 @@ const GOALS: GoalOption[] = [
 export default function Step1Goal() {
   const [selected, setSelected] = useState<Goal | null>(null);
 
+
   const handleContinue = () => {
     if (!selected) return;
     // Guarda el goal y navega al siguiente paso
     router.push({
-      pathname: "/(onboarding)/step2-body",
-      params: { goal: selected },
+      // peticion push para navegar al siguiente paso
+      pathname: "/(onboarding)/step2-body", // path a donde viaja
+      params: { goal: selected }, // ✅ manda estos parametros al siguiente paso
     });
   };
 
@@ -64,7 +66,10 @@ export default function Step1Goal() {
     <View style={styles.container}>
       {/* Header row: flecha + progress */}
       <View style={styles.headerRow}>
-        <Pressable style={styles.backButton} onPress={() => router.replace("/(auth)/register")}>
+        <Pressable
+          style={styles.backButton}
+          onPress={() => router.replace("/(auth)/register")}
+        >
           <Ionicons name="arrow-back" size={18} color="#2E90FE" />
         </Pressable>
         <View style={styles.progressRow}>
