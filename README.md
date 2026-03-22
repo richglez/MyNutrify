@@ -11,8 +11,8 @@ MyNutrify tiene como objetivo ayudar a los usuarios a mejorar sus hábitos alime
 ---
 ## Overview:
 **App Preview**
-![App Preview](/docs/images/MyNutrify-Mobile-Application-Presentation(1).png)
-![](docs/images/MyNutrify-Mobile-Application-Presentation(2).png)
+![App Preview](/server/docs/images/MyNutrify-Mobile-Application-Presentation(1).png)
+![](/server/docs/images/MyNutrify-Mobile-Application-Presentation(2).png)
 
 
 ---
