@@ -107,6 +107,9 @@ MyNutrify/
 │   │   │   ├── step1-goal.tsx
 │   │   │   ├── step2-goal.tsx
 │   │   │   └── step3-goal.tsx
+│   │   ├── (settings)/
+│   │   │   ├── _layout.tsx
+│   │   │   └── account.tsx
 │   │   ├── (tabs)/
 │   │   │   ├── _layout.tsx
 │   │   │   ├── diary.tsx
