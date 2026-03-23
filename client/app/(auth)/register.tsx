@@ -49,11 +49,17 @@ function ErrorBanner({ message }: { message: string }) {
 
 // ── Pantalla principal ─────────────────────────────────────────────────────────
 export default function RegisterScreen() {
+  // ── Estados ───────────────────────────────────────────────────────────────
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailTaken, setEmailTaken] = useState(false); // simula email en uso
+  const [showPassword, setShowPassword] = useState(false);
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  // ── Store de autenticación ─────────────────────────────────────────────────────────
   const setAuth = useAuthStore((s) => s.setAuth);
+
 
   // Estados derivados
   const nameState = getFieldState(name, isValidName);
@@ -176,11 +182,19 @@ export default function RegisterScreen() {
           <TextInput
             placeholder="************"
             placeholderTextColor="#999"
-            secureTextEntry
+            secureTextEntry={!showPassword}
             value={password}
             onChangeText={setPassword}
             style={styles.input}
           />
+          {/* ── Botón del ojo ── */}
+          <Pressable onPress={() => setShowPassword((prev) => !prev)}>
+            <Ionicons
+              name={showPassword ? "eye-off-outline" : "eye-outline"}
+              size={20}
+              color="#666"
+            />
+          </Pressable>
           <FieldStatusIcon state={passwordState} />
         </View>
         {passwordError && <ErrorBanner message={passwordError} />}

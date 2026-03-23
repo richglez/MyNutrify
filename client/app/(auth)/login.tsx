@@ -80,12 +80,16 @@ function ErrorBanner({ message }: { message: string }) {
 
 // ── Pantalla principal ────────────────────────────────────────────────────────
 export default function LoginScreen() {
+  // ── Estados ──────────────────────────────────────────────────────────
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState<FieldError>(null);
   const [passwordError, setPasswordError] = useState<FieldError>(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  // ──────────────────────────────────────────────────────────────────────
 
+  // ── Store de autenticación ──
   const setAuth = useAuthStore((s) => s.setAuth);
 
   // Mensajes de error legibles
@@ -189,7 +193,7 @@ export default function LoginScreen() {
           <TextInput
             placeholder="************"
             placeholderTextColor="#999"
-            secureTextEntry
+            secureTextEntry={!showPassword} // ← controla la visibilidad de la contraseña
             value={password}
             onChangeText={(t) => {
               setPassword(t);
@@ -197,6 +201,16 @@ export default function LoginScreen() {
             }}
             style={styles.input}
           />
+
+          {/* ── Botón del ojo ── */}
+          <Pressable onPress={() => setShowPassword((prev) => !prev)}>
+            <Ionicons
+              name={showPassword ? "eye-off-outline" : "eye-outline"}
+              size={20}
+              color="#666"
+            />
+          </Pressable>
+
           {passwordError && (
             <Ionicons name="alert-circle" size={20} color="#e53935" />
           )}
