@@ -91,6 +91,7 @@ export default function LoginScreen() {
 
   // Validacion del formualrio ---
   const formIsValid = email.trim() !== ""; // diferente de vacio
+  // .trim() elimina espacios en blanco al inicio/final. Sin él, un usuario podría escribir solo un espacio " " y el botón se habilitaría, lo cual no tiene sentido.
 
   // ── Store de autenticación ──
   const setAuth = useAuthStore((s) => s.setAuth);
@@ -206,7 +207,10 @@ export default function LoginScreen() {
           />
 
           {/* ── Botón del ojo ── */}
-          <Pressable onPress={() => setShowPassword((prev) => !prev)}>
+          <Pressable
+            onPress={() => setShowPassword((prev) => !prev)}
+            style={{ marginRight: 10 }}
+          >
             <Ionicons
               name={showPassword ? "eye-off-outline" : "eye-outline"}
               size={20}

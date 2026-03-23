@@ -8,7 +8,14 @@ export const registerUser = async (name: string, email: string, password: string
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, email, password }),
   });
-  return res.json();
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw { status: res.status, message: data.message }; // ← igual que loginUser
+  }
+
+  return data;
 };
 
 // Guardar datos del onboarding

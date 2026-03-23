@@ -60,7 +60,6 @@ export default function RegisterScreen() {
   // ── Store de autenticación ─────────────────────────────────────────────────────────
   const setAuth = useAuthStore((s) => s.setAuth);
 
-
   // Estados derivados
   const nameState = getFieldState(name, isValidName);
   const emailState: FieldState =
@@ -104,7 +103,9 @@ export default function RegisterScreen() {
       router.replace({ pathname: "/(onboarding)/step1-goal" });
     } catch (err: any) {
       // Si el backend responde que el email ya existe
-      if (err?.message?.includes("email")) setEmailTaken(true);
+      if (err?.status === 400 || err?.message?.includes("email")) {
+        setEmailTaken(true);
+      }
     }
   };
 
@@ -189,7 +190,10 @@ export default function RegisterScreen() {
             style={styles.input}
           />
           {/* ── Botón del ojo ── */}
-          <Pressable onPress={() => setShowPassword((prev) => !prev)}>
+          <Pressable
+            onPress={() => setShowPassword((prev) => !prev)}
+            style={{ marginRight: 10 }}
+          >
             <Ionicons
               name={showPassword ? "eye-off-outline" : "eye-outline"}
               size={20}
