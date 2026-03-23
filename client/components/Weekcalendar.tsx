@@ -18,7 +18,7 @@ const CalendarIcon = () => (
       width="18"
       height="18"
       rx="3"
-      stroke="#2e90fe"
+      stroke="#0053D3"
       strokeWidth="2"
     />
     <Path
@@ -35,7 +35,7 @@ const ChevronLeft = () => (
   <Svg width={18} height={18} viewBox="0 0 24 24" fill="none">
     <Path
       d="M15 18L9 12L15 6"
-      stroke="#2e90fe"
+      stroke="#0053D3"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -47,7 +47,7 @@ const ChevronRight = () => (
   <Svg width={18} height={18} viewBox="0 0 24 24" fill="none">
     <Path
       d="M9 6L15 12L9 18"
-      stroke="#2e90fe"
+      stroke="#0053D3"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
