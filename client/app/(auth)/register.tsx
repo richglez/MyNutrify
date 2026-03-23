@@ -73,6 +73,7 @@ export default function RegisterScreen() {
           : "invalid";
   const passwordState = getFieldState(password, isValidPassword);
 
+  // Validacion del formualrio ---
   const formIsValid =
     nameState === "valid" &&
     emailState === "valid" &&

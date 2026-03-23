@@ -89,6 +89,9 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   // ──────────────────────────────────────────────────────────────────────
 
+  // Validacion del formualrio ---
+  const formIsValid = email.trim() !== ""; // diferente de vacio
+
   // ── Store de autenticación ──
   const setAuth = useAuthStore((s) => s.setAuth);
 
@@ -221,11 +224,19 @@ export default function LoginScreen() {
 
         {/* ── Login button ── */}
         <Pressable
-          style={[styles.button, loading && styles.buttonDisabled]}
+          style={[
+            styles.button,
+            (loading || !formIsValid) && styles.buttonDisabled, // aplica estilo deshabilitado si está cargando o el form no es válido
+          ]}
           onPress={handleLogin}
-          disabled={loading}
+          disabled={loading || !formIsValid} // si el form no es válido o si está cargando, deshabilita el botón
         >
-          <Text style={styles.buttonText}>
+          <Text
+            style={[
+              styles.buttonText,
+              !formIsValid && styles.buttonTextDisabled, // aplica estilo de texto deshabilitado si el form no es válido
+            ]}
+          >
             {loading ? "Iniciando..." : "Login"}
           </Text>
         </Pressable>
