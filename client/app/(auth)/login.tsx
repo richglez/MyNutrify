@@ -130,7 +130,7 @@ export default function LoginScreen() {
     try {
       setLoading(true);
       const data = await loginUser(email, password);
-      setAuth(data.userId, data.token, data.name);
+      setAuth(data.userId, data.token, data.name, data.email); // Al iniciar sesion, guardar los datos a la autenticacion al store de Zustand
       router.replace("/(tabs)");
     } catch (err: any) {
       console.log("ERROR:", JSON.stringify(err)); // ← agrega esto

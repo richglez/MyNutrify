@@ -23,7 +23,6 @@ const asyncHandler =
 router.post(
   "/login",
   asyncHandler(async (req: Request, res: Response) => {
-    console.log("🔐 LOGIN endpoint ejecutado"); // ← agrega esto
     const { email, password } = req.body;
 
     // Buscar usuario
@@ -47,7 +46,8 @@ router.post(
       expiresIn: "7d",
     });
 
-    res.json({ token, userId: user._id, name: user.name });
+    res.json({ token, userId: user._id, name: user.name, email: user.email }); // datos a devolver en la peticion login
+    console.log("Usuario Loggeado👤");
   }),
 );
 
