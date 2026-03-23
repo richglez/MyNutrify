@@ -32,7 +32,7 @@ export default function RootLayout() {
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(onboarding)" />
         <Stack.Screen
-          name="account"
+          name="(settings)" // ← ruta con el grupo incluido
           options={{
             animation: "slide_from_right",
           }}

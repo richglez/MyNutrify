@@ -83,7 +83,7 @@ export default function SettingsScreen() {
             icon="person-outline"
             label="Account"
             value={name ?? "Default User"} // Si el nombre es null o undefined, muestra "Default User, de lo contrario muestra el nombre real"
-            onPress={() => router.push("/account")}
+            onPress={() => router.push("/(settings)/account")} // Navega a la pantalla de cuenta
           />
           <SettingRow icon="notifications-outline" label="Notifications" />
           <SettingRow icon="lock-closed-outline" label="Privacy" isLast />
