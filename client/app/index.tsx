@@ -1,4 +1,4 @@
-// Splash Screen -> app/index.tsx
+// Splash Screen -> client\app\index.tsx
 import { useEffect, useRef } from "react";
 import { Animated, Image, StyleSheet, View } from "react-native";
 import { router } from "expo-router";
@@ -56,7 +56,7 @@ export default function SplashScreen() {
     return () => clearTimeout(timer);
   }, []);
 
-  
+
 
   return (
     <LinearGradient

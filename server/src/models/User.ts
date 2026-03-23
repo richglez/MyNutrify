@@ -1,4 +1,4 @@
-// server/src/models/User.ts
+// Collection-User -> server\src\models\User.ts
 
 import mongoose, { Schema, Document } from 'mongoose';
 

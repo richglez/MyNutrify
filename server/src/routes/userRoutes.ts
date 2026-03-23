@@ -9,6 +9,36 @@ const router = Router();
 const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => Promise<void>): RequestHandler =>
   (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
+
+// ─── POST /api/users/login ──────────────────────
+router.post('/login', asyncHandler(async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  // 1. Buscar usuario
+  const user = await User.findOne({ email });
+  if (!user) {
+    res.status(401).json({ message: 'Credenciales inválidas' });
+    return;
+  }
+
+  // 2. Verificar contraseña
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    res.status(401).json({ message: 'Credenciales inválidas' });
+    return;
+  }
+
+  // 3. Generar token
+  const token = jwt.sign(
+    { userId: user._id },
+    process.env.JWT_SECRET!,
+    { expiresIn: '7d' }
+  );
+
+  res.json({ token, userId: user._id });
+}));
+
+
 // ─── POST /api/users/register ──────────────────────
 router.post('/register', asyncHandler(async (req: Request, res: Response) => {
   console.log('📩 Petición recibida en /register', req.body); // ← agrega esto

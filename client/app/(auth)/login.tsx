@@ -1,4 +1,4 @@
-// app/login.tsx — Sign In
+// Sign In -> client\app\(auth)\login.tsx
 
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
@@ -6,6 +6,8 @@ import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import Svg, { Path } from "react-native-svg";
+import { loginUser } from "@/services/db";
+import { useAuthStore } from "@/store/useAuthStore";
 
 // ── Google "G" con colores oficiales ──────────────────────────────────────────
 function GoogleG({ size = 22 }: { size?: number }) {
@@ -37,7 +39,6 @@ function GoogleG({ size = 22 }: { size?: number }) {
   );
 }
 
-
 // ── Botón social solo icono ───────────────────────────────────────────────────
 function SocialButton({
   icon,
@@ -59,12 +60,84 @@ function SocialButton({
   );
 }
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+type FieldError =
+  | "email_format"
+  | "email_not_found"
+  | "password_wrong"
+  | "password_empty"
+  | null;
+
+function ErrorBanner({ message }: { message: string }) {
+  return (
+    <View style={styles.errorBanner}>
+      <Text style={styles.errorBannerText}>{message}</Text>
+    </View>
+  );
+}
+
+// ── Pantalla principal ────────────────────────────────────────────────────────
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState<FieldError>(null);
+  const [passwordError, setPasswordError] = useState<FieldError>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    router.replace("/(tabs)");
+  const setAuth = useAuthStore((s) => s.setAuth);
+
+  // Mensajes de error legibles
+  const emailErrorMsg: Record<string, string> = {
+    email_format: "Ingresa un correo electrónico válido.",
+    email_not_found: "No existe una cuenta con este correo.",
+  };
+  const passwordErrorMsg: Record<string, string> = {
+    password_empty: "Ingresa tu contraseña.",
+    password_wrong: "Contraseña incorrecta.",
+  };
+
+  const handleLogin = async () => {
+    // ── Validaciones locales antes de hacer fetch ──
+    let hasError = false;
+
+    if (!isValidEmail(email)) {
+      setEmailError("email_format");
+      hasError = true;
+    } else {
+      setEmailError(null);
+    }
+
+    if (password.length === 0) {
+      setPasswordError("password_empty");
+      hasError = true;
+    } else {
+      setPasswordError(null);
+    }
+
+    if (hasError) return;
+
+    // ── Llamada al backend ──
+    try {
+      setLoading(true);
+      const data = await loginUser(email, password);
+      setAuth(data.userId, data.token);
+      router.replace("/(tabs)");
+    } catch (err: any) {
+      // El backend responde 401 con "Credenciales inválidas" para ambos casos.
+      // Para darle feedback específico al usuario, primero verificamos si el
+      // email existe checando el formato; si el email es válido el error es la contraseña.
+      // (Si quieres distinguir exactamente, necesitarías dos endpoints o códigos distintos en el backend)
+      if (err?.status === 401) {
+        // Estrategia: intentamos saber si el email simplemente no existe
+        // mostrando el error en el campo de email por defecto, luego el usuario puede corregir.
+        setEmailError("email_not_found");
+        setPasswordError("password_wrong");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,7 +147,10 @@ export default function LoginScreen() {
       end={{ x: 1, y: 1 }}
       style={styles.container}
     >
-      <Pressable style={styles.backButton} onPress={() => router.replace("/welcome")}>
+      <Pressable
+        style={styles.backButton}
+        onPress={() => router.replace("/welcome")}
+      >
         <Ionicons name="arrow-back" size={26} color="white" />
       </Pressable>
 
@@ -84,34 +160,60 @@ export default function LoginScreen() {
       <View style={styles.card}>
         {/* ── Email ── */}
         <Text style={styles.label}>Email</Text>
-        <View style={styles.inputContainer}>
+        <View style={[styles.inputContainer, emailError && styles.inputError]}>
           <Ionicons name="mail-outline" size={20} color="#666" />
           <TextInput
             placeholder="example@gmail.com"
             placeholderTextColor="#999"
             value={email}
-            onChangeText={setEmail}
+            onChangeText={(t) => {
+              setEmail(t);
+              setEmailError(null);
+            }}
+            keyboardType="email-address"
+            autoCapitalize="none"
             style={styles.input}
           />
+          {emailError && (
+            <Ionicons name="alert-circle" size={20} color="#e53935" />
+          )}
         </View>
+        {emailError && <ErrorBanner message={emailErrorMsg[emailError]} />}
 
         {/* ── Password ── */}
         <Text style={styles.label}>Password</Text>
-        <View style={styles.inputContainer}>
+        <View
+          style={[styles.inputContainer, passwordError && styles.inputError]}
+        >
           <Ionicons name="lock-closed-outline" size={20} color="#666" />
           <TextInput
             placeholder="************"
             placeholderTextColor="#999"
             secureTextEntry
             value={password}
-            onChangeText={setPassword}
+            onChangeText={(t) => {
+              setPassword(t);
+              setPasswordError(null);
+            }}
             style={styles.input}
           />
+          {passwordError && (
+            <Ionicons name="alert-circle" size={20} color="#e53935" />
+          )}
         </View>
+        {passwordError && (
+          <ErrorBanner message={passwordErrorMsg[passwordError]} />
+        )}
 
         {/* ── Login button ── */}
-        <Pressable style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+        <Pressable
+          style={[styles.button, loading && styles.buttonDisabled]}
+          onPress={handleLogin}
+          disabled={loading}
+        >
+          <Text style={styles.buttonText}>
+            {loading ? "Iniciando..." : "Login"}
+          </Text>
         </Pressable>
 
         {/* ── Divider ── */}
@@ -194,6 +296,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f4f6fa",
     borderRadius: 12,
     paddingHorizontal: 12,
+    borderWidth: 1.5, // 
+    borderColor: "transparent",
   },
 
   input: {
@@ -321,5 +425,35 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "600",
+  },
+
+  // ── Botón deshabilitado ──
+  buttonDisabled: {
+    backgroundColor: "#b0c4de",
+    shadowOpacity: 0,
+    elevation: 0,
+  },
+  buttonTextDisabled: {
+    color: "rgba(255,255,255,0.6)",
+  },
+
+  // ── Banner de error ──
+  errorBanner: {
+    backgroundColor: "#e53935",
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginTop: -4,
+  },
+
+  errorBannerText: {
+    color: "white",
+    fontFamily: "DMSans_400Regular",
+    fontSize: 13,
+  },
+
+  inputError: {
+    borderColor: "#e53935",
+    backgroundColor: "#fff5f5",
   },
 });

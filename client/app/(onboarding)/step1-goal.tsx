@@ -66,12 +66,6 @@ export default function Step1Goal() {
     <View style={styles.container}>
       {/* Header row: flecha + progress */}
       <View style={styles.headerRow}>
-        <Pressable
-          style={styles.backButton}
-          onPress={() => router.replace("/(auth)/register")}
-        >
-          <Ionicons name="arrow-back" size={18} color="#2E90FE" />
-        </Pressable>
         <View style={styles.progressRow}>
           <View style={[styles.progressBar, styles.progressActive]} />
           <View style={styles.progressBar} />

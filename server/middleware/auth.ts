@@ -1,4 +1,4 @@
-// server\middleware\auth.ts
+// Middleware -> server\middleware\auth.ts
 // const token = req.headers.authorization?.split(' ')[1];
 // const decoded = jwt.verify(token, process.env.JWT_SECRET!);
 // si es válido → continúa, si no → 401 Unauthorized

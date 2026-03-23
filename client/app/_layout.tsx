@@ -1,4 +1,4 @@
-// Layout -> app/_layout.tsx
+// Layout -> client\app\_layout.tsx
 
 import { Slot } from "expo-router";
 import {

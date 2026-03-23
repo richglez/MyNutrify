@@ -71,6 +71,7 @@ export default function RegisterScreen() {
     nameState === "valid" &&
     emailState === "valid" &&
     passwordState === "valid";
+  //Mientras no se cumplan los tres, el botón tiene disabled={true} + color gris + sin sombra
 
   // Mensaje de error por campo
   const nameError =
