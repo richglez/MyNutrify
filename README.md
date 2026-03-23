@@ -54,6 +54,7 @@ Desde el punto de vista del usuario, la app busca:
 ### Frontend (Mobile)
 - **React Native**
 - **Expo**
+- **Zustand for state management**
 - **TypeScript**
 - React Navigation
 
