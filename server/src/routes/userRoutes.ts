@@ -23,11 +23,13 @@ const asyncHandler =
 router.post(
   "/login",
   asyncHandler(async (req: Request, res: Response) => {
+    console.log("🔐 LOGIN endpoint ejecutado"); // ← agrega esto
     const { email, password } = req.body;
 
     // Buscar usuario
     const user = await User.findOne({ email });
     if (!user) {
+      console.log("❌ email no encontrado"); // ← y esto
       res.status(401).json({ message: "email_not_found" });
       return;
     }
@@ -35,6 +37,7 @@ router.post(
     // Verificar contraseña
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      console.log("❌ contraseña incorrecta"); // ← y esto
       res.status(401).json({ message: "password_wrong" });
       return;
     }

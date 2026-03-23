@@ -21,6 +21,9 @@ app.use(cors());
 app.use('/api/users', userRoutes);
 console.log('✅ Rutas de usuarios registradas');
 
+
+
+
 // Conectar a MongoDB
 mongoose.connect(MONGODB_URI)
   .then(() => console.log('✅ MongoDB conectado'))
