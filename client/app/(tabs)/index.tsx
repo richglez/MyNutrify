@@ -1,4 +1,4 @@
-// app/(tabs)/index.tsx — Dashboard
+// Dashboard -> app/(tabs)/index.tsx
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import WeekCalendar from "@/components/Weekcalendar";
 import NutritionCard from "@/components/NutritionCard";
 import { DailyMacro } from "@/types/calendar";
 import { LinearGradient } from "expo-linear-gradient";
+import { useAuthStore } from "@/store/useAuthStore";
 
 // ─── Ícono campana ────────────────────────────────────────────────────────────
 const BellIcon = () => (
@@ -37,7 +38,7 @@ const BellIcon = () => (
 
 export default function DashboardScreen() {
   const insets = useSafeAreaInsets();
-  const userName = "Ricardo Gonzalez";
+  const name = useAuthStore((s) => s.name);
   const hour = new Date().getHours();
   const greeting =
     hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening";
@@ -96,7 +97,7 @@ export default function DashboardScreen() {
             {/* Textos apilados a la derecha */}
             <View style={styles.greetingTexts}>
               <Text style={styles.greeting}>{greeting}</Text>
-              <Text style={styles.userName}>{userName}</Text>
+              <Text style={styles.nameStyles}>{name}</Text>
             </View>
           </View>
 
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
 
-  userName: {
+  nameStyles: {
     fontFamily: "DMSans_600SemiBold",
     fontSize: 20,
     color: "#000000",

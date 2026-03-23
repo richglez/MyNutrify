@@ -47,7 +47,7 @@ router.post(
       expiresIn: "7d",
     });
 
-    res.json({ token, userId: user._id });
+    res.json({ token, userId: user._id, name: user.name });
   }),
 );
 

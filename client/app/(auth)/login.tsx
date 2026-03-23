@@ -130,7 +130,7 @@ export default function LoginScreen() {
     try {
       setLoading(true);
       const data = await loginUser(email, password);
-      setAuth(data.userId, data.token);
+      setAuth(data.userId, data.token, data.name);
       router.replace("/(tabs)");
     } catch (err: any) {
       console.log("ERROR:", JSON.stringify(err)); // ← agrega esto

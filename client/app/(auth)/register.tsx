@@ -99,7 +99,7 @@ export default function RegisterScreen() {
     if (!formIsValid) return;
     try {
       const data = await registerUser(name, email, password);
-      setAuth(data.userId, data.token);
+      setAuth(data.userId, data.token, name); // guarda también el nombre en el store
       router.replace({ pathname: "/(onboarding)/step1-goal" });
     } catch (err: any) {
       // Si el backend responde que el email ya existe
