@@ -53,7 +53,7 @@ Desde el punto de vista del usuario, la app busca:
 
 ### Frontend (Mobile)
 - **React Native**
-- **Expo**
+- **Expo \ Expo-Go \ Expo-Router**
 - **Zustand for state management**
 - **TypeScript**
 - React Navigation
@@ -102,6 +102,11 @@ MyNutrify/
 │   │   │   ├── login.tsx
 │   │   │   ├── register.tsx
 │   │   │   └── welcome.tsx
+│   │   ├── (onboarding)/
+│   │   │   ├── _layout.tsx
+│   │   │   ├── step1-goal.tsx
+│   │   │   ├── step2-goal.tsx
+│   │   │   └── step3-goal.tsx
 │   │   ├── (tabs)/
 │   │   │   ├── _layout.tsx
 │   │   │   ├── diary.tsx
@@ -117,6 +122,8 @@ MyNutrify/
 │   ├── hooks/
 │   ├── services/
 │   │   └── db.ts
+│   ├── store/
+│   │   └── useAuthStore.ts
 │   ├── types/
 │   ├──.gitignore
 │   ├── node_modules/     
@@ -125,13 +132,14 @@ MyNutrify/
 │   └── tsconfig.json
 │
 ├── server/       
-│   ├── database/ 
 │   ├── docs/  
 │   ├── node_modules/     
 │   ├── src/
 │   │   ├── controllers/  
-│   │   ├── models/         
+│   │   ├── models/   
+│   │   │   └── User.ts
 │   │   ├── routes/
+│   │   │   └── userRoutes.ts
 │   │   └── server.ts             
 │   ├── .gitignore           
 │   └── package.json
