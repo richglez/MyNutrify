@@ -1,6 +1,6 @@
-// Layout -> client\app\_layout.tsx
+// Layout Padre -> client\app\_layout.tsx
 
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import {
   useFonts,
   DMSans_300Light,
@@ -25,5 +25,18 @@ export default function RootLayout() {
 
   if (!loaded) return null; // espera a que cargue la fuente
 
-  return <Slot />;
+    return (
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(onboarding)" />
+        <Stack.Screen
+          name="account"
+          options={{
+            animation: "slide_from_right",
+          }}
+        />
+      </Stack>
+    );
 }

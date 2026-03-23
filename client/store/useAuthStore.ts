@@ -1,10 +1,11 @@
 // client/store/useAuthStore.ts
 import { create } from "zustand";
 
+// Autenticación global con Zustand
 interface AuthState {
-  userId: string | null;
-  token: string | null;
-  name: string | null;
+  userId: string | null; // estados posibles | null es el estado vacío correcto
+  token: string | null; // estados posibles | null es el estado vacío correcto
+  name: string | null; // estados posibles | null es el estado vacío correcto
   setAuth: (userId: string, token: string, name: string) => void;
   clearAuth: () => void;
 }

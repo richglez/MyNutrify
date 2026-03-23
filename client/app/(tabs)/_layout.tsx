@@ -1,4 +1,4 @@
-// app/(tabs)/_layout.tsx
+// Layout for Tabs -> client\app\(tabs)\_layout.tsx
 import { Tabs } from "expo-router";
 import { useState } from "react";
 import { Modal, View, StyleSheet, Pressable, Text } from "react-native";

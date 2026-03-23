@@ -1,9 +1,11 @@
-// Settings -> app/(tabs)/settings.tsx
+// Settings -> client\app\(tabs)\settings.tsx
 
-import { View, Text, ScrollView, StyleSheet, StatusBar } from "react-native";
+import { View, Text, ScrollView, StyleSheet, StatusBar, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useAuthStore } from "@/store/useAuthStore";
+import { router } from "expo-router";
 
 function GlassCard({ children }: { children: React.ReactNode }) {
   return (
@@ -14,20 +16,24 @@ function GlassCard({ children }: { children: React.ReactNode }) {
   );
 }
 
+
+// Setting Row Component
 function SettingRow({
   icon,
   label,
   value,
   isLast = false,
+  onPress,
 }: {
   icon: keyof typeof Ionicons.glyphMap;
   label: string;
   value?: string;
   isLast?: boolean;
+  onPress?: () => void;
 }) {
   return (
     <>
-      <View style={styles.row}>
+      <Pressable style={styles.row} onPress={onPress}>
         <View style={styles.iconWrapper}>
           {/* iconos para settings */}
           <Ionicons name={icon} size={18} color="rgb(255, 255, 255)" />
@@ -39,14 +45,17 @@ function SettingRow({
           size={15}
           color="rgba(255,255,255,0.4)"
         />
-      </View>
+      </Pressable>
       {!isLast && <View style={styles.divider} />}
     </>
   );
 }
 
+
+
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
+  const name = useAuthStore((s) => s.name);
   return (
     <LinearGradient
       colors={[
@@ -61,8 +70,6 @@ export default function SettingsScreen() {
       locations={[0, 0.12, 0.28, 0.45, 0.62, 0.8, 1]}
       style={styles.gradient}
     >
-
-
       <ScrollView
         contentContainerStyle={[styles.scroll, { paddingTop: insets.top + 16 }]}
       >
@@ -75,7 +82,8 @@ export default function SettingsScreen() {
           <SettingRow
             icon="person-outline"
             label="Account"
-            value="Ricardo Gonzalez"
+            value={name ?? "Default User"} // Si el nombre es null o undefined, muestra "Default User, de lo contrario muestra el nombre real"
+            onPress={() => router.push("/account")}
           />
           <SettingRow icon="notifications-outline" label="Notifications" />
           <SettingRow icon="lock-closed-outline" label="Privacy" isLast />
