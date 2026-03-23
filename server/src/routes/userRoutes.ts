@@ -1,113 +1,127 @@
 // userRoutes -> server\src\routes\userRoutes.ts
 // Configuracion de rutas relacionadas con usuarios (registro, onboarding, etc.)
-import { Router, Request, Response, NextFunction, RequestHandler } from 'express';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import User from '../models/User';
+import {
+  Router,
+  Request,
+  Response,
+  NextFunction,
+  RequestHandler,
+} from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import User from "../models/User";
 
 const router = Router();
-const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => Promise<void>): RequestHandler =>
-  (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
-
+const asyncHandler =
+  (
+    fn: (req: Request, res: Response, next: NextFunction) => Promise<void>,
+  ): RequestHandler =>
+  (req, res, next) =>
+    Promise.resolve(fn(req, res, next)).catch(next);
 
 // ─── POST /api/users/login ──────────────────────
-router.post('/login', asyncHandler(async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+router.post(
+  "/login",
+  asyncHandler(async (req: Request, res: Response) => {
+    const { email, password } = req.body;
 
-  // 1. Buscar usuario
-  const user = await User.findOne({ email });
-  if (!user) {
-    res.status(401).json({ message: 'Credenciales inválidas' });
-    return;
-  }
+    // Buscar usuario
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(401).json({ message: "email_not_found" });
+      return;
+    }
 
-  // 2. Verificar contraseña
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    res.status(401).json({ message: 'Credenciales inválidas' });
-    return;
-  }
+    // Verificar contraseña
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      res.status(401).json({ message: "password_wrong" });
+      return;
+    }
 
-  // 3. Generar token
-  const token = jwt.sign(
-    { userId: user._id },
-    process.env.JWT_SECRET!,
-    { expiresIn: '7d' }
-  );
+    // Generar token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, {
+      expiresIn: "7d",
+    });
 
-  res.json({ token, userId: user._id });
-}));
-
+    res.json({ token, userId: user._id });
+  }),
+);
 
 // ─── POST /api/users/register ──────────────────────
-router.post('/register', asyncHandler(async (req: Request, res: Response) => {
-  console.log('📩 Petición recibida en /register', req.body); // ← agrega esto
-  try {
-    const { name, email, password } = req.body;
+router.post(
+  "/register",
+  asyncHandler(async (req: Request, res: Response) => {
+    console.log("📩 Petición recibida en /register", req.body); // ← agrega esto
+    try {
+      const { name, email, password } = req.body;
 
-    // Verificar si ya existe
-    const exists = await User.findOne({ email });
-    if (exists) {
-      res.status(400).json({ message: 'El email ya está registrado' });
-      return;
+      // Verificar si ya existe
+      const exists = await User.findOne({ email });
+      if (exists) {
+        res.status(400).json({ message: "El email ya está registrado" });
+        return;
+      }
+
+      // Encriptar contraseña
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Crear usuario
+      const user = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+      });
+
+      // Generar token para autenticación con JWT
+      const token = jwt.sign(
+        //para que tu servidor sepa que las siguientes peticiones vienen de un usuario legítimo que ya se registró o inició sesión.
+        { userId: user._id }, // ← esto va en el payload
+        process.env.JWT_SECRET!, // ← clave secreta para firmar
+        { expiresIn: "7d" }, //  // ← expira en 7 días
+      );
+
+      res.status(201).json({
+        token,
+        userId: user._id, // ← user._id viene de MongoDB, tú solo lo expones como userId en el token y la respuesta
+        message: "Usuario creado exitosamente",
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Error al registrar usuario", error });
     }
-
-    // Encriptar contraseña
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Crear usuario
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-    });
-
-    // Generar token para autenticación con JWT
-    const token = jwt.sign(  //para que tu servidor sepa que las siguientes peticiones vienen de un usuario legítimo que ya se registró o inició sesión.
-      { userId: user._id }, // ← esto va en el payload
-      process.env.JWT_SECRET!, // ← clave secreta para firmar
-      { expiresIn: '7d' } //  // ← expira en 7 días
-    );
-
-    res.status(201).json({
-      token,
-      userId: user._id, // ← user._id viene de MongoDB, tú solo lo expones como userId en el token y la respuesta
-      message: 'Usuario creado exitosamente'
-    });
-
-  } catch (error) {
-    res.status(500).json({ message: 'Error al registrar usuario', error });
-  }
-}));
+  }),
+);
 
 // ─── PUT /api/users/:id/onboarding ─────────────────
-router.put('/:id/onboarding', asyncHandler (async (req: Request, res: Response) => {
-  try {
-    const { goal, sex, age, weight, height } = req.body;
+router.put(
+  "/:id/onboarding",
+  asyncHandler(async (req: Request, res: Response) => {
+    try {
+      const { goal, sex, age, weight, height } = req.body;
 
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        goal,
-        sex,
-        age: Number(age),
-        weight: Number(weight),
-        height: Number(height),
-        isOnboardingComplete: true,
-      },
-      { new: true }
-    );
+      const user = await User.findByIdAndUpdate(
+        req.params.id,
+        {
+          goal,
+          sex,
+          age: Number(age),
+          weight: Number(weight),
+          height: Number(height),
+          isOnboardingComplete: true,
+        },
+        { new: true },
+      );
 
-    if (!user) {
-      res.status(404).json({ message: 'Usuario no encontrado' });
-      return;
+      if (!user) {
+        res.status(404).json({ message: "Usuario no encontrado" });
+        return;
+      }
+
+      res.json({ message: "Perfil actualizado", user });
+    } catch (error) {
+      res.status(500).json({ message: "Error al actualizar perfil", error });
     }
-
-    res.json({ message: 'Perfil actualizado', user });
-
-  } catch (error) {
-    res.status(500).json({ message: 'Error al actualizar perfil', error });
-  }
-}));
+  }),
+);
 
 export default router;

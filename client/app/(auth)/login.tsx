@@ -125,13 +125,13 @@ export default function LoginScreen() {
       setAuth(data.userId, data.token);
       router.replace("/(tabs)");
     } catch (err: any) {
-      // El backend responde 401 con "Credenciales inválidas" para ambos casos.
-      // Para darle feedback específico al usuario, primero verificamos si el
-      // email existe checando el formato; si el email es válido el error es la contraseña.
-      // (Si quieres distinguir exactamente, necesitarías dos endpoints o códigos distintos en el backend)
-      if (err?.status === 401) {
-        // Estrategia: intentamos saber si el email simplemente no existe
-        // mostrando el error en el campo de email por defecto, luego el usuario puede corregir.
+      console.log("ERROR:", JSON.stringify(err)); // ← agrega esto
+      const msg = err?.message;
+      if (msg === "email_not_found") {
+        setEmailError("email_not_found");
+      } else if (msg === "password_wrong") {
+        setPasswordError("password_wrong");
+      } else {
         setEmailError("email_not_found");
         setPasswordError("password_wrong");
       }
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f4f6fa",
     borderRadius: 12,
     paddingHorizontal: 12,
-    borderWidth: 1.5, // 
+    borderWidth: 1.5, //
     borderColor: "transparent",
   },
 
