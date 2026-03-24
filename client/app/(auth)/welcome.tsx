@@ -1,11 +1,26 @@
 // app/welcome.tsx
 // Welcome - Pantalla inicial de bienvenida con opciones para iniciar sesión o registrarse
 
-import { Text, StyleSheet, Pressable, View, Image } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  View,
+  Image,
+  StatusBar,
+} from "react-native";
 import { router } from "expo-router";
+import { useRouter, useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
+import { useCallback } from "react";
 
 export default function WelcomeScreen() {
+  // StatusBar Light
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("light-content");
+    }, []),
+  );
   return (
     <LinearGradient
       colors={["#0f3fb8", "#4aa3ff"]}

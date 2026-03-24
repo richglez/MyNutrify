@@ -1,11 +1,13 @@
 // SingUp -> client\app\(auth)\register.tsx
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable, StatusBar } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
+import { useRouter, useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { registerUser } from "@/services/db";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useCallback } from "react";
 
 // ── Helpers de validación ──────────────────────────────────────────────────────
 const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -56,6 +58,13 @@ export default function RegisterScreen() {
   const [emailTaken, setEmailTaken] = useState(false); // simula email en uso
   const [showPassword, setShowPassword] = useState(false);
   // ─────────────────────────────────────────────────────────────────────────────
+
+  // StatusBar Light
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("light-content");
+    }, []),
+  );
 
   // ── Store de autenticación ─────────────────────────────────────────────────────────
   const setAuth = useAuthStore((s) => s.setAuth);
@@ -118,7 +127,7 @@ export default function RegisterScreen() {
     >
       <Pressable
         style={styles.backButton}
-        onPress={() => router.replace("/welcome")}
+        onPress={() => router.back()}
       >
         <Ionicons name="arrow-back" size={26} color="white" />
       </Pressable>

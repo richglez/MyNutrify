@@ -1,8 +1,10 @@
 // Splash Screen -> client\app\index.tsx
 import { useEffect, useRef } from "react";
-import { Animated, Image, StyleSheet, View } from "react-native";
+import { Animated, Image, StyleSheet, View, StatusBar } from "react-native";
 import { router } from "expo-router";
+import { useRouter, useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
+import { useCallback } from "react";
 
 
 const APP_NAME = "MyNutrify!".split("");
@@ -17,6 +19,12 @@ export default function SplashScreen() {
       translateY: new Animated.Value(12),
     })),
   ).current;
+
+    useFocusEffect(
+      useCallback(() => {
+        StatusBar.setBarStyle("light-content");
+      }, []),
+    );
 
   useEffect(() => {
     // 1. Logo aparece primero

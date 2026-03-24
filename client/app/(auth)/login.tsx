@@ -1,13 +1,22 @@
 // Sign In -> client\app\(auth)\login.tsx
 
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  StatusBar,
+} from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
+import { useRouter, useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import Svg, { Path } from "react-native-svg";
 import { loginUser } from "@/services/db";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useCallback } from "react";
 
 // ── Google "G" con colores oficiales ──────────────────────────────────────────
 function GoogleG({ size = 22 }: { size?: number }) {
@@ -89,6 +98,13 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   // ──────────────────────────────────────────────────────────────────────
 
+  // StatusBar Light
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("light-content");
+    }, []),
+  );
+
   // Validacion del formualrio ---
   const formIsValid = email.trim() !== ""; // diferente de vacio
   // .trim() elimina espacios en blanco al inicio/final. Sin él, un usuario podría escribir solo un espacio " " y el botón se habilitaría, lo cual no tiene sentido.
@@ -157,7 +173,7 @@ export default function LoginScreen() {
     >
       <Pressable
         style={styles.backButton}
-        onPress={() => router.replace("/welcome")}
+        onPress={() => router.back()}
       >
         <Ionicons name="arrow-back" size={26} color="white" />
       </Pressable>
