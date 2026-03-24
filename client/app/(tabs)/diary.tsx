@@ -15,6 +15,7 @@ import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons"; // iconos
+import { LinearGradient } from "expo-linear-gradient";
 
 // ── Tipos ──────────────────────────────────────────────────────────────────
 
@@ -86,16 +87,44 @@ export default function DiaryScreen() {
   };
 
   return (
-    <View style={[styles.safe, { paddingTop: insets.top }]}>
-      {/* ── Header de fecha ── */}
-      <DateHeader selectedDate={selectedDate} onDateChange={setSelectedDate} />
-
+    <LinearGradient
+      colors={[
+        "#0A2472",
+        "#0D47A1",
+        "#1976D2",
+        "#42A5F5",
+        "#90CAF9",
+        "#E3F2FD",
+        "#F8FBFF",
+      ]}
+      locations={[0, 0.12, 0.28, 0.45, 0.62, 0.8, 1]}
+      style={styles.gradient}
+    >
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: insets.bottom + 150 },
+          { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 150 },
         ]} // ← usa scrollContent, sin paddingTop extra
       >
+        {/* Header */}
+        <View style={styles.header}>
+          <View>
+            {/* --- Title --- */}
+            <Text style={styles.title}>Diary</Text>
+            {/* --- Subtitle --- */}
+            <Text style={styles.placeHolder}>Your daily diary.</Text>
+          </View>
+          <TouchableOpacity style={styles.gridBtn} activeOpacity={0.8}>
+            <Ionicons name="grid" size={15} color="#FFFFFF" />
+          </TouchableOpacity>
+        </View>
+
+        {/* ── Header de fecha ── */}
+        <DateHeader
+          selectedDate={selectedDate}
+          onDateChange={setSelectedDate}
+        />
+
         {/* ── Resumen de calorías ── */}
         <CalorieSummary
           goal={DAILY_GOAL}
@@ -111,9 +140,6 @@ export default function DiaryScreen() {
           resizeMode="cover"
         />
 
-        {/* ── Título sección ── */}
-        <Text style={styles.titles}>Diary</Text>
-
         {/* ── Cards de comida ── */}
         {meals.map((meal) => (
           <MealCard
@@ -123,7 +149,7 @@ export default function DiaryScreen() {
           />
         ))}
       </ScrollView>
-    </View>
+    </LinearGradient>
   );
 }
 
@@ -569,22 +595,23 @@ const calStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  safe: {
+  gradient: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
   },
   banner: {
     width: Dimensions.get("window").width,
     height: 130,
     marginLeft: -20, // cancela el padding izquierdo
   },
-  titles: {
-    fontFamily: "DMSans_600SemiBold", // títulos
-    fontSize: 24,
-    letterSpacing: -0.5,
-    color: "#2E90FE",
-    paddingBottom: 8,
-    paddingTop: 16,
+  title: {
+    fontFamily: "DMSans_900Black",
+    fontSize: 36,
+    letterSpacing: -1.5,
+    color: "#F7FFF5",
+  },
+  placeHolder: {
+    fontFamily: "DMSans_400Regular",
+    color: "#7BA7E1",
   },
   scroll: {
     flex: 1,
@@ -702,5 +729,24 @@ const styles = StyleSheet.create({
     fontSize: 22,
     lineHeight: 26,
     fontFamily: "DMSans_400Regular",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  gridBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: "rgba(217, 231, 255, 0.44)",
+    backgroundColor: "rgba(112, 178, 239, 0.18)",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#a6b7ec",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
   },
 });

@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: "800",
-    color: "#FFFFFF",
+    color: "#F7FFF5",
     letterSpacing: -0.8,
     textShadowColor: "rgba(0,20,80,0.3)",
     textShadowOffset: { width: 0, height: 2 },

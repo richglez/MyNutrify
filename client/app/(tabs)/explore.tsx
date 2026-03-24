@@ -112,13 +112,16 @@ export default function ExploreScreen() {
   return (
     <View style={styles.container}>
       <ScrollView
-        contentContainerStyle={[styles.scroll, { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 85 }]}
+        contentContainerStyle={[
+          styles.scroll,
+          { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 85 },
+        ]}
       >
         {/* Header */}
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Hi, Ricardo 👋</Text>
-            <Text style={styles.subtitle}>Discover</Text>
+            <Text style={styles.title}>Discover</Text>
           </View>
           <TouchableOpacity style={styles.avatarBtn}>
             <Text style={styles.avatarText}>R</Text>
@@ -249,11 +252,11 @@ const styles = StyleSheet.create({
     color: "#7A8573",
     marginBottom: 2,
   },
-  subtitle: {
+  title: {
     fontFamily: "DMSans_900Black",
     fontSize: 36,
     letterSpacing: -1.5,
-    color: "#1A2117",
+    color: "#1C6BFF",
   },
   avatarBtn: {
     width: 42,
