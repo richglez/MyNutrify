@@ -123,7 +123,7 @@ export default function ExploreScreen() {
       <ScrollView
         contentContainerStyle={[
           styles.scroll,
-          { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 85 },
+          { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 100 },
         ]}
       >
         {/* Header */}
@@ -142,13 +142,13 @@ export default function ExploreScreen() {
           <Ionicons
             name="search-outline"
             size={18}
-            color={focused ? "#2D6A4F" : "#A0A89B"}
+            color={focused ? "#2d406a" : "#848d9e"}
             style={{ marginRight: 8 }}
           />
           <TextInput
             style={styles.searchInput}
             placeholder="Search vegetables…"
-            placeholderTextColor="#A0A89B"
+            placeholderTextColor="#848d9e"
             value={search}
             onChangeText={setSearch}
             onFocus={() => setFocused(true)}
