@@ -112,6 +112,16 @@ export default function SettingsScreen() {
             isLast
           />
         </GlassCard>
+        {/* ── Log out ── */}
+        <Pressable
+          style={({ pressed }) => [
+            styles.logoutButton,
+            pressed && styles.logoutButtonPressed,
+          ]}
+          onPress={() => console.log("Log out")}
+        >
+          <Text style={styles.logoutText}>Log out</Text>
+        </Pressable>
       </ScrollView>
     </LinearGradient>
   );
@@ -191,5 +201,29 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.12)",
     marginLeft: 58,
     marginRight: 14,
+  },
+
+  logoutButton: {
+    alignSelf: "center",
+    backgroundColor: "#2E90FE",
+    paddingVertical: 12,
+    paddingHorizontal: 42,
+    borderRadius: 50,
+    marginTop: 10,
+    shadowColor: "#2E90FE",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.35,
+    shadowRadius: 10,
+    elevation: 6,
+  },
+  logoutButtonPressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.97 }],
+  },
+  logoutText: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "DMSans_700Bold",
+    letterSpacing: 0.2,
   },
 });
