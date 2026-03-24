@@ -1,6 +1,13 @@
 // Settings -> client\app\(tabs)\settings.tsx
 
-import { View, Text, ScrollView, StyleSheet, StatusBar, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  StatusBar,
+  Pressable,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -15,7 +22,6 @@ function GlassCard({ children }: { children: React.ReactNode }) {
     </View>
   );
 }
-
 
 // Setting Row Component
 function SettingRow({
@@ -51,11 +57,11 @@ function SettingRow({
   );
 }
 
-
-
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const name = useAuthStore((s) => s.name);
+  const clearAuth = useAuthStore((s) => s.clearAuth); // limpiar los datos del store
+
   return (
     <LinearGradient
       colors={[
@@ -118,7 +124,11 @@ export default function SettingsScreen() {
             styles.logoutButton,
             pressed && styles.logoutButtonPressed,
           ]}
-          onPress={() => console.log("Log out")}
+          onPress={() => {
+            clearAuth(); // ← limpia el store primero
+            router.replace("/(auth)/welcome");
+            console.log("Log out");
+          }}
         >
           <Text style={styles.logoutText}>Log out</Text>
         </Pressable>
@@ -206,8 +216,8 @@ const styles = StyleSheet.create({
   logoutButton: {
     alignSelf: "center",
     backgroundColor: "#2E90FE",
-    paddingVertical: 12,
-    paddingHorizontal: 42,
+    paddingVertical: 10,
+    paddingHorizontal: 22,
     borderRadius: 50,
     marginTop: 10,
     shadowColor: "#2E90FE",
@@ -222,7 +232,7 @@ const styles = StyleSheet.create({
   },
   logoutText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 13.5,
     fontFamily: "DMSans_700Bold",
     letterSpacing: 0.2,
   },
