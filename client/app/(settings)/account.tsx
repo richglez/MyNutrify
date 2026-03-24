@@ -13,7 +13,10 @@ export default function AccountScreen() {
       {/* Header */}
       <View style={styles.headerRow}>
         {/* Botón para volver atrás */}
-        <Pressable style={styles.back} onPress={() => router.back()}>
+        <Pressable
+          style={styles.back}
+          onPress={router.back}
+        >
           <Ionicons name="arrow-back" size={24} color="#000" />
         </Pressable>
         {/* Título del header */}
@@ -38,7 +41,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   back: {
-    marginBottom: 20,
+    padding: 8, // ← área táctil más grande
+    marginLeft: -8, // ← compensa el padding visualmente
   },
   userDataStyles: {
     fontSize: 16,
@@ -54,11 +58,12 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     position: "absolute",
-    left: 0,
-    right: 0,
+    left: 80, // ← reducir el tamaño del contenedor del titlo a la izquierda
+    right: 80, // ← reducir el tamaño del contenedor del titlo a la derecha
     fontFamily: "DMSans_600SemiBold",
     fontSize: 20,
     textAlign: "center",
+    zIndex: -1, // ← manda el título atrás del Pressable
   },
 
   label: {
