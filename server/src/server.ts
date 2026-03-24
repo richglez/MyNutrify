@@ -5,7 +5,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import userRoutes from './routes/userRoutes';
+import userRoutes from './routes/userRoutes'; // rutas de users
+import foodRoutes from "./routes/foodRoutes"; // rutas de foods
 
 dotenv.config();
 
@@ -20,6 +21,10 @@ app.use(cors());
 // Ruta Usuarios
 app.use('/api/users', userRoutes);
 console.log('✅ Rutas de usuarios registradas');
+
+// Rutas Comidas
+app.use("/api/foods", foodRoutes);
+console.log("✅ Rutas de comidas registradas");
 
 
 

@@ -11,6 +11,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 
+// Inicializacion de router
 const router = Router();
 const asyncHandler =
   (
@@ -19,6 +20,8 @@ const asyncHandler =
   (req, res, next) =>
     Promise.resolve(fn(req, res, next)).catch(next);
 
+
+// ────────────────────────────────────────* RUTAS *────────────────────────────────────────
 // ─── POST /api/users/login ──────────────────────
 router.post(
   "/login",
