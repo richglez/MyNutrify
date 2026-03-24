@@ -22,72 +22,72 @@ const CARD_WIDTH = (width - H_PADDING * 2 - GAP) / 2;
 const VEGETABLES = [
   {
     id: "1",
-    name: "Brócoli",
+    name: "Broccoli",
     calories: "34 kcal",
-    tag: "Antioxidante",
+    tag: "Antioxidant",
     color: "#2D6A4F",
     emoji: "🥦",
     bg: "#D8F3DC",
   },
   {
     id: "2",
-    name: "Zanahoria",
+    name: "Carrot",
     calories: "41 kcal",
-    tag: "Rica en vitamina A",
+    tag: "Rich in vitamin A",
     color: "#E76F00",
     emoji: "🥕",
     bg: "#FFF3E0",
   },
   {
     id: "3",
-    name: "Espinaca",
+    name: "Spinach",
     calories: "23 kcal",
-    tag: "Alto en hierro",
+    tag: "High in iron",
     color: "#1B4332",
     emoji: "🌿",
     bg: "#B7E4C7",
   },
   {
     id: "4",
-    name: "Pimiento",
+    name: "Pepper",
     calories: "31 kcal",
-    tag: "Vitamina C",
+    tag: "Vitamin C",
     color: "#C1121F",
     emoji: "🫑",
     bg: "#FFE5E5",
   },
   {
     id: "5",
-    name: "Berenjena",
+    name: "Eggplant",
     calories: "25 kcal",
-    tag: "Antinflamatorio",
+    tag: "Anti-inflammatory",
     color: "#4A0E8F",
     emoji: "🍆",
     bg: "#EDE7F6",
   },
   {
     id: "6",
-    name: "Tomate",
+    name: "Tomato",
     calories: "18 kcal",
-    tag: "Licopeno",
+    tag: "Lycopene",
     color: "#B5161B",
     emoji: "🍅",
     bg: "#FFECEC",
   },
   {
     id: "7",
-    name: "Aguacate",
+    name: "Avocado",
     calories: "160 kcal",
-    tag: "Grasas saludables",
+    tag: "Healthy fats",
     color: "#386641",
     emoji: "🥑",
     bg: "#DCEFD8",
   },
   {
     id: "8",
-    name: "Pepino",
+    name: "Cucumber",
     calories: "16 kcal",
-    tag: "Hidratante",
+    tag: "Moisturizing",
     color: "#52796F",
     emoji: "🥒",
     bg: "#CAD2C5",
@@ -111,10 +111,8 @@ export default function ExploreScreen() {
 
   return (
     <View style={styles.container}>
-
-
       <ScrollView
-        contentContainerStyle={[styles.scroll, { paddingTop: insets.top + 16 }]}
+        contentContainerStyle={[styles.scroll, { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 85 }]}
       >
         {/* Header */}
         <View style={styles.header}>
@@ -157,27 +155,23 @@ export default function ExploreScreen() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.pillRow}
         >
-          {["Todos", "Hoja verde", "Raíces", "Frutos", "Legumbres"].map(
-            (cat, i) => (
-              <TouchableOpacity
-                key={cat}
-                style={[styles.pill, i === 0 && styles.pillActive]}
-              >
-                <Text
-                  style={[styles.pillText, i === 0 && styles.pillTextActive]}
-                >
-                  {cat}
-                </Text>
-              </TouchableOpacity>
-            ),
-          )}
+          {["All", "Green leaf", "Roots", "Fruits", "Legumes"].map((cat, i) => (
+            <TouchableOpacity
+              key={cat}
+              style={[styles.pill, i === 0 && styles.pillActive]}
+            >
+              <Text style={[styles.pillText, i === 0 && styles.pillTextActive]}>
+                {cat}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
 
         {/* Section header */}
         <View style={styles.sectionRow}>
           <Text style={styles.sectionTitle}>Vegetales</Text>
           <TouchableOpacity>
-            <Text style={styles.viewAll}>Ver todos →</Text>
+            <Text style={styles.viewAll}>See all →</Text>
           </TouchableOpacity>
         </View>
 

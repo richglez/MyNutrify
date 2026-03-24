@@ -87,12 +87,14 @@ export default function DiaryScreen() {
 
   return (
     <View style={[styles.safe, { paddingTop: insets.top }]}>
-
       {/* ── Header de fecha ── */}
       <DateHeader selectedDate={selectedDate} onDateChange={setSelectedDate} />
 
       <ScrollView
-        contentContainerStyle={styles.scrollContent} // ← usa scrollContent, sin paddingTop extra
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: insets.bottom + 150 },
+        ]} // ← usa scrollContent, sin paddingTop extra
       >
         {/* ── Resumen de calorías ── */}
         <CalorieSummary
