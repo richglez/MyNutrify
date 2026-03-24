@@ -85,7 +85,7 @@ export default function DashboardScreen() {
 
   return (
     <LinearGradient
-      colors={["#F7FAFD", "#F7FAFD", "#eaf2ff", "#d8e7ff"]}
+      colors={["#F7FAFD", "#F7FAFD", "#d6e5ff", "#bad2ff"]}
       locations={[0, 0.3, 0.7, 1]}
       start={{ x: 0.5, y: 0 }} // ← empieza arriba al centro
       end={{ x: 0.5, y: 1 }} // ← termina abajo al centro

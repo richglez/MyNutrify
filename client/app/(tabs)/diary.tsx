@@ -118,9 +118,9 @@ export default function DiaryScreen() {
         "#0D47A1",
         "#1976D2",
         "#42A5F5",
-        "#90CAF9",
-        "#E3F2FD",
-        "#F8FBFF",
+        "#addaff",
+        "#F8F8F8",
+        "#FBFAF9",
       ]}
       locations={[0, 0.12, 0.28, 0.45, 0.62, 0.8, 1]}
       style={styles.gradient}
@@ -135,20 +135,20 @@ export default function DiaryScreen() {
         <View style={styles.header}>
           <View>
             <Text style={styles.title}>Diary</Text>
-            <Text style={styles.placeHolder}>Your daily diary.</Text>
+            <Text style={styles.subtitle}>Your daily diary.</Text>
           </View>
           <TouchableOpacity style={styles.gridBtn} activeOpacity={0.8}>
             <Ionicons name="grid" size={15} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
 
-        {/* DateHeader — INTACTO */}
+        {/* DateHeader  */}
         <DateHeader
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}
         />
 
-        {/* ── CalorieSummary REDISEÑADO ── */}
+        {/* ── CalorieSummary  ── */}
         <CalorieSummary
           goal={DAILY_GOAL}
           consumed={totalConsumed}
@@ -229,21 +229,21 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
 
   return (
     <>
-      <View style={headerStyles.container}>
-        <View style={headerStyles.row}>
+      <View style={calendarCaloriesStyles.container}>
+        <View style={calendarCaloriesStyles.row}>
           <TouchableOpacity
-            style={headerStyles.arrowBtn}
+            style={calendarCaloriesStyles.arrowBtn}
             onPress={() => changeDay(-1)}
             activeOpacity={0.7}
           >
             <Ionicons name="chevron-back" size={22} color="#fff" />
           </TouchableOpacity>
           <TouchableOpacity
-            style={headerStyles.dateBtn}
+            style={calendarCaloriesStyles.dateBtn}
             onPress={openCalendar}
             activeOpacity={0.8}
           >
-            <Text style={headerStyles.dayLabel}>{getDayLabel()}</Text>
+            <Text style={calendarCaloriesStyles.dayLabel}>{getDayLabel()}</Text>
             <Ionicons
               name="chevron-down"
               size={20}
@@ -251,14 +251,16 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            style={headerStyles.arrowBtn}
+            style={calendarCaloriesStyles.arrowBtn}
             onPress={() => changeDay(1)}
             activeOpacity={0.7}
           >
             <Ionicons name="chevron-forward" size={22} color="#fff" />
           </TouchableOpacity>
         </View>
-        <Text style={headerStyles.fullDate}>{getFullDateLabel()}</Text>
+        <Text style={calendarCaloriesStyles.fullDate}>
+          {getFullDateLabel()}
+        </Text>
       </View>
 
       <Modal visible={calVisible} transparent animationType="fade">
@@ -569,7 +571,7 @@ function MealCard({ meal, onAdd }: MealCardProps) {
 
 const summaryStyles = StyleSheet.create({
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#f7fbff",
     borderRadius: 20,
     paddingVertical: 20,
     paddingHorizontal: 20,
@@ -611,7 +613,7 @@ const summaryStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
-    backgroundColor: "#F7FAFF",
+    backgroundColor: "#eff6fc",
     borderRadius: 14,
     paddingVertical: 12,
     paddingHorizontal: 8,
@@ -645,7 +647,7 @@ const summaryStyles = StyleSheet.create({
 
 const cardStyles = StyleSheet.create({
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#ebf6ff",
     borderRadius: 18,
     paddingTop: 14,
     paddingBottom: 0,
@@ -730,10 +732,11 @@ const cardStyles = StyleSheet.create({
 
 // ── Estilos base (header + gradiente — INTACTOS) ───────────────────────────
 
-const headerStyles = StyleSheet.create({
+const calendarCaloriesStyles = StyleSheet.create({
   container: {
+    marginTop: 16,
     backgroundColor: "#1A6FD4",
-    paddingHorizontal: 20,
+    marginHorizontal: -20,
     paddingTop: 12,
     paddingBottom: 20,
   },
@@ -741,6 +744,7 @@ const headerStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingHorizontal: 20,
   },
   arrowBtn: {
     width: 36,
@@ -750,8 +754,16 @@ const headerStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  dateBtn: { flexDirection: "row", alignItems: "center", gap: 6 },
-  dayLabel: { color: "#fff", fontSize: 18, fontFamily: "DMSans_700Bold" },
+  dateBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  dayLabel: {
+    color: "#fff",
+    fontSize: 18,
+    fontFamily: "DMSans_700Bold",
+  },
   fullDate: {
     color: "rgba(255,255,255,0.65)",
     fontSize: 13,
@@ -845,15 +857,19 @@ const styles = StyleSheet.create({
     fontFamily: "DMSans_900Black",
     fontSize: 36,
     letterSpacing: -1.5,
-    color: "#F7FFF5",
+    color: "#fafcff",
   },
-  placeHolder: { fontFamily: "DMSans_400Regular", color: "#7BA7E1" },
+  subtitle: {
+    fontSize: 15,
+    fontFamily: "DMSans_400Regular",
+    color: "#7BA7E1"
+  },
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: 20,
     paddingTop: 16,
     paddingBottom: 32,
-    gap: 12,
+    gap: 16,
   },
   header: {
     flexDirection: "row",
