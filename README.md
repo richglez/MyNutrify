@@ -142,6 +142,7 @@ MyNutrify/
 │   │   ├── models/   
 │   │   │   └── User.ts
 │   │   ├── routes/
+│   │   │   ├── foodRoutes.ts
 │   │   │   └── userRoutes.ts
 │   │   └── server.ts             
 │   ├── .gitignore           
