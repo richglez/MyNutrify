@@ -63,12 +63,12 @@ export default function SettingsScreen() {
   const name = useAuthStore((s) => s.name);
   const clearAuth = useAuthStore((s) => s.clearAuth); // limpiar los datos del store
 
-      // StatusBar en tabs con Expo Router .- Fuerza el estilo cada vez que esta tab recibe el foco
-      useFocusEffect(
-        useCallback(() => {
-          StatusBar.setBarStyle("dark-content"); // ← método correcto
-        }, []),
-      );
+  // StatusBar en tabs con Expo Router .- Fuerza el estilo cada vez que esta tab recibe el foco
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("light-content"); // ← método correcto
+    }, []),
+  );
 
   return (
     <LinearGradient
