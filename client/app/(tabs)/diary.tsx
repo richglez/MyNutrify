@@ -5,17 +5,19 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  StatusBar,
   Image,
   Modal,
   Pressable,
-  Dimensions
+  Dimensions,
+  StatusBar,
 } from "react-native";
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import { useRouter, useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons"; // iconos
 import { LinearGradient } from "expo-linear-gradient";
+
 
 // ── Tipos ──────────────────────────────────────────────────────────────────
 
@@ -30,11 +32,11 @@ type MealSection = {
 // ── Datos de ejemplo ───────────────────────────────────────────────────────
 
 const MEALS: MealSection[] = [
-  { id: "breakfast", label: "Desayuno",  icon: "☕",  consumed: 56,  goal: 635 },
-  { id: "snack1",    label: "Colación 1",icon: "🍎",  consumed: 0,   goal: 150 },
-  { id: "lunch",     label: "Comida",    icon: "🥗",  consumed: 856, goal: 847 },
-  { id: "snack2",    label: "Colación 2",icon: "🥜",  consumed: 0,   goal: 150 },
-  { id: "dinner",    label: "Cena",      icon: "🍽️", consumed: 379, goal: 529 },
+  { id: "breakfast", label: "Desayuno", icon: "☕", consumed: 56, goal: 635 },
+  { id: "snack1", label: "Colación 1", icon: "🍎", consumed: 0, goal: 150 },
+  { id: "lunch", label: "Comida", icon: "🥗", consumed: 856, goal: 847 },
+  { id: "snack2", label: "Colación 2", icon: "🥜", consumed: 0, goal: 150 },
+  { id: "dinner", label: "Cena", icon: "🍽️", consumed: 379, goal: 529 },
 ];
 
 const DAILY_GOAL = 2100;
@@ -46,20 +48,40 @@ TODAY.setHours(0, 0, 0, 0);
 
 function isSameDay(a: Date, b: Date) {
   return (
-    a.getDate()     === b.getDate()  &&
-    a.getMonth()    === b.getMonth() &&
+    a.getDate() === b.getDate() &&
+    a.getMonth() === b.getMonth() &&
     a.getFullYear() === b.getFullYear()
   );
 }
 
-const WEEK_DAYS   = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
-const MONTHS      = [
-  "Enero","Febrero","Marzo","Abril","Mayo","Junio",
-  "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre",
+const WEEK_DAYS = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+const MONTHS = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
 ];
 const MONTHS_SHORT = [
-  "enero","febrero","marzo","abril","mayo","junio",
-  "julio","agosto","septiembre","octubre","noviembre","diciembre",
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
 ];
 
 // ── DiaryScreen ────────────────────────────────────────────────────────────
@@ -71,13 +93,18 @@ export default function DiaryScreen() {
 
   const isFutureDay = selectedDate > TODAY;
 
+  // StatusBar en tabs con Expo Router .- Fuerza el estilo cada vez que esta tab recibe el foco
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("light-content"); // ← método correcto
+    }, []),
+  );
+
   // En días futuros mostramos todo en cero
-  const meals = isFutureDay
-    ? MEALS.map((m) => ({ ...m, consumed: 0 }))
-    : MEALS;
+  const meals = isFutureDay ? MEALS.map((m) => ({ ...m, consumed: 0 })) : MEALS;
 
   const totalConsumed = meals.reduce((sum, m) => sum + m.consumed, 0);
-  const remaining     = DAILY_GOAL - totalConsumed;
+  const remaining = DAILY_GOAL - totalConsumed;
 
   const handleAddFood = (mealId: string, mealLabel: string) => {
     router.push({
@@ -134,11 +161,11 @@ export default function DiaryScreen() {
         />
 
         {/* ── Banner ── */}
-        <Image
+        {/* <Image
           source={require("../../assets/wallpaper-food-healthy.png")}
           style={styles.banner}
           resizeMode="cover"
-        />
+        /> */}
 
         {/* ── Cards de comida ── */}
         {meals.map((meal) => (
@@ -162,8 +189,8 @@ type DateHeaderProps = {
 
 function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
   const [calVisible, setCalVisible] = useState(false);
-  const [calMonth, setCalMonth]     = useState(
-    new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
+  const [calMonth, setCalMonth] = useState(
+    new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1),
   );
 
   const changeDay = (n: number) => {
@@ -174,28 +201,36 @@ function DateHeader({ selectedDate, onDateChange }: DateHeaderProps) {
 
   const getDayLabel = () => {
     if (isSameDay(selectedDate, TODAY)) return "Hoy";
-    const yesterday = new Date(TODAY); yesterday.setDate(TODAY.getDate() - 1);
+    const yesterday = new Date(TODAY);
+    yesterday.setDate(TODAY.getDate() - 1);
     if (isSameDay(selectedDate, yesterday)) return "Ayer";
-    const tomorrow  = new Date(TODAY); tomorrow.setDate(TODAY.getDate() + 1);
-    if (isSameDay(selectedDate, tomorrow))  return "Mañana";
+    const tomorrow = new Date(TODAY);
+    tomorrow.setDate(TODAY.getDate() + 1);
+    if (isSameDay(selectedDate, tomorrow)) return "Mañana";
     return `${selectedDate.getDate()} ${MONTHS_SHORT[selectedDate.getMonth()]}`;
   };
 
   const getFullDateLabel = () => {
     const dayName = WEEK_DAYS[selectedDate.getDay()];
-    const month   = MONTHS_SHORT[selectedDate.getMonth()];
+    const month = MONTHS_SHORT[selectedDate.getMonth()];
     return `${dayName} ${selectedDate.getDate()} de ${month}, ${selectedDate.getFullYear()}`;
   };
 
   const openCalendar = () => {
-    setCalMonth(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1));
+    setCalMonth(
+      new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1),
+    );
     setCalVisible(true);
   };
 
   // Genera los días del mes para el grid
   const generateDays = (): (Date | null)[] => {
     const firstDay = new Date(calMonth.getFullYear(), calMonth.getMonth(), 1);
-    const lastDay  = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 0);
+    const lastDay = new Date(
+      calMonth.getFullYear(),
+      calMonth.getMonth() + 1,
+      0,
+    );
     const days: (Date | null)[] = [];
     for (let i = 0; i < firstDay.getDay(); i++) days.push(null);
     for (let d = 1; d <= lastDay.getDate(); d++) {
@@ -364,7 +399,12 @@ type CalorieSummaryProps = {
   isFuture?: boolean;
 };
 
-function CalorieSummary({ goal, consumed, remaining, isFuture }: CalorieSummaryProps) {
+function CalorieSummary({
+  goal,
+  consumed,
+  remaining,
+  isFuture,
+}: CalorieSummaryProps) {
   const isOver = remaining < 0;
 
   return (
@@ -433,7 +473,11 @@ function MealCard({ meal, onAdd }: MealCardProps) {
         </Text>
       </View>
 
-      <TouchableOpacity style={styles.addBtn} onPress={onAdd} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.addBtn}
+        onPress={onAdd}
+        activeOpacity={0.8}
+      >
         <Text style={styles.addBtnText}>+</Text>
       </TouchableOpacity>
     </View>

@@ -7,12 +7,14 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  StatusBar,
   Dimensions,
+  StatusBar,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 
 const { width } = Dimensions.get("window");
 const GAP = 12;
@@ -108,6 +110,13 @@ export default function ExploreScreen() {
   for (let i = 0; i < filtered.length; i += 2) {
     rows.push(filtered.slice(i, i + 2));
   }
+
+  // StatusBar en tabs con Expo Router .- Fuerza el estilo cada vez que esta tab recibe el foco
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("dark-content");
+    }, []),
+  );
 
   return (
     <View style={styles.container}>

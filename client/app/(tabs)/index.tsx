@@ -15,6 +15,8 @@ import NutritionCard from "@/components/NutritionCard";
 import { DailyMacro } from "@/types/calendar";
 import { LinearGradient } from "expo-linear-gradient";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 
 // ─── Ícono campana ────────────────────────────────────────────────────────────
 const BellIcon = () => (
@@ -73,6 +75,13 @@ export default function DashboardScreen() {
       status: "missed",
     },
   ];
+
+    // StatusBar en tabs con Expo Router .- Fuerza el estilo cada vez que esta tab recibe el foco
+    useFocusEffect(
+      useCallback(() => {
+        StatusBar.setBarStyle("dark-content"); // ← método correcto
+      }, []),
+    );
 
   return (
     <LinearGradient

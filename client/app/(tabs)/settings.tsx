@@ -12,7 +12,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuthStore } from "@/store/useAuthStore";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 
 function GlassCard({ children }: { children: React.ReactNode }) {
   return (
@@ -61,6 +62,13 @@ export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const name = useAuthStore((s) => s.name);
   const clearAuth = useAuthStore((s) => s.clearAuth); // limpiar los datos del store
+
+      // StatusBar en tabs con Expo Router .- Fuerza el estilo cada vez que esta tab recibe el foco
+      useFocusEffect(
+        useCallback(() => {
+          StatusBar.setBarStyle("dark-content"); // ← método correcto
+        }, []),
+      );
 
   return (
     <LinearGradient
