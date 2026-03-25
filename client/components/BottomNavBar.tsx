@@ -1,4 +1,4 @@
-// BottomNavBar -> components/BottomNavBar.tsx
+// BottomNavBar -> client\components\BottomNavBar.tsx
 import React from "react";
 import {
   View,

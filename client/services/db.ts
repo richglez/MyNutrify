@@ -1,4 +1,4 @@
-// client\services\db.ts
+// Servicio para usuario/foods/... (Esto luego se va a cambiar para evitar archivo monolítico) ->  client\services\db.ts
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 console.log("🌐 API_URL:", API_URL);
 

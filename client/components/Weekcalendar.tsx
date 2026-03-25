@@ -1,4 +1,4 @@
-// ───> Component WeekCalendar -> components\Weekcalendar.tsx
+// ───> Component WeekCalendar -> client\components\Weekcalendar.tsx
 
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
@@ -176,11 +176,11 @@ export default function WeekCalendar({
   markedDates = [],
   dailyMacros = [],
 }: WeekCalendarProps) {
-    const today = React.useMemo(() => {
-      const d = new Date();
-      d.setHours(0, 0, 0, 0);
-      return d;
-    }, []);
+  const today = React.useMemo(() => {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }, []);
   const [selectedDate, setSelectedDate] = useState<Date>(today);
   const [referenceDate, setReferenceDate] = useState<Date>(today);
 
@@ -400,7 +400,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  dayName: { // "Mon", "Tue", etc.
+  dayName: {
+    // "Mon", "Tue", etc.
     fontSize: 12,
     fontFamily: "DMSans_500Medium",
     color: "#3574f1",

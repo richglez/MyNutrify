@@ -1,7 +1,7 @@
 // PostPopUp -> client\components\PostPopUp.tsx
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import {router} from "expo-router"
+import { router } from "expo-router";
 
 type Props = {
   onClose: () => void;
@@ -55,7 +55,8 @@ export default function PostPopUp({ onClose }: Props) {
   const handleCard = (id: string) => {
     switch (id) {
       case "search":
-        // router.replace("/(tabs)/diary/search");
+        onClose(); // ← cierra el modal primero
+        router.push("/(tabs)/quick_actions_menu/searchFoods");
         console.log("Abrir búsqueda en DB");
         break;
       case "barcode":

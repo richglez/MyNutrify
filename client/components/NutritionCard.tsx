@@ -1,4 +1,4 @@
-// components/NutritionCard.tsx
+// NutritionCard -> client\components\NutritionCard.tsx
 import React, { useEffect, useRef } from "react";
 import { View, Text, StyleSheet, Animated } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";

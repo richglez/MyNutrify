@@ -1,5 +1,12 @@
 // SingUp -> client\app\(auth)\register.tsx
-import { View, Text, TextInput, StyleSheet, Pressable, StatusBar } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  StatusBar,
+} from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
 import { useRouter, useFocusEffect } from "expo-router";
@@ -109,7 +116,7 @@ export default function RegisterScreen() {
     try {
       const data = await registerUser(name, email, password);
       setAuth(data.userId, data.token, name, email); // guarda estos datos en el store
-      router.replace({ pathname: "/(onboarding)/step1-goal" });
+      router.replace({ pathname: "/(onboarding)/step1-goal" }); // Remplazar la pantalla y borrar el historial, para que el usuario no se vuelva a registrar de nuevo
     } catch (err: any) {
       // Si el backend responde que el email ya existe
       if (err?.status === 400 || err?.message?.includes("email")) {
@@ -125,10 +132,7 @@ export default function RegisterScreen() {
       end={{ x: 1, y: 1 }}
       style={styles.container}
     >
-      <Pressable
-        style={styles.backButton}
-        onPress={() => router.back()}
-      >
+      <Pressable style={styles.backButton} onPress={() => router.back()}>
         <Ionicons name="arrow-back" size={26} color="white" />
       </Pressable>
 
@@ -230,7 +234,7 @@ export default function RegisterScreen() {
         </Pressable>
       </View>
 
-      <Pressable onPress={() => router.replace("/login")}>
+      <Pressable onPress={() => router.push("/login")}>
         <Text style={styles.footer}>
           Already have an account?{" "}
           <Text style={{ fontFamily: "DMSans_800ExtraBold" }}>Login</Text>
