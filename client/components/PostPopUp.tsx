@@ -56,7 +56,7 @@ export default function PostPopUp({ onClose }: Props) {
     switch (id) {
       case "search":
         onClose(); // ← cierra el modal primero
-        router.push("/(tabs)/quick_actions_menu/searchFoods");
+        router.push("/(tabs)/quick_actions_menu/searchFoods"); // navegación secuencial
         console.log("Abrir búsqueda en DB");
         break;
       case "barcode":
