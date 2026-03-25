@@ -107,16 +107,19 @@ MyNutrify/
 │   │   │   ├── step1-goal.tsx
 │   │   │   ├── step2-goal.tsx
 │   │   │   └── step3-goal.tsx
-│   │   ├── (settings)/
-│   │   │   ├── _layout.tsx
-│   │   │   └── account.tsx
 │   │   ├── (tabs)/
+│   │   │   ├── diary/
+│   │   │   │   ├── _layout.tsx
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── search.tsx
+│   │   │   ├── settings/
+│   │   │   │   ├── _layout.tsx
+│   │   │   │   ├── account.tsx
+│   │   │   │   └── index.tsx
 │   │   │   ├── _layout.tsx
-│   │   │   ├── diary.tsx
 │   │   │   ├── explore.tsx
 │   │   │   ├── index.tsx
-│   │   │   ├── post.tsx
-│   │   │   └── settings.tsx
+│   │   │   └── post.tsx
 │   │   ├── _layout.tsx
 │   │   └── index.tsx
 │   ├── assets/
@@ -142,6 +145,7 @@ MyNutrify/
 │   │   ├── models/   
 │   │   │   └── User.ts
 │   │   ├── routes/
+│   │   │   ├── foodRoutes.ts
 │   │   │   └── userRoutes.ts
 │   │   └── server.ts             
 │   ├── .gitignore           
