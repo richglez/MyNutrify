@@ -6,7 +6,6 @@ import { useRouter, useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback } from "react";
 
-
 const APP_NAME = "MyNutrify!".split("");
 const LETTER_DELAY = 100; // ms entre cada letra
 const LETTER_DURATION = 400; // duración de cada letra
@@ -20,11 +19,11 @@ export default function SplashScreen() {
     })),
   ).current;
 
-    useFocusEffect(
-      useCallback(() => {
-        StatusBar.setBarStyle("light-content");
-      }, []),
-    );
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("light-content");
+    }, []),
+  );
 
   useEffect(() => {
     // 1. Logo aparece primero
@@ -63,8 +62,6 @@ export default function SplashScreen() {
 
     return () => clearTimeout(timer);
   }, []);
-
-
 
   return (
     <LinearGradient

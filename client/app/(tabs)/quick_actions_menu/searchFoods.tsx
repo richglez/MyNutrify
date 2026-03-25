@@ -8,41 +8,42 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  StatusBar,
 } from "react-native";
-import { useState, useEffect } from "react";
-import { useRouter } from "expo-router";
+import { useState, useEffect, useCallback } from "react";
+import { useRouter, useFocusEffect } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context"; // para compatibilidad multiplataforma
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export default function SearchFoodScreen() {
   const router = useRouter();
-
   const [query, setQuery] = useState("");
   const [foods, setFoods] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 🧠 Debounce
+  const insets = useSafeAreaInsets();
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (query.length > 1) {
-        searchFoods(query);
-      } else {
-        setFoods([]);
-      }
-    }, 400); // 400ms delay
-
+      if (query.length > 1) searchFoods(query);
+      else setFoods([]);
+    }, 400);
     return () => clearTimeout(timeout);
   }, [query]);
 
-  // 🔍 Fetch a backend
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle("dark-content");
+    }, []),
+  );
+
   const searchFoods = async (text: string) => {
     try {
       setLoading(true);
-
       const res = await fetch(
         `${API_URL}/api/foods/search?q=${encodeURIComponent(text)}`,
       );
-
       const data = await res.json();
       setFoods(data);
     } catch (error) {
@@ -52,17 +53,12 @@ export default function SearchFoodScreen() {
     }
   };
 
-  // 👉 Seleccionar alimento
   const handleSelectFood = (food: any) => {
     console.log("Seleccionado:", food.name);
-
-    // después lo conectarás con MealLog
-    // router.push(...)
   };
 
   return (
-    <View style={styles.container}>
-      {/* 🔍 Input */}
+    <View style={[styles.container, { paddingTop: insets.top + 16 }]}>
       <TextInput
         placeholder="Buscar alimentos..."
         value={query}
@@ -70,10 +66,8 @@ export default function SearchFoodScreen() {
         style={styles.input}
       />
 
-      {/* ⏳ Loading */}
       {loading && <ActivityIndicator size="large" />}
 
-      {/* 📋 Lista */}
       <FlatList
         data={foods}
         keyExtractor={(item) => item._id}
@@ -83,11 +77,9 @@ export default function SearchFoodScreen() {
             onPress={() => handleSelectFood(item)}
           >
             <Text style={styles.name}>{item.name}</Text>
-
             <Text style={styles.details}>
               {item.calories} kcal • {item.protein}g protein
             </Text>
-
             {item.brand && <Text style={styles.brand}>{item.brand}</Text>}
           </TouchableOpacity>
         )}
@@ -104,10 +96,10 @@ export default function SearchFoodScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
     backgroundColor: "#fff",
   },
-
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
@@ -115,31 +107,13 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 12,
   },
-
   item: {
     padding: 12,
     borderBottomWidth: 1,
     borderColor: "#eee",
   },
-
-  name: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
-
-  details: {
-    fontSize: 14,
-    color: "#666",
-  },
-
-  brand: {
-    fontSize: 12,
-    color: "#999",
-  },
-
-  empty: {
-    textAlign: "center",
-    marginTop: 20,
-    color: "#888",
-  },
+  name: { fontSize: 16, fontWeight: "600" },
+  details: { fontSize: 14, color: "#666" },
+  brand: { fontSize: 12, color: "#999" },
+  empty: { textAlign: "center", marginTop: 20, color: "#888" },
 });
