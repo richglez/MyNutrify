@@ -1,4 +1,4 @@
-// DiaryScreen → client\app\(tabs)\diary.tsx
+// DiaryScreen → client\app\diary\index.tsx
 import {
   View,
   Text,
@@ -862,7 +862,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 15,
     fontFamily: "DMSans_400Regular",
-    color: "#7BA7E1"
+    color: "#7BA7E1",
   },
   scrollContent: {
     flexGrow: 1,

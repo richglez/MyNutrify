@@ -1,4 +1,4 @@
-//→ Post PopUp
+// Index QuickActionsMenu-> client\app\(tabs)\quick-actions-menu\index.tsx
 
 import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";

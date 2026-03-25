@@ -1,4 +1,4 @@
-// Layout for Tabs -> client\app\(tabs)\_layout.tsx
+// Layout for (Tabs) -> client\app\(tabs)\_layout.tsx
 import { Tabs } from "expo-router";
 import { useState } from "react";
 import { Modal, View, StyleSheet, Pressable, Text } from "react-native";
@@ -17,13 +17,14 @@ export default function TabsLayout() {
           <BottomNavBar {...props} onOpenPost={() => setPostVisible(true)} />
         )}
       >
+        {/* BottomNavBar Screens/Orden  */}
         <Tabs.Screen name="index" options={{ title: "Dashboard" }} />
         <Tabs.Screen name="diary" options={{ title: "Diary" }} />
         <Tabs.Screen
-          name="post"
+          name="quick_actions_menu"
           options={{
             title: "",
-            // Evita que se navegue a esta pantalla
+            // Evita que se navegue a esta pantalla, porque instead va a abrir un modal
             href: null,
           }}
         />
@@ -46,6 +47,7 @@ export default function TabsLayout() {
             {/* Handle bar */}
             <View style={styles.handle} />
 
+            {/* Renderizar modal PostPopUp */}
             <PostPopUp onClose={() => setPostVisible(false)} />
           </Pressable>
         </Pressable>

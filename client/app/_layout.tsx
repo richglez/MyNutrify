@@ -27,16 +27,11 @@ export default function RootLayout() {
 
     return (
       <Stack screenOptions={{ headerShown: false }}>
+        {/*Renderiza:*/}
         <Stack.Screen name="index" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(onboarding)" />
-        <Stack.Screen
-          name="(settings)" // ← ruta con el grupo incluido
-          options={{
-            animation: "slide_from_right",
-          }}
-        />
       </Stack>
     );
 }

@@ -1,4 +1,4 @@
-// AccountScreen -> client\app\(settings)\account.tsx
+// AccountScreen -> client\app\(tabs)\settings\account.tsx
 import { View, Text, StyleSheet, Pressable, Modal } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
@@ -27,14 +27,14 @@ export default function AccountScreen() {
 
   function handleLogout() {
     clearAuth();
-    router.replace("/login"); // ← ajusta la ruta según tu estructura
+    router.replace("/(auth)/welcome"); // ← ajusta la ruta según tu estructura
   }
 
   function handleDeleteAccount() {
     // TODO: llamar al endpoint de eliminar cuenta en tu API
     // await deleteAccount(userId, token);
     clearAuth();
-    router.replace("/login");
+    router.replace("/(auth)/welcome");
   }
 
   return (

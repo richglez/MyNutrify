@@ -1,4 +1,4 @@
-// Dashboard -> app/(tabs)/index.tsx
+// Dashboard -> client\app\(tabs)\index.tsx
 import {
   View,
   Text,

@@ -98,7 +98,7 @@ const IconSettings = ({ color }: { color: string }) => (
 const ICON_MAP: Record<string, React.FC<{ color: string }>> = {
   index: IconHome,
   diary: IconDiary,
-  post: IconPlus,
+  quick_actions_menu: IconPlus,
   explore: IconGlobe,
   settings: IconSettings,
 };
@@ -106,7 +106,7 @@ const ICON_MAP: Record<string, React.FC<{ color: string }>> = {
 const LABEL_MAP: Record<string, string> = {
   index: "Home",
   diary: "Diary",
-  post: "",
+  quick_actions_menu: "",
   explore: "Explore",
   settings: "Settings",
 };
@@ -123,7 +123,7 @@ export default function BottomNavBar({
       <View style={styles.bar}>
         {state.routes.map((route, index) => {
           const isActive = state.index === index;
-          const isFab = route.name === "post";
+          const isFab = route.name === "quick_actions_menu";
 
           const Icon = ICON_MAP[route.name] ?? IconHome;
           const label = LABEL_MAP[route.name] ?? route.name;
