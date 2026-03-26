@@ -54,6 +54,26 @@ router.get(
 );
 
 
+// ── GET /api/foods/suggestions ────────────────────────────────────────────────
+// Devuelve alimentos verificados para mostrar como sugerencias al cargar la pantalla
+router.get("/suggestions", async (req: Request, res: Response) => {
+  try {
+    const foods = await Food.find({ isVerified: true }).limit(10);
+
+    // Fallback: si no hay alimentos verificados, devolver los primeros 10
+    if (foods.length === 0) {
+      const fallback = await Food.find({}).limit(10);
+      return res.json(fallback);
+    }
+
+    res.json(foods);
+  } catch (err) {
+    console.error("❌ Error en /suggestions:", err);
+    res.status(500).json({ message: "Error al obtener sugerencias" });
+  }
+});
+
+
 
 
 export default router;
