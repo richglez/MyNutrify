@@ -13,7 +13,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect, router } from "expo-router";
 import { useCallback } from "react";
 
 const { width } = Dimensions.get("window");
@@ -132,7 +132,10 @@ export default function ExploreScreen() {
             <Text style={styles.greeting}>Hi, Ricardo 👋</Text>
             <Text style={styles.title}>Discover</Text>
           </View>
-          <TouchableOpacity style={styles.avatarBtn}>
+          <TouchableOpacity
+            style={styles.avatarBtn}
+            onPress={() => router.push("/(tabs)/settings/account")}
+          >
             <Text style={styles.avatarText}>R</Text>
           </TouchableOpacity>
         </View>

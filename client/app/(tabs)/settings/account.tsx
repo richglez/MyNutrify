@@ -45,7 +45,7 @@ export default function AccountScreen() {
     >
       {/* ── Header ─────────────────────────────────── */}
       <View style={styles.headerRow}>
-        <Pressable style={styles.back} onPress={() => router.back()}>
+        <Pressable style={styles.back} onPress={() => router.push("/(tabs)/settings")}>
           <Ionicons name="arrow-back" size={24} color="#dfedff" />
         </Pressable>
         <Text style={styles.headerTitle}>Account</Text>
