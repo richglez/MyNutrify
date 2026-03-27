@@ -6,14 +6,16 @@ export default function SettingsLayout() {
     <Stack
       screenOptions={{
         headerShown: false,
-        animation: "slide_from_right", // 👈 animación tipo iOS push
+        animation: "slide_from_left", // 👈 animación tipo iOS push
       }}
     >
       {/* Pantalla principal */}
       <Stack.Screen name="index" />
 
       {/* Subpantallas */}
-      <Stack.Screen name="account" />
+      <Stack.Screen name="account"options={{
+        animation: "slide_from_right",
+      }}/>
     </Stack>
   );
 }

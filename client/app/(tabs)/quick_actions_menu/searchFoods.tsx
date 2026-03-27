@@ -11,25 +11,26 @@ import {
   ScrollView,
   StatusBar,
 } from "react-native";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const API_URL = process.env.EXPO_PUBLIC_API_URL;
+import { searchFoods, getSuggestions, Food } from "@/services/foodService";
 
 export default function SearchFoodScreen() {
   const [query, setQuery] = useState("");
-  const [foods, setFoods] = useState<any[]>([]);
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [foods, setFoods] = useState<Food[]>([]);
+  const [suggestions, setSuggestions] = useState<Food[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [focused, setFocused] = useState(false);
   const [history, setHistory] = useState<string[]>([]);
 
   const insets = useSafeAreaInsets();
+
+  const lastQueryRef = useRef("");
 
   // ── Cargar sugerencias al montar ─────────────────────────────────────────
   useEffect(() => {
@@ -40,9 +41,8 @@ export default function SearchFoodScreen() {
   const loadSuggestions = async () => {
     try {
       setLoadingSuggestions(true);
-      const res = await fetch(`${API_URL}/api/foods/suggestions`);
-      const data = await res.json();
-      setSuggestions(Array.isArray(data) ? data : []);
+      const data = await getSuggestions();
+      setSuggestions(data);
     } catch (error) {
       console.error("Error cargando sugerencias:", error);
     } finally {
@@ -53,7 +53,7 @@ export default function SearchFoodScreen() {
   // ── Búsqueda con debounce ─────────────────────────────────────────────────
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (query.length > 1) searchFoods(query);
+      if (query.trim().length > 1) handleSearch(query);
       else setFoods([]);
     }, 400);
     return () => clearTimeout(timeout);
@@ -77,7 +77,7 @@ export default function SearchFoodScreen() {
     });
   };
 
-  const handleSelectFood = (food: any) => {
+  const handleSelectFood = (food: Food) => {
     saveSearch(food.name);
     console.log("Seleccionado:", food.name);
     // router.push(...)  <- navegar a detalle si lo necesitas
@@ -89,14 +89,15 @@ export default function SearchFoodScreen() {
     }, []),
   );
 
-  const searchFoods = async (text: string) => {
+  const handleSearch = async (text: string) => {
+    lastQueryRef.current = text;
     try {
       setLoading(true);
-      const res = await fetch(
-        `${API_URL}/api/foods/search?q=${encodeURIComponent(text)}`,
-      );
-      const data = await res.json();
-      setFoods(Array.isArray(data) ? data : []);
+      const data = await searchFoods(text);
+
+      if (lastQueryRef.current === text) {
+        setFoods(data);
+      }
     } catch (error) {
       console.error("Error buscando alimentos:", error);
     } finally {
@@ -114,7 +115,7 @@ export default function SearchFoodScreen() {
   );
 
   // ── Card reutilizable ─────────────────────────────────────────────────────
-  const renderCard = (item: any) => (
+  const renderCard = (item: Food) => (
     <TouchableOpacity
       key={item._id}
       onPress={() => handleSelectFood(item)}
@@ -229,7 +230,6 @@ export default function SearchFoodScreen() {
                     key={item}
                     onPress={() => {
                       setQuery(item);
-                      searchFoods(item);
                     }}
                   >
                     <Text style={styles.chipText}>{item}</Text>

@@ -9,11 +9,8 @@ import {
   Animated,
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
-import { saveOnboarding } from "@/services/db";
+import { saveOnboarding } from "@/services/userService";
 import { useAuthStore } from "@/store/useAuthStore";
-
-
-
 
 export default function Step3Done() {
   const userId = useAuthStore((s) => s.userId); // ← lee del store
@@ -141,9 +138,16 @@ export default function Step3Done() {
   );
 }
 
-
 // Componente fila del resumen
-function SummaryRow({ label, value, isLast = false }: { label: string; value: string; isLast?: boolean }) {
+function SummaryRow({
+  label,
+  value,
+  isLast = false,
+}: {
+  label: string;
+  value: string;
+  isLast?: boolean;
+}) {
   return (
     <>
       <View style={styles.summaryRow}>
@@ -247,7 +251,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 4, // ← agrega esto
-
   },
   divider: {
     height: 0.5,

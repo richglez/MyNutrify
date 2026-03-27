@@ -1,12 +1,10 @@
-// Servicio para usuario/foods/... (Esto luego se va a cambiar para evitar archivo monolítico) ->  client\services\db.ts
+// Servicio para usuario -> client\services\userService.ts
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 console.log("🌐 API_URL:", API_URL);
 
 if (!API_URL) {
   throw new Error("❌ EXPO_PUBLIC_API_URL no está definida");
 }
-
-
 
 // Registrar usuario
 export const registerUser = async (

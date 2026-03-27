@@ -12,7 +12,7 @@ import { router } from "expo-router";
 import { useRouter, useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-import { registerUser } from "@/services/db";
+import { registerUser } from "@/services/userService";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useCallback } from "react";
 

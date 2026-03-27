@@ -14,7 +14,7 @@ import { useRouter, useFocusEffect } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import Svg, { Path } from "react-native-svg";
-import { loginUser } from "@/services/db";
+import { loginUser } from "@/services/userService";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useCallback } from "react";
 
@@ -171,10 +171,7 @@ export default function LoginScreen() {
       end={{ x: 1, y: 1 }}
       style={styles.container}
     >
-      <Pressable
-        style={styles.backButton}
-        onPress={() => router.back()}
-      >
+      <Pressable style={styles.backButton} onPress={() => router.back()}>
         <Ionicons name="arrow-back" size={26} color="white" />
       </Pressable>
 

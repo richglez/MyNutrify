@@ -36,7 +36,7 @@ router.get(
     }
 
     // Buscar alimentos por nombre (autocomplete básico)
-    const foods = await Food.find({
+    const foods = await Food.find({ //istanciar objeto
       $or: [
         // or es la condicion de la consulta a db
         { name: { $regex: `^${q}`, $options: "i" } }, // empieza con
