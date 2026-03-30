@@ -1,4 +1,4 @@
-// Search Foods Screen -> client\app\(tabs)\quick_actions_menu\searchFood.tsx
+// Search Foods Screen -> client\app\(tabs)\quick_actions_menu\searchFoods.tsx
 
 import {
   View,
@@ -10,6 +10,8 @@ import {
   ActivityIndicator,
   ScrollView,
   StatusBar,
+  Animated,
+  Easing,
 } from "react-native";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useFocusEffect } from "expo-router";
@@ -27,10 +29,72 @@ export default function SearchFoodScreen() {
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [focused, setFocused] = useState(false);
   const [history, setHistory] = useState<string[]>([]);
+  const [activeFoodId, setActiveFoodId] = useState<string | null>(null);
+  const [dropdownPosition, setDropdownPosition] = useState({
+    x: 0,
+    y: 0,
+  });
+  const dropdownAnim = useRef(new Animated.Value(0)).current;
+  const buttonRefs = useRef<Record<string, View | null>>({});
+  const DROPDOWN_WIDTH = 200;
+
 
   const insets = useSafeAreaInsets();
 
+  const openDropdown = () => {
+    dropdownAnim.setValue(0);
+
+    Animated.timing(dropdownAnim, {
+      toValue: 1,
+      duration: 180,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const closeDropdown = () => {
+    Animated.timing(dropdownAnim, {
+      toValue: 0,
+      duration: 140,
+      easing: Easing.in(Easing.cubic),
+      useNativeDriver: true,
+    }).start(() => {
+      setActiveFoodId(null);
+    });
+  };
+
   const lastQueryRef = useRef("");
+
+  const MEAL_TYPES = [
+    {
+      type: "breakfast",
+      label: "Breakfast",
+      sub: "Morning meal",
+      icon: "☕",
+      bg: "#FFF3E0",
+    },
+    {
+      type: "lunch",
+      label: "Lunch",
+      sub: "Midday meal",
+      icon: "🥗",
+      bg: "#E8F5E9",
+    },
+    {
+      type: "dinner",
+      label: "Dinner",
+      sub: "Evening meal",
+      icon: "🍽️",
+      bg: "#EDE7F6",
+    },
+    {
+      type: "snack",
+      label: "Snack",
+      sub: "Between meals",
+      icon: "🍎",
+      bg: "#FBE9E7",
+    },
+  ] as const;
 
   // ── Cargar sugerencias al montar ─────────────────────────────────────────
   useEffect(() => {
@@ -122,7 +186,7 @@ export default function SearchFoodScreen() {
       activeOpacity={0.75}
       style={{ marginBottom: 10 }}
     >
-      <View style={styles.card}>
+      <View style={[styles.card]}>
         <View style={styles.cardIcon}>
           <Ionicons name="nutrition-outline" size={20} color="#7AAFD4" />
         </View>
@@ -134,7 +198,38 @@ export default function SearchFoodScreen() {
             carbs
           </Text>
         </View>
-        <Ionicons name="add-circle-outline" size={22} color="#1A6BFF" />
+        {/* Boton de agregar alimento a comida */}
+        <View>
+          <TouchableOpacity
+            ref={(ref) => {
+              buttonRefs.current[item._id] = ref;
+            }}
+            onPress={() => {
+              const ref = buttonRefs.current[item._id];
+
+              if (ref) {
+                ref.measureInWindow(
+                  (x: number, y: number, width: number, height: number) => {
+
+
+                    setDropdownPosition({
+                      x: Math.max(10, x + width - DROPDOWN_WIDTH),
+                      y: y + height + 40,
+                    });
+
+                    setActiveFoodId(item._id);
+
+                    // 🔥 animación
+                    requestAnimationFrame(openDropdown);
+                  },
+                );
+              }
+            }}
+            style={{ padding: 8 }}
+          >
+            <Ionicons name="add-circle-outline" size={22} color="#1A6BFF" />
+          </TouchableOpacity>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -306,6 +401,75 @@ export default function SearchFoodScreen() {
           }
         />
       </View>
+      {activeFoodId && (
+        <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+          {/* Overlay */}
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={closeDropdown}
+            style={StyleSheet.absoluteFill}
+          ></TouchableOpacity>
+          {/* Fondo oscuro animado */}
+          <Animated.View
+            pointerEvents="none"
+            style={[
+              styles.overlay,
+              {
+                opacity: dropdownAnim,
+              },
+            ]}
+          />
+
+          {/* Dropdown Container */}
+          <Animated.View
+            style={[
+              styles.dropdownContainer,
+              {
+                position: "absolute",
+                top: dropdownPosition.y,
+                left: dropdownPosition.x,
+
+                opacity: dropdownAnim,
+                transform: [
+                  {
+                    scale: dropdownAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0.92, 1],
+                    }),
+                  },
+                  {
+                    translateY: dropdownAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-8, 0],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          >
+            {/* Recorrer Array tipos de comidas */}
+            {MEAL_TYPES.map((m) => (
+              <TouchableOpacity
+                key={m.type}
+                style={styles.dropdownOption}
+                onPress={() => {
+                  closeDropdown();
+                  console.log(`Agregar a ${m.type}`);
+                  //
+                }}
+              >
+                <View style={[styles.dropMealIcon, { backgroundColor: m.bg }]}>
+                  <Text style={{ fontSize: 16 }}>{m.icon}</Text>
+                </View>
+                <View>
+                  <Text style={styles.dropMealLabel}>{m.label}</Text>
+                  <Text style={styles.droMealSubtitle}>{m.sub}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </Animated.View>
+        </View>
+      )}
     </View>
   );
 }
@@ -482,5 +646,49 @@ const styles = StyleSheet.create({
 
   flatlistScroll: {
     maxHeight: 600,
+  },
+  dropdownContainer: {
+    width: 200,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.08)",
+    overflow: "hidden",
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.15,
+    shadowRadius: 25,
+    elevation: 20,
+  },
+  dropdownOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: "rgba(0,0,0,0.06)",
+  },
+  dropMealIcon: {
+    width: 34,
+    height: 34,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  dropMealLabel: {
+    fontFamily: "DMSans_500Medium",
+    fontSize: 14,
+    color: "#2E4F66",
+  },
+  droMealSubtitle: {
+    fontFamily: "DMSans_400Regular",
+    fontSize: 11,
+    color: "#8AAFC8",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.25)",
   },
 });
