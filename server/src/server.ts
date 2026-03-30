@@ -7,6 +7,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes'; // rutas de users
 import foodRoutes from "./routes/foodRoutes"; // rutas de foods
+import mealRoutes from "./routes/mealRoutes"; // rutas de meals
 
 dotenv.config();
 
@@ -25,6 +26,10 @@ console.log('✅ Rutas de usuarios registradas');
 // Rutas Comidas
 app.use("/api/foods", foodRoutes);
 console.log("✅ Rutas de comidas registradas");
+
+// Rutas Meals (diario del usuario)
+app.use("/api/meals", mealRoutes);
+console.log("✅ Rutas de meals registradas");
 
 
 
