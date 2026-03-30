@@ -131,7 +131,8 @@ MyNutrify/
 │   ├── constants/
 │   ├── hooks/
 │   ├── services/
-│   │   └── db.ts
+│   │   ├── foodServices.ts
+│   │   └── userServices.ts
 │   ├── store/
 │   │   └── useAuthStore.ts
 │   ├── types/
@@ -146,10 +147,16 @@ MyNutrify/
 │   ├── node_modules/     
 │   ├── src/
 │   │   ├── controllers/  
+│   │   │   ├── foodController.ts
+│   │   │   ├── mealController.ts
+│   │   │   └── userController.ts
 │   │   ├── models/   
+│   │   │   ├── Food.ts
+│   │   │   ├── Meal.ts
 │   │   │   └── User.ts
 │   │   ├── routes/
 │   │   │   ├── foodRoutes.ts
+│   │   │   ├── mealRoutes.ts
 │   │   │   └── userRoutes.ts
 │   │   └── server.ts             
 │   ├── .gitignore           
