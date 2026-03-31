@@ -20,10 +20,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { searchFoods, getSuggestions, Food } from "@/services/foodService";
+import { createMeal, MealType } from "@/services/mealService";
+import { useAuthStore } from '@/store/useAuthStore';
+
 
 export default function SearchFoodScreen() {
   const [query, setQuery] = useState("");
   const [foods, setFoods] = useState<Food[]>([]);
+  const [selectedFood, setSelectedFood] = useState<Food | null>(null);
   const [suggestions, setSuggestions] = useState<Food[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
@@ -37,6 +41,7 @@ export default function SearchFoodScreen() {
   const dropdownAnim = useRef(new Animated.Value(0)).current;
   const buttonRefs = useRef<Record<string, View | null>>({});
   const DROPDOWN_WIDTH = 200;
+  const userId = useAuthStore((s) => s.userId)
 
 
   const insets = useSafeAreaInsets();
@@ -200,6 +205,7 @@ export default function SearchFoodScreen() {
         </View>
         {/* Boton de agregar alimento a comida */}
         <View>
+          {/* Boton Plus ➕ -> Se abre dropdown */}
           <TouchableOpacity
             ref={(ref) => {
               buttonRefs.current[item._id] = ref;
@@ -208,21 +214,19 @@ export default function SearchFoodScreen() {
               const ref = buttonRefs.current[item._id];
 
               if (ref) {
-                ref.measureInWindow(
-                  (x: number, y: number, width: number, height: number) => {
+                ref.measureInWindow((x, y, width, height) => {
+                  setDropdownPosition({
+                    x: Math.max(10, x + width - DROPDOWN_WIDTH),
+                    y: y + height + 40,
+                  });
 
+                  setActiveFoodId(item._id);
 
-                    setDropdownPosition({
-                      x: Math.max(10, x + width - DROPDOWN_WIDTH),
-                      y: y + height + 40,
-                    });
+                  // 🔥 AQUÍ guardas el food
+                  setSelectedFood(item);
 
-                    setActiveFoodId(item._id);
-
-                    // 🔥 animación
-                    requestAnimationFrame(openDropdown);
-                  },
-                );
+                  requestAnimationFrame(openDropdown);
+                });
               }
             }}
             style={{ padding: 8 }}
@@ -235,6 +239,30 @@ export default function SearchFoodScreen() {
   );
 
   const showSearch = query.length > 1;
+
+  const handleAddToMeal = async (mealType: MealType) => {
+    if (!selectedFood || !userId) return;
+
+    try {
+      const today = new Date().toISOString().split("T")[0];
+
+      await createMeal({
+        userId: userId,
+        date: today,
+        mealType,
+        items: [
+          {
+            foodId: selectedFood._id,
+            quantity: 1, // puedes hacerlo dinámico después
+          },
+        ],
+      });
+
+      console.log("✅ Food agregado correctamente");
+    } catch (error) {
+      console.error("❌ Error agregando food:", error);
+    }
+  };
 
   return (
     <View style={styles.root}>
@@ -449,12 +477,13 @@ export default function SearchFoodScreen() {
           >
             {/* Recorrer Array tipos de comidas */}
             {MEAL_TYPES.map((m) => (
+              // Seleccionar una meal -> Crear una nueva meal con {food + typeMeal}
               <TouchableOpacity
                 key={m.type}
                 style={styles.dropdownOption}
                 onPress={() => {
                   closeDropdown();
-                  console.log(`Agregar a ${m.type}`);
+                  handleAddToMeal(m.type);
                   //
                 }}
               >
