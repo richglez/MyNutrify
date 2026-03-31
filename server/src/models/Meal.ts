@@ -18,7 +18,7 @@ export interface IMeal extends Document {
   user: mongoose.Types.ObjectId; // a quién pertenece
   date: Date; // fecha de la comida (sin hora exacta para agrupar por día)
   mealType: "breakfast" | "lunch" | "dinner" | "snack";
-  items: IMealItem[]; // alimentos que componen la comida
+  items: IMealItem[]; // array embebido -> alimentos que componen la comida
   // Totales precalculados (evita recalcular en cada query)
   totalCalories: number;
   totalProtein: number;
