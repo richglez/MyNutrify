@@ -1,6 +1,6 @@
 # 🥗 MyNutrify
 
-**MyNutrify** es una aplicación móvil multiplataforma (iOS y Android) enfocada en el rastreo de calorías y la mejora de la nutrición diaria. La app está desarrollada con **React Native** e integra **inteligencia artificial** como apoyo para el registro y análisis nutricional.
+**MyNutrify** is a cross-platform mobile application (iOS and Android) focused on calorie tracking and improving daily nutrition. The application is developed with **React Native** and integrates artificial intelligence to support nutritional logging and analysis.
 
 
 ---
